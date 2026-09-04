@@ -1,6 +1,36 @@
 <!--
-SYNC IMPACT REPORT
-==================
+SYNC IMPACT REPORT (enmienda vigente)
+=====================================
+Version change: 1.0.0 → 1.1.0
+Fecha: 2026-09-01
+Motivo del bump: se retira la puerta de CI de "análisis estático / formato" de la sección
+"Flujo de Desarrollo y Puertas de Calidad". Las puertas obligatorias quedan en tres:
+compilación de todos los targets, tests unitarios de commonTest y tests de aceptación.
+
+Justificación: al planificar la feature 001 se comprobó que no existe hoy una herramienta
+de análisis estático de Kotlin al día con la versión del compilador en uso (detekt estable
+sigue anclado al compilador de Kotlin 1.9 y su 2.x solo existe en alpha). Imponer una
+puerta obligatoria que solo puede satisfacerse con herramienta desfasada o en alpha genera
+deuda desde el primer commit. Se prefiere no tener la puerta a tenerla mal.
+
+Clasificación del bump: MINOR y no MAJOR. Se retira un requisito de una sección de
+gobernanza, no un principio: ninguno de los principios I–VI se elimina ni se redefine, y la
+retirada es una relajación —nada que fuera conforme bajo 1.0.0 deja de serlo bajo 1.1.0—.
+
+Secciones modificadas:
+- "Flujo de Desarrollo y Puertas de Calidad" → puerta de análisis estático/formato retirada,
+  con nota explícita de que reintroducirla requiere enmienda.
+
+Principios modificados: ninguno.
+Secciones añadidas o eliminadas: ninguna.
+
+Consistencia con artefactos posteriores: specs/001-app-skeleton-ci (plan, research,
+contracts y quickstart) actualizados en el mismo cambio para retirar el paso de formato del
+pipeline. Sin otras dependencias.
+
+---
+HISTORIAL
+=========
 Version change: (plantilla sin rellenar) → 1.0.0
 Motivo del bump: ratificación inicial. Se sustituyen todos los placeholders de la
 plantilla por principios concretos del proyecto. Aún no existe código escrito bajo este
@@ -238,8 +268,11 @@ propia solo añadiría fricción de producto y superficie de mantenimiento.
   de aceptación exigidos por el principio III, e indica explícitamente si la feature es
   gratuita, de pago, o mixta.
 - **Puertas de CI** (obligatorias para fusionar): compilación de todos los targets, suite
-  de tests unitarios de `commonTest`, suite de tests de aceptación, y análisis estático /
-  formato. Un pipeline en rojo bloquea el merge; no se fusiona con fallos conocidos.
+  de tests unitarios de `commonTest`, y suite de tests de aceptación. Un pipeline en rojo
+  bloquea el merge; no se fusiona con fallos conocidos. No hay puerta de análisis estático
+  ni de formato: se retiró en la versión 1.1.0 de este documento por falta de herramienta
+  al día para la versión de Kotlin en uso. Añadirla más adelante es una enmienda, no una
+  decisión de feature.
 - **Commits**: solo se permiten los tipos `feat:` y `fix:`. `feat:` para comportamiento
   nuevo, flag nuevo o capacidad nueva; `fix:` para corrección de errores, limpieza,
   eliminación de código muerto o retirada de un flag consolidándolo en código.
@@ -277,4 +310,4 @@ enlazarse a un issue abierto que registre la deuda y su plan de resolución.
 comprobar que el plan propuesto la respeta. Si un principio bloquea repetidamente trabajo
 legítimo, la respuesta correcta es enmendarlo, no ignorarlo.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-01 | **Last Amended**: 2026-09-01
+**Version**: 1.1.0 | **Ratified**: 2026-09-01 | **Last Amended**: 2026-09-01
