@@ -1,260 +1,216 @@
 # Phase 0 — Research: Esqueleto de aplicación multiplataforma con verificación automática
 
-**Feature**: `001-app-skeleton-ci` | **Date**: 2026-09-01
+**Feature**: `001-app-skeleton-ci` | **Date**: 2026-09-04
 
-Todas las versiones de este documento se han consultado contra los repositorios reales
-(`repo1.maven.org`, `dl.google.com`, `services.gradle.org`) el 2026-09-01, no de memoria.
+Segunda iteración de esta fase. La primera (2026-09-01) investigó un stack Kotlin
+Multiplatform y se implementó (commit `dd5bec6`). El 2026-09-04 la constitución se
+reescribió para fijar el stack del proyecto en **Expo / React Native / TypeScript**
+(commit `3154f35`), lo que invalida esa investigación y esa implementación para cualquier
+feature nueva. El código KMP se conserva en la rama `archive/kmp-skeleton-001` por si hace
+falta consultarlo; no se reutiliza nada de él aquí.
+
+Todas las versiones de este documento se han consultado hoy mismo contra fuentes reales
+(npm, changelog oficial de Expo/React Native, GitHub de las herramientas), no de memoria.
 El toolchain local se ha inspeccionado directamente.
 
 ## Entorno verificado en la máquina de desarrollo
 
-| Elemento | Valor observado |
-|---|---|
-| JDK | OpenJDK 21.0.2 (Zulu 21.32) |
-| Xcode | 26.6 (build 17F113) |
-| Runtimes iOS de simulador | 26.4, 26.5 |
-| Android SDK | platforms 30–36.1, build-tools hasta 36.1.0, `cmdline-tools/latest`, NDK presente |
-| `ANDROID_HOME` | **no exportada** (el SDK está en `~/Library/Android/sdk`) |
-| Gradle / kotlinc en PATH | ausentes (se usará el wrapper de Gradle) |
-| Remoto git | `git@github.com:gmerinojimenez/madrid-photo-guide.git` (GitHub) |
+| Elemento | Valor observado | ¿Suficiente? |
+|---|---|---|
+| Node.js | v18.18.0 | ❌ Expo SDK 57 exige Node ≥ 22.13.x |
+| npm | 9.8.1 | Se sustituye por el npm que trae Node 22 |
+| Yarn Classic | 1.22.22 | No se usa (ver D-001) |
+| Watchman | ausente | Opcional: Metro cae a un watcher de Node, más lento pero funcional |
+| Xcode | 26.6 (build 17F113) | ✅ |
+| Runtimes iOS de simulador | 26.4, 26.5 | ✅ |
+| CocoaPods | ausente | ⚠️ Necesario para compilar el proyecto iOS generado por `expo prebuild` / `expo run:ios` en local |
+| Android SDK | platforms 35–37.2, build-tools presentes | ✅ |
+| Remoto git | `git@github.com:gmerinojimenez/madrid-photo-guide.git` (GitHub) | ✅ — GitHub Actions es la plataforma de CI correcta (FR-009) |
 
-**Consecuencia**: GitHub Actions es la plataforma de CI correcta (FR-009), y no hay que
-instalar Gradle: el wrapper es la única entrada soportada. `ANDROID_HOME` ausente debe
-cubrirse con `local.properties` (no versionado) documentado en el quickstart.
+**Consecuencia**: hay dos huecos de entorno que documentar en el quickstart, no que resolver
+en este plan: actualizar Node a ≥22.13 (recomendado: gestor de versiones tipo `nvm`/`fnm`,
+sin fijar una herramienta concreta que la constitución no exige) e instalar CocoaPods antes
+de poder compilar el proyecto iOS en local. Ninguno de los dos bloquea la ejecución en CI
+(ver D-004): un runner de GitHub Actions fresco ya cumple ambos.
 
 ---
 
-## D-001: Estructura del proyecto
+## D-001: Estructura del proyecto y plantilla de partida
 
-**Decisión**: un único módulo Gradle compartido `composeApp` con `commonMain`,
-`androidMain`, `iosMain` y `commonTest`, más un proyecto Xcode `iosApp/` que consume el
-framework producido por ese módulo. La aplicación Android es el propio módulo
-`composeApp` con su `AndroidManifest.xml`.
+**Decisión**: una única app Expo generada con la plantilla oficial **`blank-typescript`**
+(`npx create-expo-app@latest --template blank-typescript`) en la raíz del repositorio.
+Gestor de paquetes: **npm** (con `package-lock.json` versionado).
 
-**Rationale**: es la disposición canónica del asistente de Kotlin Multiplatform y la más
-barata de mantener por una sola persona. El principio I (lógica en `commonMain`) queda
-estructuralmente favorecido: `commonMain` es el destino por defecto, y escribir en
-`androidMain`/`iosMain` es la desviación explícita.
+**Rationale**: la plantilla `blank-typescript` no trae Expo Router ni ninguna navegación,
+que es exactamente lo que exige FR-014 ("el proyecto NO DEBE incluir... pantallas de
+navegación... en esta entrega"). La plantilla `default` sí integra Expo Router y habría que
+retirarlo a mano, apostando en sentido contrario a lo que pide la spec. `npm` se prefiere a
+Yarn Classic (obsoleto, sin soporte de workspaces útil aquí) o a pnpm (sin ventaja para un
+proyecto de un módulo); ya está disponible con Node y es lo que documenta Expo por defecto.
 
 **Alternativas consideradas**:
-- *Multi-módulo por capas (`:domain`, `:data`, `:ui`) desde el inicio*: rechazado. Todavía
-  no hay dominio que separar; la modularización sin código real fija fronteras a ciegas y
-  añade configuración de build que habría que rehacer. Se introducirá cuando el contenido
-  de la guía dé señales de dónde están las costuras.
-- *Un módulo `shared` sin UI + apps por plataforma*: rechazado. Es la disposición previa a
-  Compose Multiplatform; con UI compartida obliga a un módulo extra sin aportar nada.
+- *Plantilla `default` (Expo Router) retirando la navegación después*: rechazado. Añade y
+  luego quita código, y dificulta verificar FR-014 en revisión.
+- *Monorepo con Turborepo/Nx desde el día uno*: rechazado. Un solo módulo sin dominio
+  todavía no justifica la complejidad de un monorepo; se reevaluará si aparece necesidad
+  real de compartir código con algo que no sea la propia app.
 
 ---
 
 ## D-002: Versiones del toolchain
 
-**Decisión**: fijar en un único version catalog (`gradle/libs.versions.toml`, exigido por
-la constitución) las siguientes versiones, todas estables y verificadas hoy:
+**Decisión**: fijar en `package.json` las siguientes versiones, todas estables y
+verificadas hoy contra npm y los changelogs oficiales:
 
 | Componente | Versión | Fuente consultada |
 |---|---|---|
-| Kotlin | `2.4.10` | `repo1.maven.org` — última estable (2.4.20 solo en Beta/RC) |
-| Compose Multiplatform | `1.12.0` | `repo1.maven.org` — última estable |
-| Android Gradle Plugin | `9.4.0` | `dl.google.com` — última estable (9.5.0 en alpha) |
-| Gradle | `9.7.1` | `services.gradle.org/versions/current` |
-| androidx activity-compose | `1.13.0` | `dl.google.com` |
-| JDK de compilación | `21` | instalado localmente; LTS |
+| Expo SDK | `57.0.19` | npm / [changelog Expo SDK 57](https://expo.dev/changelog/sdk-57) — última estable |
+| React Native | `0.86.x` (la que fija Expo SDK 57) | changelog Expo SDK 57 |
+| TypeScript | `~6.0.x` (última versión resuelta por `npx expo install typescript`) | ver D-003 — **no** se usa TypeScript 7 |
+| jest-expo | `57.0.5` | npm |
+| @testing-library/react-native | `14.0.1` | npm |
+| eas-cli | `23.2.0` (dev dependency / uso vía `npx`, no en CI de esta feature) | npm — ver D-004 |
+| Node.js (motor exigido) | `>=22.13.0` | requisito mínimo de Expo SDK 57 |
 
-**Riesgo abierto y cómo se cerró (actualizado en T008 de la implementación)**: la
-incompatibilidad real no fue Kotlin↔Compose, sino **AGP↔KMP**: AGP 9.4.0 rompe la
-combinación clásica `com.android.application` + `org.jetbrains.kotlin.multiplatform` (deja
-de soportarla de forma nativa desde AGP 9.0, empujando hacia un plugin de librería que no
-sirve para producir una app instalable). Bajar a AGP 8.13.2 tampoco fue viable: AGP 8.x usa
-una API interna de Gradle retirada en Gradle 9.6, e incompatible por tanto con Gradle 9.7.1.
-
-Se resolvió manteniendo AGP 9.4.0 y Gradle 9.7.1 (las versiones ya fijadas) y activando en
-`gradle.properties` las dos flags de compatibilidad que el propio mensaje de error de AGP
-señala como solución: `android.builtInKotlin=false` y `android.newDsl=false`. Con ellas el
-build sincroniza y `allTests` corre en ambos targets sin más cambios.
-
-**Coste asumido**: son flags de compatibilidad temporal, no la vía recomendada a largo
-plazo por Google (que es migrar a `com.android.kotlin.multiplatform.library`, hoy pensado
-para librerías, no para apps). Se reevaluará cuando exista un plugin de aplicación KMP de
-primera clase para AGP 9.x.
-
-**Alternativas consideradas**: usar versiones más conservadoras (Kotlin 2.2.x / CMP 1.8.x).
-Rechazado: el proyecto nace hoy y no tiene deuda que arrastrar; empezar dos años por detrás
-solo adelanta la primera migración forzosa.
+**Alternativas consideradas**: fijar Expo SDK 56 (más probado). Rechazado por el mismo
+argumento que en la iteración KMP: el proyecto nace hoy, sin deuda que arrastrar; SDK 57 es
+la versión estable publicada y soportada activamente.
 
 ---
 
-## D-003: Integración de iOS (cómo consume Xcode el código Kotlin)
+## D-003: TypeScript 7 se descarta explícitamente por ahora
 
-**Decisión**: proyecto Xcode versionado en `iosApp/`, que enlaza un framework estático
-producido por el módulo `composeApp`, embebido mediante una *Run Script build phase* que
-invoca la tarea Gradle `embedAndSignAppleFrameworkForXcode`. El punto de entrada Swift crea
-un `UIViewController` devuelto desde Kotlin.
+**Decisión**: fijar TypeScript en la última versión de la generación **anterior** al
+compilador reescrito en Go (TypeScript 7.0, GA el 8 de julio de 2026), es decir la que
+resuelve `npx expo install typescript` hoy. Se revisará cuando el ecosistema se ponga al
+día.
 
-**Rationale**: es el mecanismo soportado de primera clase por el plugin de Kotlin
-Multiplatform. No introduce gestor de dependencias adicional, no requiere Ruby ni
-CocoaPods en la máquina ni en CI, y mantiene el proyecto Xcode como artefacto legible y
-versionado.
+**Rationale**: TypeScript 7.0 no expone todavía una API programática estable — el propio
+equipo de Microsoft la sitúa en la versión 7.1, "varios meses" por delante. Como
+consecuencia directa, a día de hoy:
+- `typescript-eslint` no soporta TypeScript 7.0 (su rango de peer dependency corta antes).
+- `ts-jest` restringe explícitamente el rango a TypeScript < 7.
+- Hay un issue abierto en el propio repositorio de Expo sobre `app.config.ts` sin compilar
+  bajo TypeScript 7.
+
+Adoptar TypeScript 7 hoy rompería precisamente las dos puertas de CI que la constitución
+exige sin excepción (comprobación de tipos, y linter — vía `typescript-eslint`). Es la misma
+lógica que D-006 aplicó a detekt en la iteración KMP: no se satisface una puerta obligatoria
+con una herramienta que hoy está rota, aunque sea la más nueva.
+
+**Alternativas consideradas**: adoptar TypeScript 7 y `noEmit`/type-check con un caso
+especial sin `typescript-eslint`. Rechazado: dejaría la puerta de linter de tipos sin
+cobertura real, que es justo la puerta que existe para atrapar errores de tipo.
+
+**Revisión futura**: reevaluar en cuanto `typescript-eslint` y `ts-jest` publiquen soporte
+para TypeScript 7 (el propio ecosistema apunta a la serie 7.1).
+
+---
+
+## D-004: Alcance del pipeline de CI
+
+**Decisión**: un único workflow de GitHub Actions sobre **`ubuntu-latest`** (no
+`macos-latest`), disparado por `pull_request` y por `push` a `main`, con estos pasos:
+
+1. `npm ci`
+2. `npx tsc --noEmit` — comprobación de tipos (puerta constitucional).
+3. `npx expo lint` — ESLint (`eslint-config-expo`) + Prettier vía `eslint-plugin-prettier`
+   (puerta constitucional de linter y formato).
+4. `npx jest` — batería de tests unitarios (`jest-expo`), incluida la prueba de ejemplo
+   exigida por FR-007.
+
+No se compila ningún binario instalable (ni APK ni app iOS) en este workflow.
+
+**Rationale — por qué `ubuntu-latest` y no `macos-latest`**: a diferencia de KMP, aquí
+compilar binarios reales de Android e iOS no es una tarea de Gradle/Xcode local gratuita:
+la constitución fija **EAS Build** como mecanismo de build y distribución, un servicio
+gestionado de pago (con cuota gratuita limitada) que exige iniciar sesión con una cuenta de
+Expo y consumir crédito de compilación en cada ejecución. Disparar un build de EAS en cada
+PR sin que el usuario lo haya pedido gastaría cuota de un servicio de terceros por decisión
+unilateral de esta feature — exactamente el tipo de coste que estas guías piden confirmar,
+no asumir. `ubuntu-latest` however cubre de sobra lo que sí es gratis y determinista: type
+check, lint y tests unitarios corren igual en Linux que en macOS porque Metro/Jest no
+compilan código nativo para eso.
+
+**Consecuencia para FR-001/FR-002 (app instalable en ambas plataformas)**: su verificación
+queda en el terreno manual del quickstart (validaciones 2 y 3), igual que ya asumía la
+iteración anterior de la spec. Añadir compilación real a CI —local vía `expo prebuild` en
+runners separados, o vía EAS Build— queda como decisión explícita para una iteración
+posterior, cuando el coste (tiempo de runner macOS, o crédito de EAS) se sopese con el
+usuario. Se dejará constancia de esta decisión en el Complexity Tracking del plan.
 
 **Alternativas consideradas**:
-- *CocoaPods (`kotlin("native.cocoapods")`)*: rechazado. Añade Ruby, un `Podfile` y un
-  paso `pod install` al arranque y a CI, a cambio de una integración que ahora mismo no
-  necesitamos (no hay dependencias nativas de terceros).
-- *Swift Package Manager con framework prebuilt*: rechazado por ahora. Obliga a publicar o
-  a versionar un binario, lo que complica el bucle de desarrollo local sin beneficio
-  mientras solo haya un consumidor.
-
-**Consecuencia para CI**: la Run Script phase es la pieza más frágil de toda la
-configuración (se rompe en silencio al renombrar el módulo, cambiar el baseName del
-framework o mover el proyecto). Justifica compilar la app iOS en CI — ver D-005.
+- *`macos-latest` + `expo prebuild` + `xcodebuild`/Gradle local, sin EAS*: viable en teoría,
+  pero exige mantener en CI el mismo par de huecos que en la máquina local (CocoaPods,
+  Android SDK) más el tiempo de un runner macOS, solo para producir un binario que nadie
+  instala en esta entrega. Se descarta por desproporcionado frente a FR-009/FR-012, que
+  piden verificación reproducible y rápida, no un build de distribución.
+- *EAS Build en CI con `EXPO_TOKEN`*: rechazado para esta feature por el coste de cuota ya
+  explicado; candidato natural para la feature que introduzca distribución real.
 
 ---
 
-## D-004: Pruebas
+## D-005: Identidad de la app
 
-**Decisión**: `kotlin.test` en `composeApp/src/commonTest`, ejecutado con `./gradlew allTests`,
-que abarca los targets Android (unit tests JVM) e `iosSimulatorArm64`. La prueba de ejemplo
-exigida por FR-007 vive en `commonTest` (FR-008).
-
-**Rationale**: `kotlin.test` viene con Kotlin, no añade dependencia, y `allTests` es la
-tarea agregadora estándar: una sola orden ejecuta la batería en todos los targets, que es
-justamente lo que exige la paridad del principio V. Verificar que la prueba compartida
-corre *en ambos targets* es lo que hace de este esqueleto una base multiplataforma real y
-no una app Android con una carpeta iOS al lado.
-
-**Alternativas consideradas**:
-- *JUnit5 + un target JVM añadido solo para tests*: rechazado. Un target extra que no se
-  publica es superficie de build sin usuario.
-- *Kotest*: rechazado por ahora. Aporta aserciones más expresivas, pero es una dependencia
-  que hay que justificar; `kotlin.test` basta hasta que haya comportamiento real.
-
-**Nota de constitución**: el principio III exige tests unitarios y de aceptación por
-feature. Aquí solo se entrega la prueba de ejemplo porque no hay comportamiento de dominio
-todavía; la verificación de las historias 1 y 2 (arranque) es manual en esta entrega, según
-lo ya registrado en las Assumptions de la spec. Ver la sección Constitution Check del plan.
-
----
-
-## D-005: Alcance del pipeline de CI
-
-**Decisión**: un único workflow de GitHub Actions, un solo job sobre `macos-latest`,
-disparado por `pull_request` y por `push` a `main`, con estos pasos de verificación:
-
-1. `./gradlew allTests` — batería compartida en Android e iOS simulador.
-2. `./gradlew :composeApp:assembleDebug` — empaquetado real del APK.
-3. `xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -destination 'generic/platform=iOS Simulator' build` — compilación real de la app iOS.
-
-No hay paso de formato ni de análisis estático: ver D-006.
-
-**Rationale**: la spec dejó abierto (Assumptions) si la CI debía cubrir la compilación
-completa de ambas plataformas. La respuesta es sí, por una razón concreta: en un proyecto
-KMP con iOS, lo que se rompe no son los tests, es el pegamento — la Run Script phase, el
-baseName del framework, el `deployment target`, la firma. Los tests pasarían en verde
-mientras la app iOS lleva semanas sin compilar. Un pipeline que no compila iOS no protege
-FR-002 ni el principio V, que es exactamente el fallo que esta feature existe para prevenir.
-
-**Runner**: `macos-latest` es obligatorio, no una preferencia — los targets de Kotlin/Native
-para Apple y `xcodebuild` solo existen ahí. Ejecutar la parte JVM en `ubuntu` en un job
-aparte se rechaza: duplicaría la restauración de caché de Gradle para ahorrar un par de
-minutos en un repositorio de un solo desarrollador, y multiplicaría los puntos de fallo.
-
-**Coste frente a SC-005 (<15 min)**: con caché de Gradle y de Konan tibia, la ejecución
-estimada queda holgadamente por debajo. La primera ejecución (cachés frías, descarga del
-toolchain de Kotlin/Native) será notablemente más lenta y es esperada; si el régimen
-estacionario superase los 15 minutos, la primera palanca es recortar el paso 3 a
-compilación incremental, no eliminar la cobertura de iOS.
-
-**Alternativas consideradas**:
-- *Solo `allTests`, sin compilar apps*: rechazado por lo argumentado arriba.
-- *Matriz de dos jobs (ubuntu para JVM, macOS para iOS)*: rechazado; coste de complejidad
-  superior al ahorro.
-- *Añadir tests instrumentados en emulador/simulador*: rechazado en esta entrega. No hay
-  comportamiento de UI que probar más allá de "arranca", y el coste en tiempo de CI es
-  desproporcionado. Entra cuando entre la primera feature con interacción.
-
----
-
-## D-006: Análisis estático y formato — retirado
-
-**Decisión**: **no se añade ninguna herramienta de análisis estático ni de formato** en esta
-feature. Sin Spotless, sin ktlint, sin detekt. El pipeline no tiene paso de estilo.
-
-**Contexto**: la constitución v1.0.0 exigía "análisis estático / formato" como puerta de CI
-obligatoria. La investigación mostró que satisfacerla hoy solo era posible con herramienta
-desfasada o en alpha: detekt estable (`1.23.8`) está construido sobre el compilador de
-Kotlin 1.9 y frente a Kotlin 2.4 queda sin resolución de tipos, y detekt 2.0 solo existe en
-`alpha.6`. La alternativa evaluada fue Spotless `8.10.1` + ktlint `1.8.0`, que sí están al
-día pero cubren formato, no análisis estático.
-
-**Resolución**: en lugar de cumplir la puerta con una herramienta que ya nace endeudada, se
-**enmendó la constitución a la versión 1.1.0** retirando esa puerta. Las puertas
-obligatorias de CI quedan en tres: compilación de todos los targets, tests unitarios de
-`commonTest` y tests de aceptación.
-
-**Rationale**: una puerta de calidad que solo puede satisfacerse mal no es una puerta de
-calidad, es un trámite. Es preferible no tenerla, dejarlo escrito, y reintroducirla cuando
-exista herramienta adecuada —momento en el que volverá a ser una enmienda deliberada y no
-una decisión tomada de paso dentro de una feature.
-
-**Coste asumido**: el proyecto crece sin verificación automática de estilo. Cuando se
-reintroduzca, el primer cambio será un diff de reformateo amplio sobre el código ya escrito.
-Se acepta conscientemente: el volumen de código de un proyecto de una persona hace que ese
-coste sea manejable.
-
-**Revisión futura**: reconsiderar cuando detekt 2.x llegue a estable. Reintroducir la puerta
-exige enmendar la constitución, no basta con añadir un paso al workflow.
-
----
-
-## D-007: Identidad y configuración de la app
-
-**Decisión**:
+**Decisión**: se mantiene la identidad ya fijada en la iteración KMP, por ser la decisión
+más cara de revertir de todo el proyecto y no depender del framework elegido:
 
 | Parámetro | Valor |
 |---|---|
-| Application ID / Bundle ID | `com.gmj.madridphotoguide` |
+| `slug` / nombre de proyecto | `madrid-photo-guide` |
 | Nombre visible | `Madrid Photo Guide` |
-| Android `minSdk` | 26 |
-| Android `compileSdk` / `targetSdk` | 36 |
-| iOS deployment target | 16.0 |
-| Targets Kotlin/Native | `iosArm64`, `iosSimulatorArm64` |
+| Android `package` | `com.gmj.madridphotoguide` |
+| iOS `bundleIdentifier` | `com.gmj.madridphotoguide` |
+| iOS deployment target (vía Expo SDK 57) | el que fija el SDK por defecto |
+| Android `minSdkVersion` (vía Expo SDK 57) | el que fija el SDK por defecto |
 | Icono | marcador de posición generado, distinguible en el lanzador |
 
-**Rationale**: el identificador de aplicación es la decisión más cara de revertir de toda
-la lista — una vez publicado en cualquiera de las dos tiendas es inmutable. Se elige ahora,
-en frío, derivándolo del propietario del repositorio. `minSdk 26` y iOS 16.0 son
-"razonablemente actuales" según la constitución, cubren la práctica totalidad del parque de
-dispositivos en uso y evitan compatibilidades históricas que nadie va a ejercitar.
+**Rationale**: el identificador de aplicación es inmutable una vez publicado en cualquiera
+de las dos tiendas. No hay motivo para cambiarlo solo porque cambió el framework.
 
-**Actualizado en la implementación**: Compose Multiplatform 1.12.0 no publica artefactos
-para `iosX64` (resolución de dependencias falla en `appleMain` para ese target). Retirado
-de la lista de targets. Es coherente con el abandono de Intel en el ecosistema Apple; el
-desarrollo y CI corren en Apple Silicon (`iosSimulatorArm64`), así que no se pierde
-cobertura real de la única máquina en la que hoy se compila y prueba iOS.
-
-**Bundle ID**: `com.gmj.madridphotoguide`, confirmado.
+**EAS project ID**: no se provisiona en esta feature (no se ejecuta `eas init`). Requeriría
+una cuenta de Expo y queda fuera de alcance junto con el resto de distribución (Assumption
+de la spec: "Distribución fuera de alcance").
 
 ---
 
-## D-008: Qué es exactamente "una pantalla en blanco"
+## D-006: Pruebas
 
-**Decisión**: un `@Composable` raíz en `commonMain` que rellena la pantalla con el color de
-fondo del tema, respeta las áreas seguras del sistema (notch, isla dinámica, barra de
-gestos) y sigue la apariencia clara u oscura del sistema. Sin texto, sin logotipo, sin
-navegación.
+**Decisión**: `jest-expo` como preset de Jest, `@testing-library/react-native` disponible
+para cuando exista comportamiento que probar. La prueba de ejemplo exigida por FR-007 vive
+en `__tests__/App.test.tsx` (o equivalente) y valida únicamente que la infraestructura de
+tests se ejecuta.
 
-**Rationale**: la spec pide una pantalla vacía "correctamente compuesta". La diferencia
-entre una vista vacía y una vista vacía *bien anclada* es que la segunda ya prueba que el
-tema, los insets y el ciclo de vida están correctamente conectados en las dos plataformas —
-que es lo único que esta feature tiene que demostrar. Una pantalla que ignora los insets
-parece funcionar y falla en el primer contenido real.
+**Rationale**: `jest-expo` es el preset oficial de Expo (mockea el SDK nativo) y es lo único
+necesario para que `npx jest` funcione sin simulador ni emulador, cumpliendo el principio
+III ("estos tests DEBEN ser rápidos y no requerir simulador").
 
-**Alternativas consideradas**: mostrar un texto de "Hello World" o el nombre de la
-plataforma. Rechazado: el usuario pidió explícitamente una pantalla en blanco, y un texto
-de plantilla es contenido de marcador que después hay que acordarse de borrar.
+**Nota de constitución (principio III)**: igual que en la iteración KMP, esta feature
+entrega solo la prueba de ejemplo, no tests de dominio ni de aceptación, porque no existe
+comportamiento todavía. La verificación de las historias 1 y 2 (arranque) es manual en esta
+entrega. Ver Complexity Tracking del plan.
+
+---
+
+## D-007: Qué es exactamente "una pantalla en blanco"
+
+**Decisión**: el componente raíz (`App.tsx`) envuelve su contenido en `SafeAreaProvider` /
+`SafeAreaView` (paquete `react-native-safe-area-context`, que la plantilla de Expo ya
+incluye) y usa `useColorScheme()` de React Native para pintar el fondo según el modo claro
+u oscuro del sistema. Sin texto, sin logotipo, sin navegación.
+
+**Rationale**: idéntico al de la iteración KMP — una pantalla vacía que ya respeta insets y
+apariencia demuestra que el ciclo de vida y el tema están bien conectados en ambas
+plataformas, que es lo único que esta feature tiene que probar.
+
+**Alternativas consideradas**: mostrar un texto de plantilla ("Open up App.tsx..."), que es
+lo que trae la plantilla de Expo por defecto. Rechazado y **debe eliminarse** explícitamente
+del `App.tsx` generado: el usuario pidió una pantalla en blanco, no el placeholder del
+framework.
 
 ---
 
 ## Incógnitas pendientes
 
-Ninguna bloqueante. La única verificación diferida es la compatibilidad exacta
-Kotlin ↔ Compose Multiplatform (D-002), que se resuelve en la primera ejecución del build.
+Ninguna bloqueante. Dos huecos de entorno local documentados arriba (Node, CocoaPods) que no
+afectan a CI y se resuelven en el quickstart antes de la primera compilación local.

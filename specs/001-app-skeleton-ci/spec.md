@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "la primera tarea debe ser la base del proyecto, una app compilable para ambas plataformas. Aún no me preocupa el contenido, basta con que la app arranque y muestre una pantalla en blanco, pero ha de hacerlo en ambas plataformas. También debe tener una github action que ejecute los tests (de momento podemos dejar una clase de test con un test dummy)"
+**Input**: User description: "la primera tarea debe ser la base del proyecto, una app que pueda ejecutar en ambas plataformas. Aún no me preocupa el contenido, basta con que la app arranque y muestre una pantalla en blanco, pero ha de hacerlo en ambas plataformas. También debe tener una github action que ejecute los tests (de momento podemos dejar una clase de test con un test dummy)"
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -189,8 +189,8 @@ No aplica: esta feature no introduce datos de dominio.
   en esta entrega. La cobertura automatizada de escenarios de usuario empieza con la primera
   feature que introduzca comportamiento.
 - **Verificación en la plataforma del repositorio**: se asume que la ejecución automática se
-  apoya en el sistema de automatización del alojamiento del repositorio, sin infraestructura
-  propia que mantener.
+  apoya en el sistema de automatización del alojamiento del repositorio (GitHub Actions,
+  según el enunciado), sin infraestructura propia que mantener.
 - **Compilación de iOS en la verificación automática**: se asume que la verificación
   obligatoria de esta entrega cubre la ejecución de la batería de pruebas compartida. Ampliar
   la verificación a la compilación completa de ambas plataformas es deseable y se decidirá en

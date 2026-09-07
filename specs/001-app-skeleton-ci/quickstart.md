@@ -1,45 +1,38 @@
 # Phase 1 — Quickstart: validar el esqueleto
 
-**Feature**: `001-app-skeleton-ci` | **Date**: 2026-09-01
+**Feature**: `001-app-skeleton-ci` | **Date**: 2026-09-04
 
 Guía de validación: qué ejecutar y qué debe ocurrir para dar la feature por entregada. Los
-detalles de diseño están en [plan.md](./plan.md) y [research.md](./research.md); los nombres
-y comandos estables, en [contracts/build-interface.md](./contracts/build-interface.md).
+detalles de diseño están en [plan.md](./plan.md) y [research.md](./research.md); los
+nombres y comandos estables, en
+[contracts/build-interface.md](./contracts/build-interface.md).
 
 ## Prerrequisitos
 
 | Requisito | Comprobación | Estado en la máquina actual |
 |---|---|---|
-| JDK 21 | `java -version` | ✅ Zulu 21.0.2 |
+| Node.js ≥ 22.13 | `node -v` | ❌ **pendiente** — la máquina tiene v18.18.0, hay que actualizar |
 | Xcode 16+ con runtime de simulador iOS | `xcodebuild -version` | ✅ Xcode 26.6, runtimes iOS 26.4/26.5 |
-| Android SDK con API 36 | `ls $ANDROID_HOME/platforms` | ✅ presente en `~/Library/Android/sdk` |
-| `local.properties` con `sdk.dir` | ver más abajo | ⚠️ **pendiente** — `ANDROID_HOME` no está exportada |
+| CocoaPods | `pod --version` | ❌ **pendiente** — necesario para `expo run:ios` en local |
+| Android SDK con una plataforma reciente | `ls $ANDROID_HOME/platforms` | ✅ presente en `~/Library/Android/sdk` |
 
-`local.properties` no se versiona. Créalo en la raíz antes del primer build:
+No hace falta instalar Expo CLI globalmente: se usa vía `npx`.
 
-```bash
-echo "sdk.dir=$HOME/Library/Android/sdk" > local.properties
-```
-
-No hace falta instalar Gradle ni Kotlin: el wrapper los descarga.
-
-## Validación 1 — La batería de pruebas se ejecuta (FR-007, FR-008)
+## Validación 1 — La batería de pruebas se ejecuta (FR-007)
 
 ```bash
-./gradlew allTests
+npm ci
+npm test
 ```
 
-**Resultado esperado**: `BUILD SUCCESSFUL`, con la prueba de ejemplo ejecutada **en los dos
-targets** (Android unit test e `iosSimulatorArm64`). Que aparezca en ambos es el punto:
-confirma que `commonTest` cubre de verdad las dos plataformas y no solo la JVM.
-
-La primera ejecución descarga el toolchain de Kotlin/Native y tarda varios minutos; las
-siguientes son rápidas.
+**Resultado esperado**: Jest reporta éxito, con la prueba de ejemplo ejecutada. Al no haber
+código nativo por target en esta feature, una sola ejecución cubre lo que en KMP exigía
+correr en dos targets: no hay una versión distinta del test por plataforma.
 
 ## Validación 2 — La app arranca en Android (Historia 1)
 
 ```bash
-./gradlew :composeApp:installDebug
+npm run android
 ```
 
 Con un emulador o dispositivo conectado. Después, abre **Madrid Photo Guide** desde el
@@ -58,36 +51,32 @@ cronometra el arranque para SC-002 (< 2 s hasta pantalla visible).
 ## Validación 3 — La app arranca en iOS (Historia 2)
 
 ```bash
-open iosApp/iosApp.xcodeproj
+npm run ios
 ```
 
-Selecciona el esquema `iosApp` y un simulador, y ejecuta (⌘R). Alternativa sin abrir la UI
-de Xcode:
-
-```bash
-xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 17' build
-```
+Con CocoaPods instalado (ver Prerrequisitos) y un simulador disponible.
 
 **Comprobaciones**: las mismas seis de la validación 2, sobre el simulador o un dispositivo.
 
-**Si falla el enlazado** (`No such module 'ComposeApp'` o el framework no aparece): revisa la
-Run Script build phase y los cuatro nombres del apartado 2 de
-[contracts/build-interface.md](./contracts/build-interface.md). Es la causa habitual.
+**Si falla el enlazado nativo**: `expo run:ios` regenera el proyecto Xcode con `expo
+prebuild` en cada ejecución; el directorio `ios/` no se versiona (generación nativa
+continua). Si algo queda inconsistente, bórralo y vuelve a ejecutar el comando.
 
 ## Validación 4 — Paridad entre plataformas (FR-004, SC-007)
 
 Con la app abierta simultáneamente en Android y en iOS, compara ambas pantallas iniciales:
 mismo contenido observable (vacío), misma respuesta al modo oscuro, ninguna capacidad
-presente en una y ausente en la otra.
+presente en una y ausente en la otra. Al compartir literalmente el mismo `App.tsx` sin
+ninguna bifurcación de plataforma, la paridad aquí es estructural, no solo observada.
 
 ## Validación 5 — La verificación automática funciona (Historia 3)
 
 1. Abre un pull request con un cambio cualquiera.
 2. **Esperado**: el workflow arranca solo, sin intervención, y publica un check en el PR
    (FR-009, FR-010).
-3. Con todo correcto, el check queda en verde y la ejecución completa dura menos de 15
-   minutos en régimen estacionario, con cachés tibias (SC-005). La primera ejecución será
-   más lenta y es esperada.
+3. Con todo correcto, el check queda en verde. Al no compilar binarios nativos (ver D-004 en
+   research.md), la ejecución completa dura bastante menos que el margen de 15 minutos de
+   SC-005.
 
 ## Validación 6 — Un fallo se detecta y se explica (SC-006, FR-011)
 
@@ -96,24 +85,26 @@ demostrado nada.
 
 1. Rompe deliberadamente la prueba de ejemplo (invierte su aserción).
 2. Súbelo al PR.
-3. **Esperado**: el check pasa a rojo, y el log identifica la prueba concreta y el motivo
-   sin necesidad de reproducir el fallo en local.
+3. **Esperado**: el check pasa a rojo, y el log de Jest identifica el test concreto y el
+   motivo sin necesidad de reproducir el fallo en local.
 4. Revierte el cambio y confirma que el check vuelve a verde sobre el contenido actualizado
    (escenario 3.4).
 
 ## Validación 7 — Reproducible desde cero (FR-012, FR-013, SC-003)
 
-En un directorio limpio:
+En un directorio limpio, con Node ≥ 22.13 ya instalado:
 
 ```bash
 git clone git@github.com:gmerinojimenez/madrid-photo-guide.git
 cd madrid-photo-guide
-echo "sdk.dir=$HOME/Library/Android/sdk" > local.properties
-./gradlew allTests :composeApp:assembleDebug
+npm ci
+npm run typecheck && npm run lint && npm test
 ```
 
 **Esperado**: funciona siguiendo solo el README, sin conocimiento tácito ni pasos manuales
-no documentados, en menos de 30 minutos incluyendo descargas.
+no documentados, en menos de 30 minutos incluyendo descargas. Levantar la app instalable en
+un dispositivo (validaciones 2 y 3) exige además Xcode/Android SDK/CocoaPods, ya cubiertos
+por los Prerrequisitos.
 
 ## Criterio de entrega
 

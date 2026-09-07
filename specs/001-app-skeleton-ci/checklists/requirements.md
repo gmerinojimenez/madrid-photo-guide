@@ -41,4 +41,9 @@
 - **Nota de constitución (principio III)**: esta feature entrega una prueba de ejemplo en
   lugar de pruebas de comportamiento, porque todavía no existe comportamiento de dominio.
   Queda registrado en Assumptions y no constituye precedente.
+- **Regeneración (2026-09-04)**: `/speckit-specify` se reejecutó en sitio sobre el enunciado
+  reformulado ("una app que pueda ejecutar en ambas plataformas"). El alcance es equivalente
+  al de la primera redacción; se mantuvieron los 14 FR, los 7 SC y las 3 historias, y se
+  hizo explícito "GitHub Actions" en la assumption de verificación por coincidir con el
+  enunciado. Todos los ítems del checklist siguen en verde.
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`

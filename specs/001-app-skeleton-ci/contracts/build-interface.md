@@ -1,75 +1,57 @@
-# Phase 1 — Contract: superficie de build y arranque
+# Phase 1 — Contract: superficie de scripts y arranque
 
-**Feature**: `001-app-skeleton-ci` | **Date**: 2026-09-01
+**Feature**: `001-app-skeleton-ci` | **Date**: 2026-09-04
 
 Esta feature no expone API de red ni de librería. Su interfaz real —lo que otros consumen y
-lo que rompe cosas al cambiar— es triple: los comandos de build, los nombres que enlazan
-Kotlin con Xcode, y los puntos de entrada de cada plataforma. Este documento los fija.
+lo que rompe cosas al cambiar— es doble: los scripts de `package.json` (consumidos por la
+persona desarrolladora y por CI) y el contrato observable de la pantalla inicial. Este
+documento los fija.
 
 Cambiar cualquier nombre de esta página rompe algo fuera del fichero donde se define. Ese
 es el criterio para que esté aquí.
 
 ---
 
-## 1. Comandos (consumidos por la persona desarrolladora y por CI)
+## 1. Scripts de `package.json` (consumidos por la persona desarrolladora y por CI)
 
-Todos se ejecutan desde la raíz del repositorio, con el wrapper. No se soporta un Gradle
-instalado en el sistema.
-
-| Comando | Qué garantiza |
-|---|---|
-| `./gradlew allTests` | Ejecuta la batería de `commonTest` en el target Android (unit test JVM) y en `iosSimulatorArm64`. Es la orden de referencia de FR-007 |
-| `./gradlew :composeApp:assembleDebug` | Produce el APK de depuración instalable (FR-001) |
-| `./gradlew :composeApp:installDebug` | Instala en el dispositivo o emulador Android conectado |
-| `./gradlew :composeApp:embedAndSignAppleFrameworkForXcode` | Invocado **por Xcode**, no a mano. Compila y embebe el framework en la app iOS |
-
-**Estabilidad**: `allTests` y `assembleDebug` están referenciados en
-`.github/workflows/ci.yml` y en el README. Renombrar el módulo `composeApp` obliga a
-actualizar ambos.
-
-## 2. Puente Kotlin ↔ Xcode
-
-El acoplamiento más frágil del proyecto (D-003 en [research.md](../research.md)). Los cuatro
-valores siguientes deben coincidir exactamente entre el build de Gradle y el proyecto Xcode:
-
-| Elemento | Valor | Definido en | Consumido en |
-|---|---|---|---|
-| Nombre del módulo Gradle | `composeApp` | `settings.gradle.kts` | Run Script phase de Xcode |
-| `baseName` del framework | `ComposeApp` | `composeApp/build.gradle.kts` | `import ComposeApp` en Swift |
-| Tipo de framework | estático (`isStatic = true`) | `composeApp/build.gradle.kts` | configuración de enlazado de Xcode |
-| Función de entrada expuesta | `MainViewControllerKt.MainViewController()` | `iosMain/.../MainViewController.kt` | `ContentView.swift` |
-
-**Contrato de la Run Script build phase** (en el target `iosApp` de Xcode, antes de
-"Compile Sources"): invoca `./gradlew :composeApp:embedAndSignAppleFrameworkForXcode`
-heredando las variables de entorno de Xcode (`CONFIGURATION`, `SDK_NAME`, `ARCHS`,
-`TARGET_BUILD_DIR`, `FRAMEWORKS_FOLDER_PATH`). Si esta fase se elimina o se reordena
-después de la compilación, la app iOS deja de construirse. La compilación de iOS en CI
-existe precisamente para detectar esa rotura (D-005).
-
-## 3. Puntos de entrada por plataforma
-
-| Plataforma | Punto de entrada | Contrato |
+| Script | Comando | Qué garantiza |
 |---|---|---|
-| Compartido | `App()` en `commonMain/.../App.kt` | `@Composable` sin parámetros. Es **la única** definición de la pantalla; ninguna plataforma define UI propia (FR-004) |
-| Android | `MainActivity` (`androidMain`) | Actividad `LAUNCHER` declarada en el manifest; su `setContent` invoca `App()` y nada más |
-| iOS | `MainViewController()` (`iosMain`) | Devuelve un `UIViewController` que envuelve `App()`; consumido desde `ContentView.swift` |
+| `typecheck` | `tsc --noEmit` | Comprobación de tipos sin emitir salida. Puerta de CI |
+| `lint` | `expo lint` | ESLint (`eslint-config-expo`) + Prettier. Puerta de CI |
+| `test` | `jest` | Batería `jest-expo` en `__tests__/`, incluida la prueba de ejemplo (FR-007). Puerta de CI |
+| `start` | `expo start` | Arranque en modo desarrollo (Metro) para iterar con Expo Go o un dev client |
+| `android` | `expo run:android` | Compila e instala la app en un emulador/dispositivo Android conectado (FR-001) |
+| `ios` | `expo run:ios` | Compila e instala la app en un simulador/dispositivo iOS conectado (FR-002) |
 
-**Regla de paridad**: ambos hosts se limitan a arrancar `App()`. En el momento en que un
-host añada comportamiento propio se estaría violando el principio I y la paridad de FR-004;
-la revisión debe rechazarlo.
+**Estabilidad**: `typecheck`, `lint` y `test` están referenciados literalmente en
+`.github/workflows/ci.yml`. Renombrarlos obliga a actualizar el workflow.
 
-## 4. Contrato de la pantalla inicial
+## 2. Punto de entrada de la app
+
+| Elemento | Valor | Contrato |
+|---|---|---|
+| Componente raíz | `App` (`App.tsx`, exportación por defecto) | Único punto donde se define la pantalla; ninguna plataforma define UI propia (FR-004) |
+| Registro de la app | `app.json` → `expo.name` / `expo.slug` | Nombre e identificador visibles en ambos lanzadores (FR-006) |
+
+**Regla de paridad**: no existe código específico de plataforma en esta feature (no hay
+ficheros `.ios.tsx`/`.android.tsx`); `App.tsx` es literalmente lo mismo que ejecutan Android
+e iOS. El día en que aparezca una bifurcación de plataforma, deberá justificarse en el PR
+según el principio I.
+
+## 3. Contrato de la pantalla inicial
 
 Comportamiento observable que las historias 1 y 2 verifican:
 
 - Ocupa la pantalla completa y pinta el color de fondo del tema.
-- Respeta las áreas seguras del sistema (notch, isla dinámica, barra de gestos): ningún
-  contenido futuro quedará bajo elementos del sistema.
-- Sigue la apariencia clara u oscura del sistema y cambia con ella.
-- No muestra texto, logotipo ni controles.
+- Respeta las áreas seguras del sistema (notch, isla dinámica, barra de gestos) mediante
+  `react-native-safe-area-context`: ningún contenido futuro quedará bajo elementos del
+  sistema.
+- Sigue la apariencia clara u oscura del sistema (`useColorScheme()`) y cambia con ella.
+- No muestra texto, logotipo ni controles — en particular, no el texto de plantilla que
+  trae la plantilla de Expo por defecto.
 - No realiza ninguna petición de red ni lectura de almacenamiento.
 
-## 5. Contrato del pipeline de CI
+## 4. Contrato del pipeline de CI
 
 **Disparadores**: `pull_request` contra cualquier rama y `push` a `main`.
 
@@ -79,15 +61,14 @@ runner y no de un paso de verificación (edge case de la spec).
 
 **Pasos, en orden de coste creciente** (falla rápido lo barato):
 
-1. `./gradlew allTests`
-2. `./gradlew :composeApp:assembleDebug`
-3. `xcodebuild ... -scheme iosApp -destination 'generic/platform=iOS Simulator' build`
+1. `npm ci`
+2. `npm run typecheck`
+3. `npm run lint`
+4. `npm test`
 
-No hay paso de formato ni de análisis estático (D-006 en [research.md](../research.md)).
+**Entorno**: runner `ubuntu-latest`, Node.js 22.x, caché de npm restaurada entre
+ejecuciones. No se compila ningún binario de Android o iOS en este workflow — ver D-004 en
+[research.md](../research.md) para el porqué y el criterio de cuándo añadirlo.
 
-**Entorno**: runner `macos-latest`, JDK 21, cachés de Gradle y de Kotlin/Native
-(`~/.konan`) restauradas entre ejecuciones.
-
-**Contrato de diagnóstico** (FR-011): cuando el paso 1 falla, el log debe identificar la
-prueba y el motivo sin necesidad de reproducir en local; los informes de test se publican
-como artefacto de la ejecución.
+**Contrato de diagnóstico** (FR-011): cuando el paso 4 falla, el reporter por defecto de
+Jest identifica el test y el motivo en el log, sin necesidad de reproducir en local.
