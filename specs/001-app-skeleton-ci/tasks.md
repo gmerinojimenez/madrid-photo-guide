@@ -26,12 +26,12 @@ el SDK), TypeScript `~6.x` (NO 7.0), `jest-expo` `57.0.5`,
 **Purpose**: Inicializar el proyecto Expo y su tooling sobre el repositorio ya limpio
 (que hoy solo contiene `README.md`, `.gitignore`, `specs/`, `.specify/`, `.claude/`).
 
-- [ ] T001 Scaffold la app Expo con la plantilla `blank-typescript` en la raíz del repo (`npx create-expo-app@latest . --template blank-typescript`), conservando el `README.md` y `.gitignore` ya existentes y aceptando/mezclando el resto de ficheros generados (`App.tsx`, `app.json`, `index.ts`, `package.json`, `tsconfig.json`, `babel.config.js`, `assets/`)
-- [ ] T002 Fijar en `package.json` las versiones exactas de [research.md](./research.md) D-002 (`expo@57.0.19`, y `typescript` en la versión que resuelva `npx expo install typescript` — nunca 7.x), y ejecutar `npm install` para regenerar `package-lock.json`
-- [ ] T003 [P] Añadir a `package.json` los scripts `typecheck` (`tsc --noEmit`), `lint` (`expo lint`), `test` (`jest`), `start` (`expo start`), `android` (`expo run:android`), `ios` (`expo run:ios`) y el campo `engines.node` `">=22.13.0"`; crear `.nvmrc` con `22`
-- [ ] T004 [P] Configurar `tsconfig.json` con `"strict": true` extendiendo `expo/tsconfig.base`, sin `any` implícito permitido
-- [ ] T005 [P] Ejecutar `npx expo lint` para generar `eslint.config.js` (flat config, `eslint-config-expo`), instalar `prettier eslint-config-prettier eslint-plugin-prettier` como devDependencies, enchufar `eslintPluginPrettierRecommended` en `eslint.config.js` y crear `.prettierrc` en la raíz
-- [ ] T006 [P] Verificar que `.gitignore` de la raíz ignora `node_modules/`, `.expo/`, `/ios` y `/android` (generación nativa continua); añadir cualquier entrada que la plantilla espere y falte (p. ej. `expo-env.d.ts`)
+- [X] T001 Scaffold la app Expo con la plantilla `blank-typescript` en la raíz del repo (`npx create-expo-app@latest . --template blank-typescript`), conservando el `README.md` y `.gitignore` ya existentes y aceptando/mezclando el resto de ficheros generados (`App.tsx`, `app.json`, `index.ts`, `package.json`, `tsconfig.json`, `babel.config.js`, `assets/`)
+- [X] T002 Fijar en `package.json` las versiones exactas de [research.md](./research.md) D-002 (`expo@57.0.19`, y `typescript` en la versión que resuelva `npx expo install typescript` — nunca 7.x), y ejecutar `npm install` para regenerar `package-lock.json`
+- [X] T003 [P] Añadir a `package.json` los scripts `typecheck` (`tsc --noEmit`), `lint` (`expo lint`), `test` (`jest`), `start` (`expo start`), `android` (`expo run:android`), `ios` (`expo run:ios`) y el campo `engines.node` `">=22.13.0"`; crear `.nvmrc` con `22`
+- [X] T004 [P] Configurar `tsconfig.json` con `"strict": true` extendiendo `expo/tsconfig.base`, sin `any` implícito permitido
+- [X] T005 [P] Ejecutar `npx expo lint` para generar `eslint.config.js` (flat config, `eslint-config-expo`), instalar `prettier eslint-config-prettier eslint-plugin-prettier` como devDependencies, enchufar `eslintPluginPrettierRecommended` en `eslint.config.js` y crear `.prettierrc` en la raíz
+- [X] T006 [P] Verificar que `.gitignore` de la raíz ignora `node_modules/`, `.expo/`, `/ios` y `/android` (generación nativa continua); añadir cualquier entrada que la plantilla espere y falte (p. ej. `expo-env.d.ts`)
 
 **Checkpoint**: `npm ci` funciona en limpio y `npm run typecheck` / `npm run lint` pasan sobre el proyecto recién scaffoldeado.
 
@@ -44,10 +44,10 @@ US1 y US2 (una única base de código Expo), por lo que bloquea ambas historias.
 
 **⚠️ CRITICAL**: Ninguna historia de usuario puede empezar hasta completar esta fase.
 
-- [ ] T007 [P] Configurar la identidad de la app en `app.json` según [data-model.md](./data-model.md): `expo.name` = `Madrid Photo Guide`, `expo.slug` = `madrid-photo-guide`, `expo.android.package` = `com.gmj.madridphotoguide`, `expo.ios.bundleIdentifier` = `com.gmj.madridphotoguide`; dejar icono y splash de marcador de posición generados por la plantilla
-- [ ] T008 Implementar la pantalla raíz en `App.tsx` según [research.md](./research.md) D-007 y [contracts/build-interface.md](./contracts/build-interface.md) §3/§4: envolver en `SafeAreaProvider` + `SafeAreaView` (`react-native-safe-area-context`), pintar el fondo del color del tema leyendo `useColorScheme()`, sin texto, sin logotipo, sin navegación; **eliminar el texto de plantilla** ("Open up App.tsx...") y su `StatusBar`/estilos sobrantes que no apliquen
-- [ ] T009 [P] Configurar Jest en `package.json` con `"preset": "jest-expo"` e instalar `jest-expo@57.0.5` y `@testing-library/react-native@14.0.1` como devDependencies (`npx expo install jest-expo` + `npm i -D @testing-library/react-native`)
-- [ ] T010 Crear la prueba de ejemplo en `__tests__/App.test.tsx` (FR-007, FR-008): renderiza `<App />` con `render()` de `@testing-library/react-native` y afirma que monta sin lanzar; es un marcador de posición que solo valida que la infraestructura de tests corre
+- [X] T007 [P] Configurar la identidad de la app en `app.json` según [data-model.md](./data-model.md): `expo.name` = `Madrid Photo Guide`, `expo.slug` = `madrid-photo-guide`, `expo.android.package` = `com.gmj.madridphotoguide`, `expo.ios.bundleIdentifier` = `com.gmj.madridphotoguide`; dejar icono y splash de marcador de posición generados por la plantilla
+- [X] T008 Implementar la pantalla raíz en `App.tsx` según [research.md](./research.md) D-007 y [contracts/build-interface.md](./contracts/build-interface.md) §3/§4: envolver en `SafeAreaProvider` + `SafeAreaView` (`react-native-safe-area-context`), pintar el fondo del color del tema leyendo `useColorScheme()`, sin texto, sin logotipo, sin navegación; **eliminar el texto de plantilla** ("Open up App.tsx...") y su `StatusBar`/estilos sobrantes que no apliquen
+- [X] T009 [P] Configurar Jest en `package.json` con `"preset": "jest-expo"` e instalar `jest-expo@57.0.5` y `@testing-library/react-native@14.0.1` como devDependencies (`npx expo install jest-expo` + `npm i -D @testing-library/react-native`)
+- [X] T010 Crear la prueba de ejemplo en `__tests__/App.test.tsx` (FR-007, FR-008): renderiza `<App />` con `render()` de `@testing-library/react-native` y afirma que monta sin lanzar; es un marcador de posición que solo valida que la infraestructura de tests corre
 
 **Checkpoint**: `npm test` ejecuta y pasa la prueba de ejemplo (Validación 1 de [quickstart.md](./quickstart.md)); `App.tsx` compila y pasa typecheck + lint.
 
@@ -60,7 +60,7 @@ US1 y US2 (una única base de código Expo), por lo que bloquea ambas historias.
 **Independent Test**: `npm run android` sobre un emulador/dispositivo limpio → la app
 aparece en el lanzador como **Madrid Photo Guide**, abre a una pantalla vacía y no se cierra.
 
-- [ ] T011 [US1] Revisar la sección `expo.android` de `app.json`: `package` correcto, icono adaptativo de marcador de posición, sin permisos declarados (arranque sin red, FR-005); no añadir nada que iOS no vaya a tener (paridad)
+- [X] T011 [US1] Revisar la sección `expo.android` de `app.json`: `package` correcto, icono adaptativo de marcador de posición, sin permisos declarados (arranque sin red, FR-005); no añadir nada que iOS no vaya a tener (paridad)
 - [ ] T012 [US1] Ejecutar `npm run android` con un emulador/dispositivo conectado y confirmar que `expo prebuild` + build Gradle generan el APK, se instala y la app arranca a la pantalla vacía del tema
 - [ ] T013 [US1] Validar sobre Android los 6 puntos de la Validación 2 de [quickstart.md](./quickstart.md) (segundo plano/primer plano, modo avión, rotación, claro/oscuro, safe areas) + 10 arranques en frío sobre instalación limpia (SC-001) + cronometrar arranque < 2 s (SC-002)
 
@@ -75,7 +75,7 @@ aparece en el lanzador como **Madrid Photo Guide**, abre a una pantalla vacía y
 **Independent Test**: `npm run ios` sobre un simulador/dispositivo limpio → la app abre a la
 misma pantalla vacía, no se cierra, y no ofrece ninguna capacidad que Android no tenga.
 
-- [ ] T014 [US2] Revisar la sección `expo.ios` de `app.json`: `bundleIdentifier` correcto, icono de marcador de posición, deployment target por defecto del SDK (sin override propio)
+- [X] T014 [US2] Revisar la sección `expo.ios` de `app.json`: `bundleIdentifier` correcto, icono de marcador de posición, deployment target por defecto del SDK (sin override propio)
 - [ ] T015 [US2] Ejecutar `npm run ios` con CocoaPods instalado y un simulador disponible; confirmar que `expo prebuild` regenera `ios/`, `pod install` resuelve y la app arranca a la misma pantalla vacía del tema
 - [ ] T016 [US2] Validar sobre iOS los 6 puntos de la Validación 3 de [quickstart.md](./quickstart.md) y la paridad de la Validación 4 (mismo contenido observable, misma respuesta a modo oscuro, cero diferencias de capacidad entre plataformas — FR-004, SC-007)
 
@@ -91,7 +91,7 @@ tests y publica un resultado visible.
 **Independent Test**: abrir un PR con un cambio cualquiera → el workflow arranca sin
 intervención y publica un check verde/rojo en ese PR.
 
-- [ ] T017 [US3] Crear `.github/workflows/ci.yml` según [contracts/build-interface.md](./contracts/build-interface.md) §4 y [research.md](./research.md) D-004: runner `ubuntu-latest`, disparadores `pull_request` (cualquier rama) y `push` a `main`, `actions/setup-node` con Node 22 y `cache: npm`, pasos en orden `npm ci` → `npm run typecheck` → `npm run lint` → `npm test`; sin compilación de binarios Android/iOS
+- [X] T017 [US3] Crear `.github/workflows/ci.yml` según [contracts/build-interface.md](./contracts/build-interface.md) §4 y [research.md](./research.md) D-004: runner `ubuntu-latest`, disparadores `pull_request` (cualquier rama) y `push` a `main`, `actions/setup-node` con Node 22 y `cache: npm`, pasos en orden `npm ci` → `npm run typecheck` → `npm run lint` → `npm test`; sin compilación de binarios Android/iOS
 - [ ] T018 [US3] Abrir un pull request con un cambio trivial y confirmar (Validación 5 de [quickstart.md](./quickstart.md)) que el workflow se dispara solo, publica un check visible en el PR (FR-009, FR-010) y termina en verde muy por debajo de 15 min (SC-005)
 - [ ] T019 [US3] Invertir la aserción de `__tests__/App.test.tsx`, empujar al PR y confirmar (Validación 6) que el check pasa a rojo identificando el test y el motivo en el log (SC-006, FR-011); revertir y confirmar que vuelve a verde sobre el contenido actualizado (escenario 3.4)
 
@@ -103,7 +103,7 @@ intervención y publica un check verde/rojo en ese PR.
 
 **Purpose**: Cerrar FR-013 (reproducibilidad por una persona nueva) y la validación global.
 
-- [ ] T020 [P] Actualizar `README.md` con prerrequisitos reales (Node ≥ 22.13, Xcode 16+ con runtime de simulador, CocoaPods, Android SDK) y todos los comandos (`npm ci`, `npm run typecheck|lint|test|android|ios`), enlazando a [quickstart.md](./quickstart.md) para la validación paso a paso
+- [X] T020 [P] Actualizar `README.md` con prerrequisitos reales (Node ≥ 22.13, Xcode 16+ con runtime de simulador, CocoaPods, Android SDK) y todos los comandos (`npm ci`, `npm run typecheck|lint|test|android|ios`), enlazando a [quickstart.md](./quickstart.md) para la validación paso a paso
 - [ ] T021 [P] Verificar SC-003 en un clon limpio (Validación 7 de [quickstart.md](./quickstart.md)): `git clone` → `npm ci` → `npm run typecheck && npm run lint && npm test` en menos de 30 min siguiendo solo el `README.md`, sin conocimiento tácito
 - [ ] T022 Ejecutar la validación completa de [quickstart.md](./quickstart.md) (las 7) y marcar el criterio de entrega; anotar cualquier desviación
 

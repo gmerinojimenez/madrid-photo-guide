@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Madrid Photo Guide",
+    "slug": "madrid-photo-guide",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "com.gmj.madridphotoguide",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.gmj.madridphotoguide",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    }
+  }
+}
