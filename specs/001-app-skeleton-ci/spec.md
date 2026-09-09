@@ -4,7 +4,7 @@
 
 **Created**: 2026-09-01
 
-**Status**: Draft
+**Status**: Completed (2026-09-09) — todas las tareas de [tasks.md](./tasks.md) verificadas; ver quickstart
 
 **Input**: User description: "la primera tarea debe ser la base del proyecto, una app que pueda ejecutar en ambas plataformas. Aún no me preocupa el contenido, basta con que la app arranque y muestre una pantalla en blanco, pero ha de hacerlo en ambas plataformas. También debe tener una github action que ejecute los tests (de momento podemos dejar una clase de test con un test dummy)"
 
