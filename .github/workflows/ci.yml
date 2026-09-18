@@ -29,5 +29,8 @@ jobs:
       - name: Lint and format check
         run: npm run lint
 
+      - name: Validate content catalog
+        run: npm run validate:catalog
+
       - name: Run tests
         run: npm test
