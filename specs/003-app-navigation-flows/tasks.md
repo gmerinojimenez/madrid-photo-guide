@@ -40,13 +40,13 @@ Proyecto móvil Expo con las tres capas que fija [plan.md](./plan.md):
 **Purpose**: dejar el proyecto con las dependencias, el punto de entrada y el tema listos para
 que exista un árbol de rutas.
 
-- [ ] T001 Instalar las dependencias de la feature con `npx expo install expo-router expo-maps expo-sqlite expo-clipboard expo-constants expo-linking expo-splash-screen expo-system-ui react-native-screens react-native-gesture-handler`, y verificar que `package.json` queda con las versiones del SDK 57 de research.md
-- [ ] T002 Cambiar el punto de entrada a Expo Router en `package.json` (`"main": "expo-router/entry"`) y eliminar `index.ts` y `App.tsx`
-- [ ] T003 Configurar `app.json`: `"userInterfaceStyle": "dark"`, plugin de `expo-router`, plugin de `expo-maps` con la clave de API de Google Maps para Android, y `scheme` para enlaces profundos
-- [ ] T004 [P] Crear los tokens del tema "Nocturne" en `src/ui/theme/tokens.ts` con los valores de research.md D-008, traduciendo `--color-divider` de `color-mix()` a su `rgba` equivalente
-- [ ] T005 [P] Crear la tabla de equivalencias de iconos Phosphor → `@expo/vector-icons` en `src/ui/theme/icons.ts`
-- [ ] T006 Crear `jest.setup.ts` y registrarlo en la configuración de Jest de `package.json`, con los dobles de los módulos nativos: `expo-maps` (renderiza cada marcador como pulsable con su nombre accesible), `expo-sqlite`, `Linking.openURL` y `expo-clipboard`
-- [ ] T007 Eliminar `__tests__/App.test.tsx`, que prueba el `App.tsx` retirado en T002
+- [X] T001 Instalar las dependencias de la feature con `npx expo install expo-router expo-maps expo-sqlite expo-clipboard expo-constants expo-linking expo-splash-screen expo-system-ui react-native-screens react-native-gesture-handler`, y verificar que `package.json` queda con las versiones del SDK 57 de research.md
+- [X] T002 Cambiar el punto de entrada a Expo Router en `package.json` (`"main": "expo-router/entry"`) y eliminar `index.ts` y `App.tsx`
+- [X] T003 Configurar `app.json`: `"userInterfaceStyle": "dark"`, plugin de `expo-router`, plugin de `expo-maps` con la clave de API de Google Maps para Android, y `scheme` para enlaces profundos
+- [X] T004 [P] Crear los tokens del tema "Nocturne" en `src/ui/theme/tokens.ts` con los valores de research.md D-008, traduciendo `--color-divider` de `color-mix()` a su `rgba` equivalente
+- [X] T005 [P] Crear la tabla de equivalencias de iconos Phosphor → `@expo/vector-icons` en `src/ui/theme/icons.ts`
+- [X] T006 Crear `jest.setup.ts` y registrarlo en la configuración de Jest de `package.json`, con los dobles de los módulos nativos: `expo-maps` (renderiza cada marcador como pulsable con su nombre accesible), `expo-sqlite`, `Linking.openURL` y `expo-clipboard`
+- [X] T007 Eliminar `__tests__/App.test.tsx`, que prueba el `App.tsx` retirado en T002
 
 **Checkpoint**: el proyecto compila, `npm run typecheck` y `npm run lint` pasan, y Jest arranca con los dobles cargados.
 
@@ -61,10 +61,10 @@ que cualquier historia necesita.
 
 ### Ampliación del catálogo (FR-008, D-010)
 
-- [ ] T008 Añadir las 9 localizaciones de pago y los 6 barrios nuevos a `src/content/catalog.json` según la tabla de data-model.md §4, con `access: "premium"`, coordenadas reales, contenido ficticio, y `approximateArea` desplazada respecto de `coords` con radio de 300–500 m
-- [ ] T009 Generar los 18 JPG de marcador en `assets/content/photos/<id>/{thumb,detail}.jpg` para las 9 localizaciones nuevas con `python3 scripts/generate-placeholder-photos.py`
-- [ ] T010 Añadir las 18 entradas `require` correspondientes a `src/platform/images/registry.ts`
-- [ ] T011 Verificar que `npm run validate:catalog` termina sin errores **ni advertencias de recurso huérfano**, y que los tests existentes de `__tests__/content/` siguen en verde sin modificarlos
+- [X] T008 Añadir las 9 localizaciones de pago y los 6 barrios nuevos a `src/content/catalog.json` según la tabla de data-model.md §4, con `access: "premium"`, coordenadas reales, contenido ficticio, y `approximateArea` desplazada respecto de `coords` con radio de 300–500 m
+- [X] T009 Generar los 18 JPG de marcador en `assets/content/photos/<id>/{thumb,detail}.jpg` para las 9 localizaciones nuevas con `python3 scripts/generate-placeholder-photos.py`
+- [X] T010 Añadir las 18 entradas `require` correspondientes a `src/platform/images/registry.ts`
+- [X] T011 Verificar que `npm run validate:catalog` termina sin errores **ni advertencias de recurso huérfano**, y que los tests existentes de `__tests__/content/` siguen en verde sin modificarlos
 
 ### Núcleo nuevo (contracts/core-api.md)
 

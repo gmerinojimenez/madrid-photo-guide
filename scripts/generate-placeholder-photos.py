@@ -111,12 +111,26 @@ def make_placeholder(width: int, height: int, bg: tuple[int, int, int], label: s
     return bytes(pixels)
 
 
-LOCATIONS: list[tuple[str, str, tuple[int, int, int]]] = [
-    ("debod", "TEMPLO DE DEBOD", (0x2E, 0x5A, 0x88)),
-    ("castilla", "PUERTA DE EUROPA", (0x8A, 0x4B, 0x2E)),
-    ("torres", "CUATRO TORRES", (0x3C, 0x3C, 0x3C)),
-    ("sol", "PUERTA DEL SOL", (0x7A, 0x2E, 0x5A)),
-    ("mayor", "PLAZA MAYOR", (0x2E, 0x6E, 0x3C)),
+# (id, rótulo, color, es_gratis). El rótulo evita letras que no existen en la
+# fuente 5x7 de este script (F, H, J, K, Q, V, W, X).
+LOCATIONS: list[tuple[str, str, tuple[int, int, int], bool]] = [
+    ("debod", "TEMPLO DE DEBOD", (0x2E, 0x5A, 0x88), True),
+    ("castilla", "PUERTA DE EUROPA", (0x8A, 0x4B, 0x2E), True),
+    ("torres", "CUATRO TORRES", (0x3C, 0x3C, 0x3C), True),
+    ("sol", "PUERTA DEL SOL", (0x7A, 0x2E, 0x5A), True),
+    ("mayor", "PLAZA MAYOR", (0x2E, 0x6E, 0x3C), True),
+    # Localizaciones de pago añadidas por 003-app-navigation-flows (D-010).
+    # Solo llevan miniatura: el validador de la constitución prohíbe empaquetar
+    # el detalle (ni ninguna imagen extra) de una localización de pago.
+    ("tiopio", "CERRO TIO PIO", (0x8A, 0x5A, 0x2E), False),
+    ("circulo", "BELLAS ARTES", (0x5A, 0x3C, 0x7A), False),
+    ("metropolis", "METROPOLIS", (0x2E, 0x4A, 0x6E), False),
+    ("matadero", "MATADERO", (0x6E, 0x3C, 0x2E), False),
+    ("faro", "TORRE MONCLOA", (0x2E, 0x6E, 0x6E), False),
+    ("toledo", "PUENTE TOLEDO", (0x3C, 0x2E, 0x5A), False),
+    ("retiro", "PALACIO CRISTAL", (0x2E, 0x5A, 0x3C), False),
+    ("campo", "CASA DE CAMPO", (0x5A, 0x6E, 0x2E), False),
+    ("lavapies", "CALLE COLORIDA", (0x8A, 0x2E, 0x4B), False),
 ]
 
 SIZES = [("thumb", 400, 300), ("detail", 1600, 1200)]
@@ -126,10 +140,11 @@ def main() -> None:
     if not shutil.which("sips"):
         raise SystemExit("Este script necesita `sips` (incluido en macOS).")
 
-    for location_id, label, color in LOCATIONS:
+    for location_id, label, color, is_free in LOCATIONS:
         out_dir = PHOTOS_ROOT / location_id
         out_dir.mkdir(parents=True, exist_ok=True)
-        for usage, width, height in SIZES:
+        sizes = SIZES if is_free else SIZES[:1]
+        for usage, width, height in sizes:
             png_path = out_dir / f"{usage}.png"
             jpg_path = out_dir / f"{usage}.jpg"
             pixels = make_placeholder(width, height, color, label)

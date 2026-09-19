@@ -18,6 +18,18 @@ const BUNDLED: Record<string, ImageSource> = {
   'sol/detail': require('../../../assets/content/photos/sol/detail.jpg'),
   'mayor/thumb': require('../../../assets/content/photos/mayor/thumb.jpg'),
   'mayor/detail': require('../../../assets/content/photos/mayor/detail.jpg'),
+  // Localizaciones de pago añadidas por 003-app-navigation-flows (D-010): solo
+  // llevan miniatura, nunca detalle (el validador de la constitución prohíbe
+  // empaquetar el detalle de una localización de pago).
+  'tiopio/thumb': require('../../../assets/content/photos/tiopio/thumb.jpg'),
+  'circulo/thumb': require('../../../assets/content/photos/circulo/thumb.jpg'),
+  'metropolis/thumb': require('../../../assets/content/photos/metropolis/thumb.jpg'),
+  'matadero/thumb': require('../../../assets/content/photos/matadero/thumb.jpg'),
+  'faro/thumb': require('../../../assets/content/photos/faro/thumb.jpg'),
+  'toledo/thumb': require('../../../assets/content/photos/toledo/thumb.jpg'),
+  'retiro/thumb': require('../../../assets/content/photos/retiro/thumb.jpg'),
+  'campo/thumb': require('../../../assets/content/photos/campo/thumb.jpg'),
+  'lavapies/thumb': require('../../../assets/content/photos/lavapies/thumb.jpg'),
 };
 
 export const imageRegistry: ImageResolver = {
