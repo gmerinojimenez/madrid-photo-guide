@@ -17,9 +17,17 @@ jest.mock('expo-maps', () => {
   const React = require('react');
   const { View, Pressable, Text } = require('react-native');
 
-  function FakeMapView({ markers, annotations, onMarkerClick, onAnnotationClick, testID }: any) {
+  function FakeMapView({
+    markers,
+    annotations,
+    onMarkerClick,
+    onAnnotationClick,
+    testID,
+    lockedIds,
+  }: any) {
     const items: any[] = markers ?? annotations ?? [];
     const handler = onMarkerClick ?? onAnnotationClick;
+    const locked: Set<string> = new Set(lockedIds ?? []);
     return React.createElement(
       View,
       { testID: testID ?? 'location-map' },
@@ -30,7 +38,11 @@ jest.mock('expo-maps', () => {
             key: marker.id,
             accessible: true,
             accessibilityRole: 'button',
+            // El nombre accesible es SOLO el nombre de la localización
+            // (contracts/screens.md): la distinción visual bloqueada/accesible
+            // (FR-014) viaja en `testID`, nunca en el nombre.
             accessibilityLabel: marker.title,
+            testID: `marker-${marker.id}-${locked.has(marker.id) ? 'locked' : 'open'}`,
             onPress: () => handler?.(marker),
           },
           React.createElement(Text, null, marker.title),

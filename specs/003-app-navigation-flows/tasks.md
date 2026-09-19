@@ -111,20 +111,20 @@ con la distancia marcada como no disponible.
 
 > Escribir primero y comprobar que fallan antes de implementar.
 
-- [ ] T031 [P] [US1] Test de aceptación en `__tests__/screens/map.test.tsx`: el mapa renderiza un marcador por cada localización del catálogo, y los accesibles se distinguen de los bloqueados (US1 §1, FR-013, FR-014)
-- [ ] T032 [P] [US1] Test de aceptación en `__tests__/screens/map-search.test.tsx`: buscar "debod", "Argüelles" y "arguelles" filtra igual; seleccionar un chip de tipo filtra; los criterios se componen; sin resultados se informa (US1 §4 §5, FR-015, FR-016, FR-019)
-- [ ] T033 [P] [US1] Test de aceptación en `__tests__/screens/location-detail.test.tsx`: tocar una localización gratuita abre su ficha con nombre, barrio, mejor momento, EXIF, descripción de la toma, descripción del barrio y coordenadas; la distancia dice "Distancia no disponible" (US1 §2 §6, FR-020, FR-021)
-- [ ] T034 [P] [US1] Test de aceptación en `__tests__/screens/map-state.test.tsx`: abrir una ficha y volver atrás conserva la pestaña activa, el texto buscado y el chip seleccionado (US1 §3, FR-002)
+- [X] T031 [P] [US1] Test de aceptación en `__tests__/screens/map.test.tsx`: el mapa renderiza un marcador por cada localización del catálogo, y los accesibles se distinguen de los bloqueados (US1 §1, FR-013, FR-014)
+- [X] T032 [P] [US1] Test de aceptación en `__tests__/screens/map-search.test.tsx`: buscar "debod", "Argüelles" y "arguelles" filtra igual; seleccionar un chip de tipo filtra; los criterios se componen; sin resultados se informa (US1 §4 §5, FR-015, FR-016, FR-019)
+- [X] T033 [P] [US1] Test de aceptación en `__tests__/screens/location-detail.test.tsx`: tocar una localización gratuita abre su ficha con nombre, barrio, mejor momento, EXIF, descripción de la toma, descripción del barrio y coordenadas; la distancia dice "Distancia no disponible" (US1 §2 §6, FR-020, FR-021)
+- [X] T034 [P] [US1] Test de aceptación en `__tests__/screens/map-state.test.tsx`: abrir una ficha y volver atrás conserva la pestaña activa, el texto buscado y el chip seleccionado (US1 §3, FR-002)
 
 ### Implementation for User Story 1
 
-- [ ] T035 [US1] Implementar el componente único de mapa en `src/ui/map/LocationMap.tsx`, resolviendo con `Platform.select` entre `GoogleMaps.View` y `AppleMaps.View` y exponiendo una sola API (`markers`, `onMarkerPress`, `camera`) — **la única bifurcación de plataforma del proyecto** (D-003)
-- [ ] T036 [US1] Implementar la pantalla de mapa en `app/(tabs)/index.tsx`: proyectar cada localización con `viewLocation` y componer la lista de marcadores memoizada, con el nombre como etiqueta accesible
-- [ ] T037 [US1] Implementar el buscador de texto sobre `queryLocations` en `app/(tabs)/index.tsx`, con el estado de exploración `MapExploration` de data-model.md §2
-- [ ] T038 [US1] Implementar los chips de tipo de foto en `app/(tabs)/index.tsx`, tomando las etiquetas del catálogo más "Todo" (FR-016)
-- [ ] T039 [US1] Añadir el estado de "sin resultados" a `app/(tabs)/index.tsx` cuando la intersección de criterios queda vacía (caso límite de la spec)
-- [ ] T040 [US1] Implementar la ficha de localización en `app/location/[id].tsx` con todos los campos de FR-020, el marcador de imagen y "Distancia no disponible"
-- [ ] T041 [US1] Añadir el estado de "contenido no disponible" con vuelta atrás en `app/location/[id].tsx` para un identificador que no existe en el catálogo
+- [X] T035 [US1] Implementar el componente único de mapa en `src/ui/map/LocationMap.tsx`, resolviendo con `Platform.select` entre `GoogleMaps.View` y `AppleMaps.View` y exponiendo una sola API (`markers`, `onMarkerPress`, `camera`) — **la única bifurcación de plataforma del proyecto** (D-003)
+- [X] T036 [US1] Implementar la pantalla de mapa en `app/(tabs)/index.tsx`: proyectar cada localización con `viewLocation` y componer la lista de marcadores memoizada, con el nombre como etiqueta accesible
+- [X] T037 [US1] Implementar el buscador de texto sobre `queryLocations` en `app/(tabs)/index.tsx`, con el estado de exploración `MapExploration` de data-model.md §2
+- [X] T038 [US1] Implementar los chips de tipo de foto en `app/(tabs)/index.tsx`, tomando las etiquetas del catálogo más "Todo" (FR-016)
+- [X] T039 [US1] Añadir el estado de "sin resultados" a `app/(tabs)/index.tsx` cuando la intersección de criterios queda vacía (caso límite de la spec)
+- [X] T040 [US1] Implementar la ficha de localización en `app/location/[id].tsx` con todos los campos de FR-020, el marcador de imagen y "Distancia no disponible"
+- [X] T041 [US1] Añadir el estado de "contenido no disponible" con vuelta atrás en `app/location/[id].tsx` para un identificador que no existe en el catálogo
 
 **Checkpoint**: US1 funciona y se prueba sola. Es el MVP: un mapa navegable con fichas reales.
 

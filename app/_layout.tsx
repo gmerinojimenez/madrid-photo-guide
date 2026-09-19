@@ -53,8 +53,8 @@ function RootNavigator() {
 
   // Solo se declara aquí lo que ya existe como fichero de ruta: declarar un
   // Stack.Screen sin fichero detrás produce el aviso "Too many screens defined"
-  // de Expo Router. `onboarding`, `location/[id]`, `tip/[id]` y `paywall` se
-  // añaden en las fases que crean esos ficheros (US1, US2, US3, US4).
+  // de Expo Router. `onboarding`, `tip/[id]` y `paywall` se añaden en las fases
+  // que crean esos ficheros (US3, US4, US2).
   return (
     <Stack
       screenOptions={{
@@ -63,6 +63,7 @@ function RootNavigator() {
       }}
     >
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="location/[id]" />
     </Stack>
   );
 }

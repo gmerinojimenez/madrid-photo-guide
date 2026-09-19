@@ -1,0 +1,210 @@
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import { isFullLocation, localize, viewLocation } from '../../src/core/content/index.ts';
+import { formatCoordinates } from '../../src/core/navigation/links.ts';
+import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
+import { ImagePlaceholder } from '../../src/ui/components/ImagePlaceholder.tsx';
+import { Icon } from '../../src/ui/components/Icon.tsx';
+import { useCatalog, useEntitlement } from '../../src/ui/providers/index.ts';
+import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
+
+/**
+ * Ficha de localización (US1, FR-020, FR-021). Solo se alcanza para
+ * localizaciones accesibles (R-3 de contracts/routes.md): si el `id` no existe
+ * en el catálogo, o proyecta a una vista previa (alcanzada por enlace directo
+ * sin pasar por el punto de decisión del mapa), se trata igual — "contenido no
+ * disponible", sin lanzar y con vuelta atrás.
+ */
+export default function LocationDetailScreen() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const catalog = useCatalog();
+  const entitlement = useEntitlement();
+  const router = useRouter();
+
+  const location = catalog.locations.find((candidate) => candidate.id === id);
+  const view = location ? viewLocation(location, entitlement) : null;
+
+  if (!view || !isFullLocation(view)) {
+    return (
+      <View style={styles.container}>
+        <EmptyState
+          icon="mapPin"
+          title="Contenido no disponible"
+          message="Esta localización ya no existe en la guía."
+          actionLabel="Volver"
+          onAction={() => router.back()}
+        />
+      </View>
+    );
+  }
+
+  const neighbourhood = catalog.neighbourhoods.find((n) => n.id === view.neighbourhoodId);
+  const tags = view.tagIds
+    .map((tagId) => catalog.tags.find((tag) => tag.id === tagId))
+    .filter((tag): tag is NonNullable<typeof tag> => Boolean(tag));
+
+  return (
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <Pressable
+        onPress={() => router.back()}
+        accessibilityRole="button"
+        accessibilityLabel="Volver"
+        style={styles.backButton}
+      >
+        <Icon name="arrowLeft" color={colors.text} size={22} />
+      </Pressable>
+
+      <ImagePlaceholder style={styles.image} />
+
+      <Text style={styles.name}>{localize(view.name, 'es')}</Text>
+      {neighbourhood ? (
+        <Text style={styles.neighbourhood}>{localize(neighbourhood.name, 'es')}</Text>
+      ) : null}
+
+      <View style={styles.tagRow}>
+        {tags.map((tag) => (
+          <View key={tag.id} style={styles.tag}>
+            <Text style={styles.tagLabel}>{localize(tag.label, 'es')}</Text>
+          </View>
+        ))}
+      </View>
+
+      {view.bestTime ? (
+        <Row icon="clock" label="Mejor momento" value={localize(view.bestTime, 'es')} />
+      ) : null}
+
+      <Row icon="crosshair" label="Distancia" value="Distancia no disponible" />
+
+      <Row icon="mapPin" label="Coordenadas" value={formatCoordinates(view.coords)} />
+
+      <Text style={styles.sectionTitle}>La toma</Text>
+      <Text style={styles.body}>{localize(view.shotDescription, 'es')}</Text>
+
+      {view.capture ? (
+        <View style={styles.captureGrid}>
+          {view.capture.camera ? (
+            <Text style={styles.captureItem}>{view.capture.camera}</Text>
+          ) : null}
+          {view.capture.focalLengthMm ? (
+            <Text style={styles.captureItem}>{view.capture.focalLengthMm} mm</Text>
+          ) : null}
+          {view.capture.aperture ? (
+            <Text style={styles.captureItem}>{view.capture.aperture}</Text>
+          ) : null}
+          {view.capture.shutterSpeed ? (
+            <Text style={styles.captureItem}>{view.capture.shutterSpeed}</Text>
+          ) : null}
+          {view.capture.iso ? <Text style={styles.captureItem}>ISO {view.capture.iso}</Text> : null}
+        </View>
+      ) : null}
+
+      {neighbourhood?.description ? (
+        <>
+          <Text style={styles.sectionTitle}>El barrio</Text>
+          <Text style={styles.body}>{localize(neighbourhood.description, 'es')}</Text>
+        </>
+      ) : null}
+    </ScrollView>
+  );
+}
+
+function Row({
+  icon,
+  label,
+  value,
+}: {
+  icon: Parameters<typeof Icon>[0]['name'];
+  label: string;
+  value: string;
+}) {
+  return (
+    <View style={styles.row}>
+      <Icon name={icon} color={colors.textMuted} size={18} />
+      <Text style={styles.rowLabel}>{label}</Text>
+      <Text style={styles.rowValue}>{value}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.bg,
+  },
+  content: {
+    padding: spacing[4],
+    gap: spacing[3],
+  },
+  backButton: {
+    width: 36,
+    height: 36,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.surface,
+  },
+  image: {
+    height: 200,
+    borderRadius: radius.lg,
+  },
+  name: {
+    color: colors.text,
+    fontSize: 25,
+    fontWeight: '500',
+  },
+  neighbourhood: {
+    color: colors.textMuted,
+    fontSize: 14,
+  },
+  tagRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing[2],
+  },
+  tag: {
+    paddingVertical: 3,
+    paddingHorizontal: 10,
+    borderRadius: radius.sm,
+    backgroundColor: colors.accent800,
+  },
+  tagLabel: {
+    color: colors.accent100,
+    fontSize: 11,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing[2],
+  },
+  rowLabel: {
+    color: colors.textMuted,
+    fontSize: 13,
+    flex: 1,
+  },
+  rowValue: {
+    color: colors.text,
+    fontSize: 13,
+  },
+  sectionTitle: {
+    color: colors.text,
+    fontSize: 17,
+    fontWeight: '500',
+    marginTop: spacing[2],
+  },
+  body: {
+    color: colors.text,
+    fontSize: 14,
+    lineHeight: 20,
+    opacity: 0.9,
+  },
+  captureGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing[3],
+  },
+  captureItem: {
+    color: colors.textMuted,
+    fontSize: 12,
+  },
+});
