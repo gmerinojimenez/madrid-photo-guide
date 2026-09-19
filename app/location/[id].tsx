@@ -1,4 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { isFullLocation, localize, viewLocation } from '../../src/core/content/index.ts';
@@ -6,26 +7,48 @@ import { formatCoordinates } from '../../src/core/navigation/links.ts';
 import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
 import { ImagePlaceholder } from '../../src/ui/components/ImagePlaceholder.tsx';
 import { Icon } from '../../src/ui/components/Icon.tsx';
-import { useCatalog, useEntitlement } from '../../src/ui/providers/index.ts';
+import {
+  useCatalog,
+  useEntitlement,
+  useSavedLocationsStore,
+} from '../../src/ui/providers/index.ts';
 import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
 
 /**
- * Ficha de localización (US1, FR-020, FR-021). Solo se alcanza para
- * localizaciones accesibles (R-3 de contracts/routes.md): si el `id` no existe
- * en el catálogo, o proyecta a una vista previa (alcanzada por enlace directo
- * sin pasar por el punto de decisión del mapa), se trata igual — "contenido no
- * disponible", sin lanzar y con vuelta atrás.
+ * Ficha de localización (US1/US5, FR-020, FR-021, FR-024). Solo se alcanza
+ * para localizaciones accesibles (R-3 de contracts/routes.md): si el `id` no
+ * existe en el catálogo, o proyecta a una vista previa (alcanzada por enlace
+ * directo sin pasar por el punto de decisión del mapa), se trata igual —
+ * "contenido no disponible", sin lanzar y con vuelta atrás.
  */
 export default function LocationDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const catalog = useCatalog();
   const entitlement = useEntitlement();
+  const savedLocations = useSavedLocationsStore();
   const router = useRouter();
+  const [saved, setSaved] = useState(false);
 
   const location = catalog.locations.find((candidate) => candidate.id === id);
   const view = location ? viewLocation(location, entitlement) : null;
+  const full = view && isFullLocation(view) ? view : null;
 
-  if (!view || !isFullLocation(view)) {
+  // Se re-lee al ganar el foco: guardar puede haber cambiado desde otra
+  // pantalla (o desde esta misma, tras volver de un paso intermedio).
+  useFocusEffect(
+    useCallback(() => {
+      if (!full) return;
+      let cancelled = false;
+      savedLocations.has(full.id).then((value) => {
+        if (!cancelled) setSaved(value);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }, [full, savedLocations]),
+  );
+
+  if (!full) {
     return (
       <View style={styles.container}>
         <EmptyState
@@ -39,25 +62,54 @@ export default function LocationDetailScreen() {
     );
   }
 
-  const neighbourhood = catalog.neighbourhoods.find((n) => n.id === view.neighbourhoodId);
-  const tags = view.tagIds
+  const neighbourhood = catalog.neighbourhoods.find((n) => n.id === full.neighbourhoodId);
+  const tags = full.tagIds
     .map((tagId) => catalog.tags.find((tag) => tag.id === tagId))
     .filter((tag): tag is NonNullable<typeof tag> => Boolean(tag));
 
+  async function handleToggleSave() {
+    // FR-027: la comprobación de titularidad ocurre ANTES de escribir.
+    if (!entitlement.owned) {
+      router.push('/paywall');
+      return;
+    }
+    if (saved) {
+      await savedLocations.remove(full!.id);
+      setSaved(false);
+    } else {
+      await savedLocations.save(full!.id);
+      setSaved(true);
+    }
+  }
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Pressable
-        onPress={() => router.back()}
-        accessibilityRole="button"
-        accessibilityLabel="Volver"
-        style={styles.backButton}
-      >
-        <Icon name="arrowLeft" color={colors.text} size={22} />
-      </Pressable>
+      <View style={styles.headerRow}>
+        <Pressable
+          onPress={() => router.back()}
+          accessibilityRole="button"
+          accessibilityLabel="Volver"
+          style={styles.iconButton}
+        >
+          <Icon name="arrowLeft" color={colors.text} size={22} />
+        </Pressable>
+        <Pressable
+          onPress={handleToggleSave}
+          accessibilityRole="button"
+          accessibilityLabel={saved ? 'Guardado' : 'Guardar'}
+          style={styles.iconButton}
+        >
+          <Icon
+            name={saved ? 'bookmarkSimpleFilled' : 'bookmarkSimple'}
+            color={colors.accent}
+            size={22}
+          />
+        </Pressable>
+      </View>
 
       <ImagePlaceholder style={styles.image} />
 
-      <Text style={styles.name}>{localize(view.name, 'es')}</Text>
+      <Text style={styles.name}>{localize(full.name, 'es')}</Text>
       {neighbourhood ? (
         <Text style={styles.neighbourhood}>{localize(neighbourhood.name, 'es')}</Text>
       ) : null}
@@ -70,32 +122,32 @@ export default function LocationDetailScreen() {
         ))}
       </View>
 
-      {view.bestTime ? (
-        <Row icon="clock" label="Mejor momento" value={localize(view.bestTime, 'es')} />
+      {full.bestTime ? (
+        <Row icon="clock" label="Mejor momento" value={localize(full.bestTime, 'es')} />
       ) : null}
 
       <Row icon="crosshair" label="Distancia" value="Distancia no disponible" />
 
-      <Row icon="mapPin" label="Coordenadas" value={formatCoordinates(view.coords)} />
+      <Row icon="mapPin" label="Coordenadas" value={formatCoordinates(full.coords)} />
 
       <Text style={styles.sectionTitle}>La toma</Text>
-      <Text style={styles.body}>{localize(view.shotDescription, 'es')}</Text>
+      <Text style={styles.body}>{localize(full.shotDescription, 'es')}</Text>
 
-      {view.capture ? (
+      {full.capture ? (
         <View style={styles.captureGrid}>
-          {view.capture.camera ? (
-            <Text style={styles.captureItem}>{view.capture.camera}</Text>
+          {full.capture.camera ? (
+            <Text style={styles.captureItem}>{full.capture.camera}</Text>
           ) : null}
-          {view.capture.focalLengthMm ? (
-            <Text style={styles.captureItem}>{view.capture.focalLengthMm} mm</Text>
+          {full.capture.focalLengthMm ? (
+            <Text style={styles.captureItem}>{full.capture.focalLengthMm} mm</Text>
           ) : null}
-          {view.capture.aperture ? (
-            <Text style={styles.captureItem}>{view.capture.aperture}</Text>
+          {full.capture.aperture ? (
+            <Text style={styles.captureItem}>{full.capture.aperture}</Text>
           ) : null}
-          {view.capture.shutterSpeed ? (
-            <Text style={styles.captureItem}>{view.capture.shutterSpeed}</Text>
+          {full.capture.shutterSpeed ? (
+            <Text style={styles.captureItem}>{full.capture.shutterSpeed}</Text>
           ) : null}
-          {view.capture.iso ? <Text style={styles.captureItem}>ISO {view.capture.iso}</Text> : null}
+          {full.capture.iso ? <Text style={styles.captureItem}>ISO {full.capture.iso}</Text> : null}
         </View>
       ) : null}
 
@@ -136,7 +188,11 @@ const styles = StyleSheet.create({
     padding: spacing[4],
     gap: spacing[3],
   },
-  backButton: {
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  iconButton: {
     width: 36,
     height: 36,
     borderRadius: radius.md,

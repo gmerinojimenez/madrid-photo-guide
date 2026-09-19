@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import {
@@ -13,27 +13,41 @@ import type { Location } from '../../src/core/content/schema.ts';
 import { LocationMap, type MapMarker } from '../../src/ui/map/LocationMap.tsx';
 import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
 import { FilterChip } from '../../src/ui/components/FilterChip.tsx';
+import { Icon } from '../../src/ui/components/Icon.tsx';
+import { FiltersSheet } from '../../src/ui/sheets/FiltersSheet.tsx';
 import { LockedSheet } from '../../src/ui/sheets/LockedSheet.tsx';
 import { PurchasedSheet } from '../../src/ui/sheets/PurchasedSheet.tsx';
-import { useCatalog, useEntitlement } from '../../src/ui/providers/index.ts';
+import {
+  useCatalog,
+  useEntitlement,
+  useSavedLocationsStore,
+} from '../../src/ui/providers/index.ts';
 import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
 
 /** Estado de los paneles superpuestos (data-model.md §2, FR-004). Excluyentes entre sí. */
-type SheetState = { kind: 'none' } | { kind: 'locked'; locationId: string } | { kind: 'purchased' };
+type SheetState =
+  | { kind: 'none' }
+  | { kind: 'locked'; locationId: string }
+  | { kind: 'filters' }
+  | { kind: 'purchased' };
 
 /**
- * Sección Mapa (US1/US2, contracts/screens.md). El estado de exploración
- * (`text`, `tagId`) vive aquí y sobrevive a abrir y cerrar una ficha (FR-002):
- * es simplemente estado de componente que no se reinicia al perder el foco.
+ * Sección Mapa (US1/US2/US5, contracts/screens.md). El estado de exploración
+ * (`text`, `tagId`, `onlySaved`) vive aquí y sobrevive a abrir y cerrar una
+ * ficha (FR-002): es simplemente estado de componente que no se reinicia al
+ * perder el foco.
  */
 export default function MapScreen() {
   const catalog = useCatalog();
   const entitlement = useEntitlement();
+  const savedLocations = useSavedLocationsStore();
   const router = useRouter();
   const { purchased } = useLocalSearchParams<{ purchased?: string }>();
 
   const [text, setText] = useState('');
   const [tagId, setTagId] = useState<string | null>(null);
+  const [onlySaved, setOnlySaved] = useState(false);
+  const [savedIds, setSavedIds] = useState<string[]>([]);
   const [sheet, setSheet] = useState<SheetState>({ kind: 'none' });
 
   const counts = catalogCounts(catalog);
@@ -50,10 +64,30 @@ export default function MapScreen() {
     }
   }, [purchased, router]);
 
-  const filtered = useMemo(
-    () => queryLocations(catalog, { text: text || undefined, tagId: tagId ?? undefined }),
-    [catalog, text, tagId],
+  // `onlySaved` solo tiene efecto con la compra hecha (data-model.md §2): sin
+  // ella la lista de guardados está siempre vacía.
+  useFocusEffect(
+    useCallback(() => {
+      if (!entitlement.owned) {
+        setSavedIds([]);
+        return;
+      }
+      let cancelled = false;
+      savedLocations.list().then((list) => {
+        if (!cancelled) setSavedIds(list);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }, [entitlement.owned, savedLocations]),
   );
+
+  const filtered = useMemo(() => {
+    const byQuery = queryLocations(catalog, { text: text || undefined, tagId: tagId ?? undefined });
+    if (!onlySaved) return byQuery;
+    const savedSet = new Set(savedIds);
+    return byQuery.filter((location) => savedSet.has(location.id));
+  }, [catalog, text, tagId, onlySaved, savedIds]);
 
   // Memoizada: solo se recalcula al cambiar búsqueda, filtro o titularidad
   // (objetivo de rendimiento de plan.md).
@@ -121,14 +155,24 @@ export default function MapScreen() {
       </View>
 
       <View style={styles.controls}>
-        <TextInput
-          value={text}
-          onChangeText={setText}
-          placeholder="Buscar por nombre, barrio o etiqueta"
-          placeholderTextColor={colors.textMuted}
-          accessibilityLabel="Buscar localizaciones"
-          style={styles.search}
-        />
+        <View style={styles.searchRow}>
+          <TextInput
+            value={text}
+            onChangeText={setText}
+            placeholder="Buscar por nombre, barrio o etiqueta"
+            placeholderTextColor={colors.textMuted}
+            accessibilityLabel="Buscar localizaciones"
+            style={styles.search}
+          />
+          <Pressable
+            onPress={() => setSheet({ kind: 'filters' })}
+            accessibilityRole="button"
+            accessibilityLabel="Filtros"
+            style={styles.filtersButton}
+          >
+            <Icon name="slidersHorizontal" color={colors.text} size={20} />
+          </Pressable>
+        </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -166,6 +210,18 @@ export default function MapScreen() {
           router.push('/paywall');
         }}
         onDismiss={() => setSheet({ kind: 'none' })}
+      />
+
+      <FiltersSheet
+        visible={sheet.kind === 'filters'}
+        onClose={() => setSheet({ kind: 'none' })}
+        tags={catalog.tags}
+        tagId={tagId}
+        onTagChange={setTagId}
+        onlySaved={onlySaved}
+        onOnlySavedChange={setOnlySaved}
+        onlySavedAvailable={entitlement.owned}
+        resultCount={filtered.length}
       />
 
       <PurchasedSheet
@@ -211,14 +267,29 @@ const styles = StyleSheet.create({
     paddingBottom: spacing[3],
     gap: spacing[3],
   },
-  search: {
+  searchRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: spacing[4],
+    gap: spacing[2],
+  },
+  search: {
+    flex: 1,
     height: 40,
     borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.divider,
     paddingHorizontal: spacing[3],
     color: colors.text,
+  },
+  filtersButton: {
+    width: 40,
+    height: 40,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.divider,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   chips: {
     paddingHorizontal: spacing[4],

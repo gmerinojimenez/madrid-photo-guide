@@ -1,0 +1,61 @@
+import { describe, expect, it } from '@jest/globals';
+import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+
+import { skipOnboarding } from './support.ts';
+
+// La fuente de titularidad es un singleton del módulo `_layout.tsx`, que solo
+// se carga una vez por fichero de test: una compra hecha en un `it()` sigue
+// concedida en los siguientes. Cada test que necesita la compra la comprueba
+// primero en lugar de asumir el estado "sin comprar".
+async function ensureOwned(): Promise<void> {
+  const trialBar = screen.queryByLabelText('Ver la guía completa');
+  if (!trialBar) return; // ya tiene la compra, de un test anterior
+  fireEvent.press(trialBar);
+  fireEvent.press(await screen.findByText('Comprar'));
+  await screen.findByText(/desbloqueada/i);
+  fireEvent.press(screen.getByText('Volver al mapa'));
+}
+
+/**
+ * US5 §4 §5 — contracts/screens.md: los tres estados de Guardados según
+ * titularidad y contenido; los identificadores huérfanos se omiten.
+ */
+describe('Guardados', () => {
+  it('sin la compra, muestra el estado vacío que explica que guardar es de la guía completa', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/saved' });
+    expect(await screen.findAllByText(/guía completa/i)).not.toHaveLength(0);
+    expect(screen.getByLabelText('Ver la guía completa')).toBeTruthy();
+  });
+
+  it('con la compra y sin guardados, invita a guardar desde el mapa', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    await screen.findByLabelText('Buscar localizaciones');
+    await ensureOwned();
+
+    fireEvent.press(screen.getByLabelText('Guardados, tab, 3 of 4'));
+    expect(await screen.findByText(/guarda tus localizaciones favoritas/i)).toBeTruthy();
+  });
+
+  it('con la compra y con guardados, lista del más reciente al más antiguo', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    await screen.findByLabelText('Buscar localizaciones');
+    await ensureOwned();
+
+    fireEvent.press(await screen.findByLabelText('Templo de Debod'));
+    fireEvent.press(await screen.findByLabelText('Guardar'));
+    await screen.findByLabelText('Guardado');
+    fireEvent.press(screen.getByLabelText('Volver'));
+
+    fireEvent.press(await screen.findByLabelText('Puerta del Sol'));
+    fireEvent.press(await screen.findByLabelText('Guardar'));
+    await screen.findByLabelText('Guardado');
+    fireEvent.press(screen.getByLabelText('Volver'));
+
+    fireEvent.press(await screen.findByLabelText('Guardados, tab, 3 of 4'));
+    const cards = await screen.findAllByLabelText(/Templo de Debod|Puerta del Sol/);
+    expect(cards.map((c) => c.props.accessibilityLabel)).toEqual(['Puerta del Sol', 'Templo de Debod']);
+  });
+});

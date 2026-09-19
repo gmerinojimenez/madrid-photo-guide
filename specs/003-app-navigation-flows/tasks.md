@@ -214,18 +214,18 @@ la app y comprobar que siguen; desmarcar una y comprobar que desaparece.
 
 ### Tests for User Story 5 ⚠️
 
-- [ ] T063 [P] [US5] Test de aceptación en `__tests__/screens/saved.test.tsx`: los tres estados de la tabla de contracts/screens.md (con compra y guardados, con compra sin guardados, sin compra); los identificadores que ya no existen en el catálogo se omiten (US5 §4 §5)
-- [ ] T064 [P] [US5] Test de aceptación en `__tests__/screens/save-toggle.test.tsx`: guardar y desguardar desde la ficha; el orden es por recencia; sin la compra no se guarda nada y se ofrece desbloquear (US5 §1 §2 §6, FR-024, FR-027)
-- [ ] T065 [P] [US5] Test de aceptación en `__tests__/screens/saved-persistence.test.tsx`: los guardados sobreviven a un remontaje completo del árbol de rutas (US5 §3, FR-025)
-- [ ] T066 [P] [US5] Test de aceptación en `__tests__/screens/filters-sheet.test.tsx`: "solo guardados" deja únicamente los marcadores guardados; la distancia se muestra **inactiva y marcada como no disponible** (US5 §7, FR-018)
+- [X] T063 [P] [US5] Test de aceptación en `__tests__/screens/saved.test.tsx`: los tres estados de la tabla de contracts/screens.md (con compra y guardados, con compra sin guardados, sin compra); los identificadores que ya no existen en el catálogo se omiten (US5 §4 §5)
+- [X] T064 [P] [US5] Test de aceptación en `__tests__/screens/save-toggle.test.tsx`: guardar y desguardar desde la ficha; el orden es por recencia; sin la compra no se guarda nada y se ofrece desbloquear (US5 §1 §2 §6, FR-024, FR-027)
+- [X] T065 [P] [US5] Test de aceptación en `__tests__/screens/saved-persistence.test.tsx`: los guardados sobreviven a un remontaje completo del árbol de rutas (US5 §3, FR-025)
+- [X] T066 [P] [US5] Test de aceptación en `__tests__/screens/filters-sheet.test.tsx`: "solo guardados" deja únicamente los marcadores guardados; la distancia se muestra **inactiva y marcada como no disponible** (US5 §7, FR-018)
 
 ### Implementation for User Story 5
 
-- [ ] T067 [US5] Implementar el control de guardar en `app/location/[id].tsx`, comprobando la titularidad **antes** de escribir y ofreciendo desbloquear si falta (FR-024, FR-027)
-- [ ] T068 [US5] Implementar la pantalla de guardados en `app/(tabs)/saved.tsx` cruzando `SavedLocationsStore.list()` con el catálogo y descartando los identificadores huérfanos
-- [ ] T069 [US5] Implementar los tres estados vacíos en `app/(tabs)/saved.tsx`, con CTA al paywall cuando no hay compra
-- [ ] T070 [US5] Implementar el panel de filtros en `src/ui/sheets/FiltersSheet.tsx`: chips de tipo y "solo guardados" operativos, distancia visible pero inactiva, y resumen de resultados con el recuento real (FR-018)
-- [ ] T071 [US5] Aplicar `onlySaved` a la composición de criterios de `app/(tabs)/index.tsx`, intersecando con la lista de guardados (FR-019)
+- [X] T067 [US5] Implementar el control de guardar en `app/location/[id].tsx`, comprobando la titularidad **antes** de escribir y ofreciendo desbloquear si falta (FR-024, FR-027)
+- [X] T068 [US5] Implementar la pantalla de guardados en `app/(tabs)/saved.tsx` cruzando `SavedLocationsStore.list()` con el catálogo y descartando los identificadores huérfanos
+- [X] T069 [US5] Implementar los tres estados vacíos en `app/(tabs)/saved.tsx`, con CTA al paywall cuando no hay compra
+- [X] T070 [US5] Implementar el panel de filtros en `src/ui/sheets/FiltersSheet.tsx`: chips de tipo y "solo guardados" operativos, distancia visible pero inactiva, y resumen de resultados con el recuento real (FR-018)
+- [X] T071 [US5] Aplicar `onlySaved` a la composición de criterios de `app/(tabs)/index.tsx`, intersecando con la lista de guardados (FR-019)
 
 **Checkpoint**: la guía completa aporta valor propio más allá de desbloquear contenido.
 
