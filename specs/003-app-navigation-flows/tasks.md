@@ -68,14 +68,14 @@ que cualquier historia necesita.
 
 ### Núcleo nuevo (contracts/core-api.md)
 
-- [ ] T012 [P] Implementar `catalogCounts` en `src/core/content/counts.ts` y exportarlo desde `src/core/content/index.ts`
-- [ ] T013 [P] Escribir los tests unitarios de recuentos en `__tests__/core/counts.test.ts`, incluyendo el invariante `free + premium === total` y el catálogo sin premium
-- [ ] T014 [P] Implementar la interfaz `EntitlementSource` en `src/core/entitlement/source.ts` y `InMemoryEntitlementSource` en `src/core/entitlement/in-memory.ts`, con `index.ts` de exportación
-- [ ] T015 [P] Escribir los tests unitarios de titularidad en `__tests__/core/entitlement.test.ts`: arranque sin la compra, `grant()` notifica una sola vez, `grant()` idempotente, desuscripción idempotente
-- [ ] T016 [P] Implementar `formatCoordinates`, `googleMapsUrl` y `appleMapsUrl` en `src/core/navigation/links.ts`
-- [ ] T017 [P] Escribir los tests unitarios de enlaces en `__tests__/core/links.test.ts`, comprobando **punto decimal invariable respecto del idioma**, seis decimales, coordenadas negativas y escapado del nombre
-- [ ] T018 [P] Definir los puertos `SavedLocationsStore` y `PreferencesStore` en `src/core/storage/ports.ts` e implementar los dobles en memoria en `src/core/storage/in-memory.ts`, con modo "siempre falla" y `index.ts` de exportación
-- [ ] T019 [P] Escribir la batería de contrato de almacenamiento en `__tests__/core/storage.test.ts`: `save` idempotente, `remove` de lo no guardado, orden por recencia, y la regla de degradación (lectura fallida → valor por defecto, escritura fallida → descartada, **ningún método rechaza**)
+- [X] T012 [P] Implementar `catalogCounts` en `src/core/content/counts.ts` y exportarlo desde `src/core/content/index.ts`
+- [X] T013 [P] Escribir los tests unitarios de recuentos en `__tests__/core/counts.test.ts`, incluyendo el invariante `free + premium === total` y el catálogo sin premium
+- [X] T014 [P] Implementar la interfaz `EntitlementSource` en `src/core/entitlement/source.ts` y `InMemoryEntitlementSource` en `src/core/entitlement/in-memory.ts`, con `index.ts` de exportación
+- [X] T015 [P] Escribir los tests unitarios de titularidad en `__tests__/core/entitlement.test.ts`: arranque sin la compra, `grant()` notifica una sola vez, `grant()` idempotente, desuscripción idempotente
+- [X] T016 [P] Implementar `formatCoordinates`, `googleMapsUrl` y `appleMapsUrl` en `src/core/navigation/links.ts`
+- [X] T017 [P] Escribir los tests unitarios de enlaces en `__tests__/core/links.test.ts`, comprobando **punto decimal invariable respecto del idioma**, seis decimales, coordenadas negativas y escapado del nombre
+- [X] T018 [P] Definir los puertos `SavedLocationsStore` y `PreferencesStore` en `src/core/storage/ports.ts` e implementar los dobles en memoria en `src/core/storage/in-memory.ts`, con modo "siempre falla" y `index.ts` de exportación
+- [X] T019 [P] Escribir la batería de contrato de almacenamiento en `__tests__/core/storage.test.ts`: `save` idempotente, `remove` de lo no guardado, orden por recencia, y la regla de degradación (lectura fallida → valor por defecto, escritura fallida → descartada, **ningún método rechaza**)
 
 ### Persistencia nativa (data-model.md §1)
 
