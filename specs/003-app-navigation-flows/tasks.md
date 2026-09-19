@@ -262,13 +262,13 @@ comprobar que la línea pasa a guía completa.
 
 ### Tests for User Story 7 ⚠️
 
-- [ ] T077 [P] [US7] Test de aceptación en `__tests__/screens/profile.test.tsx`: la línea de plan dice modo prueba con "{free} de {total}" sin la compra y guía completa con el total tras comprar; la oferta de desbloquear solo aparece sin la compra; las cinco filas se muestran sin acción (US7 §1 §2 §3, FR-012, FR-034)
+- [X] T077 [P] [US7] Test de aceptación en `__tests__/screens/profile.test.tsx`: la línea de plan dice modo prueba con "{free} de {total}" sin la compra y guía completa con el total tras comprar; la oferta de desbloquear solo aparece sin la compra; las cinco filas se muestran sin acción (US7 §1 §2 §3, FR-012, FR-034)
 
 ### Implementation for User Story 7
 
-- [ ] T078 [US7] Implementar la pantalla de perfil en `app/(tabs)/profile.tsx` con la línea de plan derivada de `catalogCounts` y la titularidad
-- [ ] T079 [US7] Implementar la tarjeta de modo prueba en `app/(tabs)/profile.tsx` con acceso al paywall, visible solo sin la compra
-- [ ] T080 [US7] Implementar en `app/(tabs)/profile.tsx` las cinco filas informativas (descarga sin conexión, app de navegación, mi equipo, idioma, restaurar compra) **sin acción asociada**, presentadas como informativas y no como controles rotos (FR-034)
+- [X] T078 [US7] Implementar la pantalla de perfil en `app/(tabs)/profile.tsx` con la línea de plan derivada de `catalogCounts` y la titularidad
+- [X] T079 [US7] Implementar la tarjeta de modo prueba en `app/(tabs)/profile.tsx` con acceso al paywall, visible solo sin la compra
+- [X] T080 [US7] Implementar en `app/(tabs)/profile.tsx` las cinco filas informativas (descarga sin conexión, app de navegación, mi equipo, idioma, restaurar compra) **sin acción asociada**, presentadas como informativas y no como controles rotos (FR-034)
 
 **Checkpoint**: las siete historias funcionan de forma independiente.
 
