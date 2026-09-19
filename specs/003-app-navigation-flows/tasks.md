@@ -191,15 +191,15 @@ consejo y saltar desde él a una ficha.
 
 ### Tests for User Story 4 ⚠️
 
-- [ ] T057 [P] [US4] Test de aceptación en `__tests__/screens/tips.test.tsx`: los consejos se listan agrupados por categoría en el orden del catálogo; los chips filtran y "Todo" los restituye; **se ven completos con y sin la compra** (US4 §1 §2 §5, FR-011)
-- [ ] T058 [P] [US4] Test de aceptación en `__tests__/screens/tip-detail.test.tsx`: el detalle muestra categoría, título, cuerpo y relacionadas; una relacionada inexistente se omite sin fallar; tocar una aplica R-3; volver atrás devuelve **al consejo**, no al mapa (US4 §3 §4, R-4)
+- [X] T057 [P] [US4] Test de aceptación en `__tests__/screens/tips.test.tsx`: los consejos se listan agrupados por categoría en el orden del catálogo; los chips filtran y "Todo" los restituye; **se ven completos con y sin la compra** (US4 §1 §2 §5, FR-011)
+- [X] T058 [P] [US4] Test de aceptación en `__tests__/screens/tip-detail.test.tsx`: el detalle muestra categoría, título, cuerpo y relacionadas; una relacionada inexistente se omite sin fallar; tocar una aplica R-3; volver atrás devuelve **al consejo**, no al mapa (US4 §3 §4, R-4)
 
 ### Implementation for User Story 4
 
-- [ ] T059 [US4] Implementar la pantalla de consejos en `app/(tabs)/tips.tsx` sobre `tipsByCategory`, con encabezado y tarjetas
-- [ ] T060 [US4] Implementar los chips de categoría en `app/(tabs)/tips.tsx` con las categorías del catálogo más "Todo"
-- [ ] T061 [US4] Implementar el detalle de consejo en `app/tip/[id].tsx` con cuerpo completo y lista de localizaciones relacionadas, omitiendo las que no existen en el catálogo
-- [ ] T062 [US4] Aplicar la regla R-3 al tocar una localización relacionada en `app/tip/[id].tsx`, reutilizando el mismo punto de decisión que el mapa
+- [X] T059 [US4] Implementar la pantalla de consejos en `app/(tabs)/tips.tsx` sobre `tipsByCategory`, con encabezado y tarjetas
+- [X] T060 [US4] Implementar los chips de categoría en `app/(tabs)/tips.tsx` con las categorías del catálogo más "Todo"
+- [X] T061 [US4] Implementar el detalle de consejo en `app/tip/[id].tsx` con cuerpo completo y lista de localizaciones relacionadas, omitiendo las que no existen en el catálogo
+- [X] T062 [US4] Aplicar la regla R-3 al tocar una localización relacionada en `app/tip/[id].tsx`, reutilizando el mismo punto de decisión que el mapa
 
 **Checkpoint**: la sección gratuita de la guía está completa.
 

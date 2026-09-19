@@ -97,6 +97,7 @@ function RootNavigator() {
     >
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="location/[id]" />
+      <Stack.Screen name="tip/[id]" />
       <Stack.Screen name="paywall" options={{ presentation: 'modal' }} />
       <Stack.Screen name="onboarding" />
     </Stack>
