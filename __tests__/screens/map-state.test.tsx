@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen, testRouter } from 'expo-router/testing-library';
+import { skipOnboarding } from './support.ts';
 
 /**
  * US1 §3 — FR-002: abrir una ficha y volver atrás conserva la pestaña activa,
@@ -7,6 +8,7 @@ import { fireEvent, renderRouter, screen, testRouter } from 'expo-router/testing
  */
 describe('Mapa — conservación de estado', () => {
   it('conserva el texto buscado, el chip y la sección tras abrir y cerrar una ficha', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
 
     const input = await screen.findByLabelText('Buscar localizaciones');

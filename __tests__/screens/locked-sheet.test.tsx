@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { skipOnboarding } from './support.ts';
 
 /**
  * US2 §1 §2 — FR-010: tocar una localización de pago sin la compra abre el
@@ -7,6 +8,7 @@ import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
  */
 describe('Panel de contenido bloqueado', () => {
   it('muestra nombre, barrio y zona aproximada, sin coordenadas ni EXIF ni descripción', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     fireEvent.press(await screen.findByLabelText('Cerro del Tío Pío'));
 
@@ -19,6 +21,7 @@ describe('Panel de contenido bloqueado', () => {
   });
 
   it('"Seguir en modo prueba" cierra el panel sin cambiar nada', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     fireEvent.press(await screen.findByLabelText('Cerro del Tío Pío'));
     await screen.findByText('Vallecas'); // barrio, solo visible dentro del panel

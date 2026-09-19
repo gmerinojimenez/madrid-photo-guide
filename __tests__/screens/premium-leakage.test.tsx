@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { skipOnboarding } from './support.ts';
 
 /**
  * SC-003, FR-010 — ningún campo reservado a la compra es alcanzable sin ella
@@ -7,6 +8,7 @@ import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
  */
 describe('Fuga de contenido de pago', () => {
   it('buscar una localización de pago por nombre no revela sus campos reservados', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     const input = await screen.findByLabelText('Buscar localizaciones');
     fireEvent.changeText(input, 'Tío Pío');
@@ -17,6 +19,7 @@ describe('Fuga de contenido de pago', () => {
   });
 
   it('la ficha de una localización de pago no es alcanzable por enlace directo sin la compra', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/location/tiopio' });
     expect(await screen.findByText(/contenido no disponible/i)).toBeTruthy();
     expect(screen.queryByText('Sony A7 IV')).toBeNull();
@@ -24,6 +27,7 @@ describe('Fuga de contenido de pago', () => {
   });
 
   it('el panel de contenido bloqueado nunca expone coordenadas, EXIF ni descripción', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     await screen.findAllByTestId(/^marker-/);
     for (const name of ['Cerro del Tío Pío', 'Círculo de Bellas Artes', 'Matadero Madrid']) {

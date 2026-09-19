@@ -168,14 +168,14 @@ mapa, cerrar y reabrir, y comprobar que arranca en el mapa.
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T052 [P] [US3] Test de aceptación en `__tests__/screens/onboarding.test.tsx`: sin la marca, la app arranca en el paso 1 sin pestañas; el indicador refleja el paso; el paso 2 avanza igual aceptando que posponiendo y **no solicita permisos** (US3 §1 §2 §3)
-- [ ] T053 [P] [US3] Test de aceptación en `__tests__/screens/onboarding-exits.test.tsx`: las cuatro salidas de la tabla R-2 llevan a su destino y **todas** escriben la marca, incluida la salida al paywall; con la marca puesta, la app arranca en el mapa (US3 §4 §5 §6, FR-005)
+- [X] T052 [P] [US3] Test de aceptación en `__tests__/screens/onboarding.test.tsx`: sin la marca, la app arranca en el paso 1 sin pestañas; el indicador refleja el paso; el paso 2 avanza igual aceptando que posponiendo y **no solicita permisos** (US3 §1 §2 §3)
+- [X] T053 [P] [US3] Test de aceptación en `__tests__/screens/onboarding-exits.test.tsx`: las cuatro salidas de la tabla R-2 llevan a su destino y **todas** escriben la marca, incluida la salida al paywall; con la marca puesta, la app arranca en el mapa (US3 §4 §5 §6, FR-005)
 
 ### Implementation for User Story 3
 
-- [ ] T054 [US3] Implementar la ruta de presentación en `app/onboarding.tsx` con los tres pasos en estado local, el indicador de progreso y el copy del prototipo, tomando del catálogo el recuento y los nombres de las gratuitas (FR-012)
-- [ ] T055 [US3] Añadir al layout raíz `app/_layout.tsx` la redirección condicional de la regla R-1: leer `onboarding.completed`, mantener la pantalla de arranque durante la lectura y **sustituir** la entrada de historial al redirigir
-- [ ] T056 [US3] Implementar las cuatro salidas de la tabla R-2 en `app/onboarding.tsx`, escribiendo `onboarding.completed` en todas ellas antes de navegar
+- [X] T054 [US3] Implementar la ruta de presentación en `app/onboarding.tsx` con los tres pasos en estado local, el indicador de progreso y el copy del prototipo, tomando del catálogo el recuento y los nombres de las gratuitas (FR-012)
+- [X] T055 [US3] Añadir al layout raíz `app/_layout.tsx` la redirección condicional de la regla R-1: leer `onboarding.completed`, mantener la pantalla de arranque durante la lectura y **sustituir** la entrada de historial al redirigir
+- [X] T056 [US3] Implementar las cuatro salidas de la tabla R-2 en `app/onboarding.tsx`, escribiendo `onboarding.completed` en todas ellas antes de navegar
 
 **Checkpoint**: primer arranque guiado; los siguientes van directos al mapa.
 

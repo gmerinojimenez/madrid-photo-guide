@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { skipOnboarding } from './support.ts';
 
 /**
  * US1 §4 §5 — FR-015, FR-016, FR-019: el buscador filtra por nombre, barrio y
@@ -8,6 +9,7 @@ import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
  */
 describe('Mapa — búsqueda y filtros', () => {
   it('buscar "debod" deja solo esa localización', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     const input = await screen.findByLabelText('Buscar localizaciones');
     fireEvent.changeText(input, 'debod');
@@ -16,6 +18,7 @@ describe('Mapa — búsqueda y filtros', () => {
   });
 
   it('buscar "Argüelles" y "arguelles" (sin acento) filtra igual, por el barrio', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     const input = await screen.findByLabelText('Buscar localizaciones');
 
@@ -31,6 +34,7 @@ describe('Mapa — búsqueda y filtros', () => {
   });
 
   it('seleccionar el chip "Callejera" filtra a las localizaciones con esa etiqueta', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     await screen.findAllByTestId(/^marker-/);
     fireEvent.press(screen.getByText('Callejera'));
@@ -39,6 +43,7 @@ describe('Mapa — búsqueda y filtros', () => {
   });
 
   it('los criterios de búsqueda y chip se componen', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     const input = await screen.findByLabelText('Buscar localizaciones');
     fireEvent.press(screen.getByText('Callejera'));
@@ -48,6 +53,7 @@ describe('Mapa — búsqueda y filtros', () => {
   });
 
   it('el chip "Todo" no filtra: restituye todas las localizaciones', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     await screen.findAllByTestId(/^marker-/);
     fireEvent.press(screen.getByText('Callejera'));
@@ -57,6 +63,7 @@ describe('Mapa — búsqueda y filtros', () => {
   });
 
   it('sin resultados, se informa en lugar de dejar el mapa mudo', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     const input = await screen.findByLabelText('Buscar localizaciones');
     fireEvent.changeText(input, 'no-existe-ninguna-localizacion-con-este-texto');

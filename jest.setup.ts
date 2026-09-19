@@ -271,6 +271,17 @@ jest.mock('expo-sqlite', () => {
     SQLiteProvider,
     useSQLiteContext,
     __resetFakeDatabases: () => instances.clear(),
+    // Ayudante de test (T052 en adelante): siembra una preferencia directamente
+    // en el almacén de la app real ("madrid-photo-guide.db") antes de montar el
+    // árbol de rutas, para los tests que no versan sobre la presentación
+    // inicial y necesitan arrancar como si ya se hubiera visto.
+    __seedPreference: async (key: string, value: string) => {
+      const db = getInstance('madrid-photo-guide.db');
+      await db.execAsync(
+        'CREATE TABLE IF NOT EXISTS preferences (key TEXT PRIMARY KEY NOT NULL, value TEXT NOT NULL);',
+      );
+      await db.runAsync('INSERT INTO preferences (key, value) VALUES (?, ?)', [key, value]);
+    },
   };
 });
 

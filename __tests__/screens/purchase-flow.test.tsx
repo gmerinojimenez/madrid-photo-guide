@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { skipOnboarding } from './support.ts';
 
 /**
  * US2 §4 §5 — FR-030, FR-031: comprar lleva al mapa, abre el panel de compra
@@ -7,6 +8,7 @@ import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
  */
 describe('Flujo de compra', () => {
   it('comprar concede la titularidad, vuelve al mapa y abre la compra completada', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
 
     expect(await screen.findByText(/5 de 14 localizaciones/)).toBeTruthy();

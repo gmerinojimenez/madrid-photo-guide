@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { skipOnboarding } from './support.ts';
 
 /**
  * US2 §3 §6 — FR-032, FR-012: el paywall muestra 9,99 € y el total real del
@@ -8,12 +9,14 @@ import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
  */
 describe('Paywall', () => {
   it('muestra el precio fijo y el total real de localizaciones', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/paywall' });
     expect(await screen.findByText('9,99 €')).toBeTruthy();
     expect(screen.getByText(/14/)).toBeTruthy();
   });
 
   it('cerrar sin comprar vuelve al mapa sin conceder la titularidad', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     fireEvent.press(await screen.findByLabelText('Cerro del Tío Pío'));
     fireEvent.press(await screen.findByText('Desbloquear'));

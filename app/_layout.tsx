@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 
-import { useEffect } from 'react';
-import { Stack } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { SQLiteProvider } from 'expo-sqlite';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -10,7 +10,12 @@ import { InMemoryEntitlementSource } from '../src/core/entitlement/in-memory.ts'
 import { migrate } from '../src/platform/storage/schema.ts';
 import { consoleLogger } from '../src/platform/system/console-logger.ts';
 import { colors } from '../src/ui/theme/tokens.ts';
-import { CatalogProvider, EntitlementProvider, StoresProvider } from '../src/ui/providers/index.ts';
+import {
+  CatalogProvider,
+  EntitlementProvider,
+  StoresProvider,
+  usePreferencesStore,
+} from '../src/ui/providers/index.ts';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -20,9 +25,8 @@ const entitlementSource = new InMemoryEntitlementSource();
 
 /**
  * Stack raíz: `SafeAreaProvider` → `SQLiteProvider` → catálogo → titularidad →
- * almacenes → `Stack` (contracts/routes.md). Todavía sin la redirección
- * condicional a onboarding (regla R-1): llega en US3 (T055), para que US1 y US2
- * sean entregables por separado.
+ * almacenes → `Stack` (contracts/routes.md), con la redirección condicional a
+ * onboarding de la regla R-1.
  */
 export default function RootLayout() {
   return (
@@ -50,14 +54,40 @@ export default function RootLayout() {
 }
 
 function RootNavigator() {
+  const preferences = usePreferencesStore();
+  const router = useRouter();
+  // `null` = todavía leyendo; mientras tanto se mantiene la pantalla de
+  // arranque, para que el mapa no se vea ni por un fotograma antes de
+  // redirigir (R-1). Se lee y se decide una sola vez al arrancar: la
+  // redirección no debe repetirse cuando la propia presentación, más tarde,
+  // escriba la marca y navegue por su cuenta.
+  const [ready, setReady] = useState(false);
+  const redirected = useRef(false);
+
   useEffect(() => {
-    SplashScreen.hideAsync().catch(() => {});
+    let cancelled = false;
+    preferences.get('onboarding.completed').then((value) => {
+      if (cancelled) return;
+      if (value !== '1' && !redirected.current) {
+        redirected.current = true;
+        router.replace('/onboarding');
+      }
+      setReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- se ejecuta una sola vez al montar
   }, []);
 
-  // Solo se declara aquí lo que ya existe como fichero de ruta: declarar un
-  // Stack.Screen sin fichero detrás produce el aviso "Too many screens defined"
-  // de Expo Router. `onboarding` y `tip/[id]` se añaden en las fases que crean
-  // esos ficheros (US3, US4).
+  useEffect(() => {
+    if (ready) {
+      SplashScreen.hideAsync().catch(() => {});
+    }
+  }, [ready]);
+
+  if (!ready) return null;
+
   return (
     <Stack
       screenOptions={{
@@ -68,6 +98,7 @@ function RootNavigator() {
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="location/[id]" />
       <Stack.Screen name="paywall" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="onboarding" />
     </Stack>
   );
 }

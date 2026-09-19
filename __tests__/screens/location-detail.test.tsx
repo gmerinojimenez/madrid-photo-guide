@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { skipOnboarding } from './support.ts';
 
 /**
  * US1 §2 §6 — FR-020, FR-021: tocar una localización gratuita abre su ficha con
@@ -7,6 +8,7 @@ import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
  */
 describe('Ficha de localización', () => {
   it('tocar el Templo de Debod abre su ficha con los datos reales del catálogo', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     fireEvent.press(await screen.findByLabelText('Templo de Debod'));
 
@@ -20,12 +22,14 @@ describe('Ficha de localización', () => {
   });
 
   it('muestra "Distancia no disponible" en lugar de una distancia (D-012)', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     fireEvent.press(await screen.findByLabelText('Templo de Debod'));
     expect(await screen.findByText('Distancia no disponible')).toBeTruthy();
   });
 
   it('un identificador inexistente muestra "contenido no disponible" con vuelta atrás', async () => {
+    await skipOnboarding();
     renderRouter('app', { initialUrl: '/location/no-existe' });
     expect(await screen.findByText(/contenido no disponible/i)).toBeTruthy();
   });

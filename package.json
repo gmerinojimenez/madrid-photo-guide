@@ -23,8 +23,10 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "-contract\\.ts$"
-    ]
+      "-contract\\.ts$",
+      "__tests__/screens/support\\.ts$"
+    ],
+    "testTimeout": 20000
   },
   "expo": {
     "install": {
