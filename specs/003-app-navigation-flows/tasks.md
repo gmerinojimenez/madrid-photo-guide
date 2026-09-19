@@ -240,14 +240,14 @@ que la elegida entrega al sistema la ubicación correcta.
 
 ### Tests for User Story 6 ⚠️
 
-- [ ] T072 [P] [US6] Test de aceptación en `__tests__/screens/nav-sheet.test.tsx`: el panel ofrece Google Maps, Apple Maps y copiar, con las coordenadas a la vista; elegir una app entrega a `Linking.openURL` **la URL exacta** con las coordenadas de esa localización (US6 §1 §2)
-- [ ] T073 [P] [US6] Test de aceptación en `__tests__/screens/copy-coords.test.tsx`: copiar escribe en el portapapeles **el mismo texto que la ficha muestra** y lo confirma visualmente (US6 §3)
+- [X] T072 [P] [US6] Test de aceptación en `__tests__/screens/nav-sheet.test.tsx`: el panel ofrece Google Maps, Apple Maps y copiar, con las coordenadas a la vista; elegir una app entrega a `Linking.openURL` **la URL exacta** con las coordenadas de esa localización (US6 §1 §2)
+- [X] T073 [P] [US6] Test de aceptación en `__tests__/screens/copy-coords.test.tsx`: copiar escribe en el portapapeles **el mismo texto que la ficha muestra** y lo confirma visualmente (US6 §3)
 
 ### Implementation for User Story 6
 
-- [ ] T074 [US6] Implementar el panel de navegación en `src/ui/sheets/NavSheet.tsx` con las tres opciones, usando `googleMapsUrl` y `appleMapsUrl` del núcleo y el adaptador de sistema de T024
-- [ ] T075 [US6] Conectar el botón "Navegar hasta la foto" de `app/location/[id].tsx` al panel, y mostrar las coordenadas con `formatCoordinates` en la ficha y en el panel (FR-023)
-- [ ] T076 [US6] Implementar la confirmación visual de copiado en `src/ui/sheets/NavSheet.tsx`, con vuelta al estado inicial pasados unos segundos
+- [X] T074 [US6] Implementar el panel de navegación en `src/ui/sheets/NavSheet.tsx` con las tres opciones, usando `googleMapsUrl` y `appleMapsUrl` del núcleo y el adaptador de sistema de T024
+- [X] T075 [US6] Conectar el botón "Navegar hasta la foto" de `app/location/[id].tsx` al panel, y mostrar las coordenadas con `formatCoordinates` en la ficha y en el panel (FR-023)
+- [X] T076 [US6] Implementar la confirmación visual de copiado en `src/ui/sheets/NavSheet.tsx`, con vuelta al estado inicial pasados unos segundos
 
 **Checkpoint**: la guía es utilizable en la calle.
 

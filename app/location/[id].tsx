@@ -7,6 +7,7 @@ import { formatCoordinates } from '../../src/core/navigation/links.ts';
 import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
 import { ImagePlaceholder } from '../../src/ui/components/ImagePlaceholder.tsx';
 import { Icon } from '../../src/ui/components/Icon.tsx';
+import { NavSheet } from '../../src/ui/sheets/NavSheet.tsx';
 import {
   useCatalog,
   useEntitlement,
@@ -28,6 +29,7 @@ export default function LocationDetailScreen() {
   const savedLocations = useSavedLocationsStore();
   const router = useRouter();
   const [saved, setSaved] = useState(false);
+  const [navVisible, setNavVisible] = useState(false);
 
   const location = catalog.locations.find((candidate) => candidate.id === id);
   const view = location ? viewLocation(location, entitlement) : null;
@@ -130,6 +132,16 @@ export default function LocationDetailScreen() {
 
       <Row icon="mapPin" label="Coordenadas" value={formatCoordinates(full.coords)} />
 
+      <Pressable
+        onPress={() => setNavVisible(true)}
+        accessibilityRole="button"
+        accessibilityLabel="Navegar hasta la foto"
+        style={styles.navButton}
+      >
+        <Icon name="navigationArrow" color={colors.bg} size={18} />
+        <Text style={styles.navButtonLabel}>Navegar hasta la foto</Text>
+      </Pressable>
+
       <Text style={styles.sectionTitle}>La toma</Text>
       <Text style={styles.body}>{localize(full.shotDescription, 'es')}</Text>
 
@@ -157,6 +169,8 @@ export default function LocationDetailScreen() {
           <Text style={styles.body}>{localize(neighbourhood.description, 'es')}</Text>
         </>
       ) : null}
+
+      <NavSheet visible={navVisible} onClose={() => setNavVisible(false)} coords={full.coords} />
     </ScrollView>
   );
 }
@@ -199,6 +213,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.surface,
+  },
+  navButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing[2],
+    paddingVertical: spacing[3],
+    borderRadius: radius.md,
+    backgroundColor: colors.accent,
+  },
+  navButtonLabel: {
+    color: colors.bg,
+    fontSize: 14,
+    fontWeight: '500',
   },
   image: {
     height: 200,
