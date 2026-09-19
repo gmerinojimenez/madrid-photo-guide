@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-18",
+  "locales": ["es"],
+
+  "access": {
+    "premiumFields": ["coords", "bestTime", "shotDescription", "neighbourhoodDescription", "capture", "detailImage", "extraImages"]
+  },
+
+  "tags": [
+    { "id": "skyline", "label": { "es": "Skyline" } },
+    { "id": "callejera", "label": { "es": "Callejera" } },
+    { "id": "arquitectura", "label": { "es": "Arquitectura" } },
+    { "id": "atardecer", "label": { "es": "Atardecer" } },
+    { "id": "nocturna", "label": { "es": "Nocturna" } }
+  ],
+
+  "tipCategories": [
+    { "id": "ver", "label": { "es": "Ver" } },
+    { "id": "comer", "label": { "es": "Comer" } },
+    { "id": "dormir", "label": { "es": "Dormir" } },
+    { "id": "transporte", "label": { "es": "Transporte" } }
+  ],
+
+  "neighbourhoods": [
+    {
+      "id": "arguelles",
+      "name": { "es": "Argüelles" },
+      "description": {
+        "es": "Argüelles es tranquilo y muy andable. Al lado tienes el Parque del Oeste y el Templo de Debod, perfecto para combinar en la misma tarde."
+      }
+    },
+    {
+      "id": "plaza-castilla",
+      "name": { "es": "Plaza Castilla" },
+      "description": {
+        "es": "El límite entre el Madrid antiguo y el moderno: rascacielos, tráfico y la Puerta de Europa inclinándose una hacia la otra."
+      }
+    },
+    {
+      "id": "chamartin",
+      "name": { "es": "Chamartín" },
+      "description": {
+        "es": "El distrito financiero, con las Cuatro Torres dominando el horizonte desde casi cualquier punto alto de la ciudad."
+      }
+    },
+    {
+      "id": "centro",
+      "name": { "es": "Centro" },
+      "description": {
+        "es": "El corazón turístico de Madrid: Sol, Plaza Mayor y el Rastro a un paseo corto entre sí."
+      }
+    }
+  ],
+
+  "locations": [
+    {
+      "id": "debod",
+      "name": { "es": "Templo de Debod" },
+      "neighbourhoodId": "arguelles",
+      "tagIds": ["atardecer", "arquitectura"],
+      "access": "free",
+      "approximateArea": { "lat": 40.424, "lng": -3.7177, "radiusMeters": 400 },
+      "thumbnail": {
+        "locationId": "debod",
+        "usage": "thumb",
+        "alt": { "es": "El Templo de Debod reflejado en su estanque al atardecer" },
+        "aspectRatio": 1.3333
+      },
+      "coords": { "lat": 40.424, "lng": -3.71766 },
+      "bestTime": { "es": "45 min antes del atardecer" },
+      "shotDescription": {
+        "es": "El reflejo funciona desde el lado sur del estanque, agachado casi a ras de agua. Espera a que el cielo tome color antes de disparar."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 24,
+        "aperture": "f/8",
+        "shutterSpeed": "1/125 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "debod",
+        "usage": "detail",
+        "alt": { "es": "El Templo de Debod reflejado en su estanque al atardecer" },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "castilla",
+      "name": { "es": "Puerta de Europa" },
+      "neighbourhoodId": "plaza-castilla",
+      "tagIds": ["skyline", "arquitectura"],
+      "access": "free",
+      "approximateArea": { "lat": 40.4656, "lng": -3.6889, "radiusMeters": 350 },
+      "thumbnail": {
+        "locationId": "castilla",
+        "usage": "thumb",
+        "alt": { "es": "Las dos torres inclinadas de la Puerta de Europa" },
+        "aspectRatio": 1.5
+      },
+      "coords": { "lat": 40.4658, "lng": -3.6885 },
+      "bestTime": { "es": "mediodía, para que el sol no queme el contraluz" },
+      "shotDescription": {
+        "es": "Colócate en la mediana del Paseo de la Castellana para que las dos torres se inclinen la una hacia la otra en el encuadre."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 16,
+        "aperture": "f/11",
+        "shutterSpeed": "1/250 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "castilla",
+        "usage": "detail",
+        "alt": { "es": "Las dos torres inclinadas de la Puerta de Europa" },
+        "aspectRatio": 1.5
+      }
+    },
+    {
+      "id": "torres",
+      "name": { "es": "Cuatro Torres" },
+      "neighbourhoodId": "chamartin",
+      "tagIds": ["skyline", "nocturna"],
+      "access": "free",
+      "approximateArea": { "lat": 40.4759, "lng": -3.6890, "radiusMeters": 500 },
+      "thumbnail": {
+        "locationId": "torres",
+        "usage": "thumb",
+        "alt": { "es": "El perfil de las Cuatro Torres al anochecer" },
+        "aspectRatio": 1.7778
+      },
+      "coords": { "lat": 40.4761, "lng": -3.6887 },
+      "bestTime": { "es": "20 min tras la puesta de sol, en la hora azul" },
+      "shotDescription": {
+        "es": "Desde el Paseo de la Castellana a la altura de Fuencarral, con teleobjetivo para comprimir las cuatro torres en una sola línea."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 70,
+        "aperture": "f/8",
+        "shutterSpeed": "2 s",
+        "iso": 200
+      },
+      "detailImage": {
+        "locationId": "torres",
+        "usage": "detail",
+        "alt": { "es": "El perfil de las Cuatro Torres al anochecer" },
+        "aspectRatio": 1.7778
+      }
+    },
+    {
+      "id": "sol",
+      "name": { "es": "Puerta del Sol" },
+      "neighbourhoodId": "centro",
+      "tagIds": ["callejera", "nocturna"],
+      "access": "free",
+      "approximateArea": { "lat": 40.4169, "lng": -3.7033, "radiusMeters": 300 },
+      "thumbnail": {
+        "locationId": "sol",
+        "usage": "thumb",
+        "alt": { "es": "El bullicio de la Puerta del Sol de noche" },
+        "aspectRatio": 1.5
+      },
+      "coords": { "lat": 40.4169, "lng": -3.7033 },
+      "bestTime": { "es": "cualquier noche de fin de semana, cuanto más gente mejor" },
+      "shotDescription": {
+        "es": "Sube a la escalinata frente al reloj y dispara hacia el oso y el madroño con la gente moviéndose en primer plano para dar sensación de vida."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 35,
+        "aperture": "f/4",
+        "shutterSpeed": "1/60 s",
+        "iso": 1600
+      },
+      "detailImage": {
+        "locationId": "sol",
+        "usage": "detail",
+        "alt": { "es": "El bullicio de la Puerta del Sol de noche" },
+        "aspectRatio": 1.5
+      }
+    },
+    {
+      "id": "mayor",
+      "name": { "es": "Plaza Mayor" },
+      "neighbourhoodId": "centro",
+      "tagIds": ["arquitectura", "callejera"],
+      "access": "free",
+      "approximateArea": { "lat": 40.4155, "lng": -3.7074, "radiusMeters": 300 },
+      "thumbnail": {
+        "locationId": "mayor",
+        "usage": "thumb",
+        "alt": { "es": "Los soportales de la Plaza Mayor al atardecer" },
+        "aspectRatio": 1.3333
+      },
+      "coords": { "lat": 40.4155, "lng": -3.7074 },
+      "bestTime": { "es": "última hora de la tarde, cuando el sol entra rasante bajo los soportales" },
+      "shotDescription": {
+        "es": "Entra por el Arco de Cuchilleros y dispara hacia el centro de la plaza; los soportales enmarcan la escena a ambos lados."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 24,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/200 s",
+        "iso": 200
+      },
+      "detailImage": {
+        "locationId": "mayor",
+        "usage": "detail",
+        "alt": { "es": "Los soportales de la Plaza Mayor al atardecer" },
+        "aspectRatio": 1.3333
+      }
+    }
+  ],
+
+  "tips": [
+    {
+      "id": "faro",
+      "categoryId": "ver",
+      "title": { "es": "Sube al Faro de Moncloa al atardecer" },
+      "context": { "es": "8 € · 92 m de altura · vistas de 360º" },
+      "body": [
+        { "es": "Es el mirador más rápido de Madrid: ascensor directo hasta la cabina panorámica." },
+        { "es": "El cristal refleja: pega el parasol o la mano al cristal para evitar el reflejo en las fotos." }
+      ],
+      "relatedLocationIds": ["debod"]
+    },
+    {
+      "id": "cebada",
+      "categoryId": "comer",
+      "title": { "es": "Mercado de la Cebada, para comer barato y bien" },
+      "context": { "es": "Puestos desde 4 €" },
+      "body": [
+        { "es": "Un mercado de barrio de verdad, sin la aglomeración del Mercado de San Miguel." },
+        { "es": "Los puestos de tapas del piso de arriba abren hasta media tarde entre semana." }
+      ],
+      "relatedLocationIds": ["mayor"]
+    },
+    {
+      "id": "donde-dormir",
+      "categoryId": "dormir",
+      "title": { "es": "Dónde alojarse si vienes a hacer fotos" },
+      "context": { "es": "Centro o Chamberí, para no depender del coche" },
+      "body": [
+        { "es": "Duerme en Centro o Chamberí: casi todas las localizaciones de esta guía quedan a menos de 30 minutos andando." },
+        { "es": "Evita alojarte cerca de la M-30 si no vas a moverte en coche: perderás tiempo en desplazamientos." }
+      ],
+      "relatedLocationIds": ["sol", "mayor"]
+    },
+    {
+      "id": "abono-transporte",
+      "categoryId": "transporte",
+      "title": { "es": "El abono turístico de transporte compensa" },
+      "context": { "es": "Desde 8,40 €/día · metro, bus y cercanías" },
+      "body": [
+        { "es": "Cubre metro, autobús y cercanías sin límite de viajes durante el número de días que elijas." },
+        { "es": "Se compra en cualquier estación de metro con tarjeta, sin necesidad de registrarse antes." }
+      ],
+      "relatedLocationIds": []
+    },
+    {
+      "id": "rastro",
+      "categoryId": "ver",
+      "title": { "es": "El Rastro, solo los domingos por la mañana" },
+      "context": { "es": "Domingos, 9:00–15:00 · gratis" },
+      "body": [
+        { "es": "El mercadillo más grande de Madrid ocupa varias calles empinadas cerca de La Latina." },
+        { "es": "Vigila tus objetos de valor: es la zona con más carteristas de la ciudad los domingos." }
+      ],
+      "relatedLocationIds": ["mayor"]
+    }
+  ]
+}

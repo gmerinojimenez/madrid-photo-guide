@@ -9,4 +9,17 @@ module.exports = defineConfig([
   {
     ignores: ['dist/*', 'ios/*', 'android/*'],
   },
+  {
+    files: ['src/core/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            { group: ['react', 'react-native', 'react-native/*', 'expo', 'expo/*', 'expo-*'], message: 'src/core is platform-agnostic and cannot import React, React Native or Expo.' },
+          ],
+        },
+      ],
+    },
+  },
 ]);
