@@ -79,11 +79,11 @@ que cualquier historia necesita.
 
 ### Persistencia nativa (data-model.md §1)
 
-- [ ] T020 Implementar el esquema SQL y las migraciones por `PRAGMA user_version` (tramo 0 → 1: `saved_locations` y `preferences`) en `src/platform/storage/schema.ts`
-- [ ] T021 Implementar el adaptador `SavedLocationsStore` sobre `expo-sqlite` en `src/platform/storage/saved-locations.ts`, envolviendo todo fallo en la degradación del contrato y registrándolo por `ContentLogger`
-- [ ] T022 Implementar el adaptador `PreferencesStore` sobre `expo-sqlite` en `src/platform/storage/preferences.ts`, con la misma degradación
-- [ ] T023 Ejecutar la batería de contrato de T019 también contra los adaptadores de SQLite en `__tests__/core/storage-sqlite.test.ts`, para que el doble y el adaptador cumplan el mismo contrato
-- [ ] T024 [P] Implementar el adaptador de sistema (abrir URL con `Linking`, escribir en portapapeles con `expo-clipboard`) en `src/platform/system/external.ts`
+- [X] T020 Implementar el esquema SQL y las migraciones por `PRAGMA user_version` (tramo 0 → 1: `saved_locations` y `preferences`) en `src/platform/storage/schema.ts`
+- [X] T021 Implementar el adaptador `SavedLocationsStore` sobre `expo-sqlite` en `src/platform/storage/saved-locations.ts`, envolviendo todo fallo en la degradación del contrato y registrándolo por `ContentLogger`
+- [X] T022 Implementar el adaptador `PreferencesStore` sobre `expo-sqlite` en `src/platform/storage/preferences.ts`, con la misma degradación
+- [X] T023 Ejecutar la batería de contrato de T019 también contra los adaptadores de SQLite en `__tests__/core/storage-sqlite.test.ts`, para que el doble y el adaptador cumplan el mismo contrato
+- [X] T024 [P] Implementar el adaptador de sistema (abrir URL con `Linking`, escribir en portapapeles con `expo-clipboard`) en `src/platform/system/external.ts`
 
 ### Esqueleto de navegación (contracts/routes.md)
 
