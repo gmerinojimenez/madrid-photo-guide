@@ -33,7 +33,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <SQLiteProvider
         databaseName="madrid-photo-guide.db"
-        onInit={migrate}
+        onInit={(db) => migrate(db, consoleLogger)}
         onError={(error) =>
           consoleLogger.discarded({ collection: 'sqlite', id: null, reason: error.message })
         }

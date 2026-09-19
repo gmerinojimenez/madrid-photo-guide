@@ -282,6 +282,19 @@ jest.mock('expo-sqlite', () => {
       );
       await db.runAsync('INSERT INTO preferences (key, value) VALUES (?, ?)', [key, value]);
     },
+    // Ayudante de test (T085): sustituye una base de datos por una que
+    // rechaza cualquier llamada, para ejercitar la degradación de FR-028 de
+    // punta a punta (arranque incluido), no solo en el adaptador aislado.
+    __breakDatabase: (name: string) => {
+      instances.set(
+        name,
+        new Proxy(getInstance(name), {
+          get() {
+            return () => Promise.reject(new Error('almacén roto (simulado, FR-028)'));
+          },
+        }),
+      );
+    },
   };
 });
 

@@ -3,13 +3,13 @@
 Guía fotográfica de Madrid. App Expo / React Native en TypeScript, una única base de código
 para Android e iOS (ver [constitución del proyecto](.specify/memory/constitution.md)).
 
-Esta entrega es el esqueleto: la app arranca en ambas plataformas hasta una pantalla vacía
-correctamente compuesta (respeta áreas seguras y modo claro/oscuro) y una batería de pruebas
-de ejemplo corre en CI. Sin navegación, telemetría ni compras todavía.
+La app navegable completa: mapa real, ficha de localización, consejos, guardados, perfil,
+presentación inicial y el flujo modo prueba → contenido bloqueado → paywall → comprado (ver
+[specs/003-app-navigation-flows](specs/003-app-navigation-flows/)).
 
 El contenido de la guía —localizaciones fotográficas, barrios, etiquetas y consejos— vive en
-`src/content/catalog.json` y se carga y valida con el núcleo de `src/core/content/`. Sin
-pantallas todavía: ver [specs/002-content-data-schema](specs/002-content-data-schema/).
+`src/content/catalog.json` y se carga y valida con el núcleo de `src/core/content/` (ver
+[specs/002-content-data-schema](specs/002-content-data-schema/)).
 
 ## Prerrequisitos
 
@@ -19,14 +19,35 @@ pantallas todavía: ver [specs/002-content-data-schema](specs/002-content-data-s
 | **Xcode 16+** | Con al menos un runtime de simulador iOS instalado — solo para `npm run ios` |
 | **CocoaPods** | `sudo gem install cocoapods` o `brew install cocoapods` — solo para `npm run ios` |
 | **Android SDK** | Vía Android Studio, con una plataforma reciente — solo para `npm run android` |
+| **Clave de API de Google Maps (Android)** | Ver [Mapa en Android](#mapa-en-android) — sin ella el mapa sale en blanco en Android |
 
 No hace falta instalar la CLI de Expo: se usa mediante `npx`.
+
+> **Development build obligatorio**: `expo-maps` no funciona en Expo Go. `npm run android` /
+> `npm run ios` generan y ejecutan una development build; no hay forma de previsualizar el
+> mapa con la app de Expo Go de las tiendas.
 
 ## Primer arranque
 
 ```bash
 npm ci
 ```
+
+## Mapa en Android
+
+El mapa usa `expo-maps`, que en Android necesita una clave de API de Google Maps SDK for
+Android declarada en la configuración de la app:
+
+1. Crea (o reutiliza) un proyecto en [Google Cloud Console](https://console.cloud.google.com/),
+   habilita **Maps SDK for Android** y genera una clave de API.
+2. Restringe la clave por nombre de paquete (`com.gmj.madridphotoguide`) y huella SHA-1 de tu
+   keystore de firma. Restringida así, no es un secreto en el sentido de la constitución del
+   proyecto y puede vivir en configuración versionada.
+3. Sustituye `REPLACE_WITH_GOOGLE_MAPS_ANDROID_API_KEY` en `app.json`
+   (`expo.android.config.googleMaps.apiKey`) por la clave real.
+
+Sin ella, `npm run android` compila igual pero el mapa se muestra en blanco, con los
+marcadores encima (degradación sin conectividad, D-003).
 
 ## Comandos
 
@@ -47,14 +68,21 @@ npm run ios         # compila e instala en un simulador/dispositivo iOS (requier
 
 ## Estructura
 
-- `App.tsx` — única definición de la pantalla, compartida por ambas plataformas
-- `app.json` — configuración de Expo (nombre, slug, `com.gmj.madridphotoguide`)
-- `src/core/content/` — dominio del catálogo: esquema, carga, acceso, búsqueda. TypeScript
-  puro, sin React ni React Native (verificado por ESLint)
+- `app/` — árbol de rutas de **Expo Router** (punto de entrada: `expo-router/entry`). Solo
+  rutas y layouts, sin lógica de dominio y sin tests
+- `app.json` — configuración de Expo (nombre, slug, `com.gmj.madridphotoguide`, tema oscuro,
+  clave de Google Maps para Android)
+- `src/core/` — dominio en TypeScript puro, sin React ni nativo (verificado por ESLint):
+  contenido del catálogo, titularidad, enlaces de navegación y puertos de almacenamiento
+- `src/platform/` — adaptadores nativos tras los puertos del núcleo: SQLite, imágenes,
+  `Linking` y `expo-clipboard`
+- `src/ui/` — componentes React compartidos por las rutas: tema, proveedores, el único
+  componente de mapa (`src/ui/map/LocationMap.tsx`), los paneles superpuestos y componentes
+  compartidos
 - `src/content/catalog.json` — el contenido de la guía (ver más abajo)
-- `src/platform/images/registry.ts` — `require` estáticos de las fotos empaquetadas
 - `scripts/validate-catalog.ts` — validador publicable del catálogo, usado en CI
-- `__tests__/` — suite de tests (`App.test.tsx` de la feature 001, `content/` de esta feature)
+- `__tests__/` — suite de tests: `core/` (unitarios del núcleo), `content/` (feature 002),
+  `screens/` (aceptación con `renderRouter` de `expo-router/testing-library`)
 - `.github/workflows/ci.yml` — verificación automática (`npm run verify`) en cada PR y push a `main`
 
 ## Añadir contenido al catálogo
@@ -84,5 +112,9 @@ compila binarios nativos: eso se hace en local con los comandos de arriba.
 ## Validación completa
 
 Las guías de validación paso a paso están en
-[specs/001-app-skeleton-ci/quickstart.md](specs/001-app-skeleton-ci/quickstart.md) y
-[specs/002-content-data-schema/quickstart.md](specs/002-content-data-schema/quickstart.md).
+[specs/001-app-skeleton-ci/quickstart.md](specs/001-app-skeleton-ci/quickstart.md),
+[specs/002-content-data-schema/quickstart.md](specs/002-content-data-schema/quickstart.md) y
+[specs/003-app-navigation-flows/quickstart.md](specs/003-app-navigation-flows/quickstart.md).
+Esta última exige recorrerse en Android **y** en iOS, en una development build (`npm run
+android` / `npm run ios`): es la que ejercita el mapa real, las siete historias de usuario y
+la paridad funcional entre plataformas que exige el principio V de la constitución.

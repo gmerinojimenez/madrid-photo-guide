@@ -276,13 +276,13 @@ comprobar que la línea pasa a guía completa.
 
 ## Phase 10: Polish & Cross-Cutting Concerns
 
-- [ ] T081 [P] Verificar que ninguna pantalla consulta `useColorScheme` ni usa color literal fuera de `src/ui/theme/tokens.ts` (FR-033)
-- [ ] T082 [P] Verificar que ningún fichero de `app/` importa `expo-maps`, `expo-sqlite`, `expo-clipboard` ni `Linking` directamente, y que ningún módulo de `src/core/` importa `react`, `react-native` ni `expo-*` — añadir un test que lo compruebe en `__tests__/core/purity.test.ts` (principio I)
-- [ ] T083 [P] Revisar que todo elemento pulsable de `app/` y `src/ui/` expone nombre accesible, y que los paneles de `src/ui/sheets/` anuncian su apertura a lectores de pantalla
-- [ ] T084 Memoizar la lista de marcadores en `app/(tabs)/index.tsx` para que solo se recalcule al cambiar búsqueda, filtro o titularidad (objetivo de rendimiento de plan.md)
-- [ ] T085 Añadir un test de degradación en `__tests__/screens/storage-failure.test.tsx`: con el almacén en modo "siempre falla", la app arranca mostrando la presentación y con la lista de guardados vacía, sin lanzar (FR-028)
-- [ ] T086 Actualizar `README.md` con el requisito de development build, la clave de API de Google Maps para Android y el nuevo punto de entrada
-- [ ] T087 Ejecutar `npm run verify` completo y dejar las cuatro puertas en verde
+- [X] T081 [P] Verificar que ninguna pantalla consulta `useColorScheme` ni usa color literal fuera de `src/ui/theme/tokens.ts` (FR-033)
+- [X] T082 [P] Verificar que ningún fichero de `app/` importa `expo-maps`, `expo-sqlite`, `expo-clipboard` ni `Linking` directamente, y que ningún módulo de `src/core/` importa `react`, `react-native` ni `expo-*` — añadir un test que lo compruebe en `__tests__/core/purity.test.ts` (principio I)
+- [X] T083 [P] Revisar que todo elemento pulsable de `app/` y `src/ui/` expone nombre accesible, y que los paneles de `src/ui/sheets/` anuncian su apertura a lectores de pantalla
+- [X] T084 Memoizar la lista de marcadores en `app/(tabs)/index.tsx` para que solo se recalcule al cambiar búsqueda, filtro o titularidad (objetivo de rendimiento de plan.md)
+- [X] T085 Añadir un test de degradación en `__tests__/screens/storage-failure.test.tsx`: con el almacén en modo "siempre falla", la app arranca mostrando la presentación y con la lista de guardados vacía, sin lanzar (FR-028)
+- [X] T086 Actualizar `README.md` con el requisito de development build, la clave de API de Google Maps para Android y el nuevo punto de entrada
+- [X] T087 Ejecutar `npm run verify` completo y dejar las cuatro puertas en verde
 - [ ] T088 Recorrer la validación manual de [quickstart.md](./quickstart.md) en Android **y** en iOS, comprobando la paridad funcional que exige el principio V
 
 ---
