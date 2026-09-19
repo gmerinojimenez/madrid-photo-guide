@@ -35,7 +35,10 @@ export default function RootLayout() {
         }
       >
         <CatalogProvider>
-          <EntitlementProvider source={entitlementSource}>
+          <EntitlementProvider
+            source={entitlementSource}
+            onPurchase={() => entitlementSource.grant()}
+          >
             <StoresProvider>
               <RootNavigator />
             </StoresProvider>
@@ -53,8 +56,8 @@ function RootNavigator() {
 
   // Solo se declara aquí lo que ya existe como fichero de ruta: declarar un
   // Stack.Screen sin fichero detrás produce el aviso "Too many screens defined"
-  // de Expo Router. `onboarding`, `tip/[id]` y `paywall` se añaden en las fases
-  // que crean esos ficheros (US3, US4, US2).
+  // de Expo Router. `onboarding` y `tip/[id]` se añaden en las fases que crean
+  // esos ficheros (US3, US4).
   return (
     <Stack
       screenOptions={{
@@ -64,6 +67,7 @@ function RootNavigator() {
     >
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="location/[id]" />
+      <Stack.Screen name="paywall" options={{ presentation: 'modal' }} />
     </Stack>
   );
 }

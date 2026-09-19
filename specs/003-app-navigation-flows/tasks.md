@@ -141,19 +141,19 @@ localización abre su ficha completa.
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T042 [P] [US2] Test de aceptación en `__tests__/screens/locked-sheet.test.tsx`: tocar una localización de pago sin la compra abre el panel con nombre, barrio y zona aproximada, y **no** muestra coordenadas, EXIF ni descripción; "Seguir en modo prueba" cierra sin cambiar nada (US2 §1 §2, FR-010)
-- [ ] T043 [P] [US2] Test de aceptación en `__tests__/screens/paywall.test.tsx`: el paywall muestra 9,99 € y el total real del catálogo; cerrarlo sin comprar devuelve a la pantalla anterior con la titularidad intacta (US2 §3 §6, FR-032, FR-012)
-- [ ] T044 [P] [US2] Test de aceptación en `__tests__/screens/purchase-flow.test.tsx`: comprar lleva al mapa, abre el panel de compra completada, retira la barra de modo prueba y hace que la localización de pago abra ficha completa (US2 §4 §5, FR-030, FR-031)
-- [ ] T045 [P] [US2] Test de aceptación en `__tests__/screens/premium-leakage.test.tsx`: **ningún campo reservado a la compra es alcanzable sin ella por ninguna ruta** — mapa, búsqueda, consejos relacionados y guardados (SC-003, FR-010)
+- [X] T042 [P] [US2] Test de aceptación en `__tests__/screens/locked-sheet.test.tsx`: tocar una localización de pago sin la compra abre el panel con nombre, barrio y zona aproximada, y **no** muestra coordenadas, EXIF ni descripción; "Seguir en modo prueba" cierra sin cambiar nada (US2 §1 §2, FR-010)
+- [X] T043 [P] [US2] Test de aceptación en `__tests__/screens/paywall.test.tsx`: el paywall muestra 9,99 € y el total real del catálogo; cerrarlo sin comprar devuelve a la pantalla anterior con la titularidad intacta (US2 §3 §6, FR-032, FR-012)
+- [X] T044 [P] [US2] Test de aceptación en `__tests__/screens/purchase-flow.test.tsx`: comprar lleva al mapa, abre el panel de compra completada, retira la barra de modo prueba y hace que la localización de pago abra ficha completa (US2 §4 §5, FR-030, FR-031)
+- [X] T045 [P] [US2] Test de aceptación en `__tests__/screens/premium-leakage.test.tsx`: **ningún campo reservado a la compra es alcanzable sin ella por ninguna ruta** — mapa, búsqueda, consejos relacionados y guardados (SC-003, FR-010)
 
 ### Implementation for User Story 2
 
-- [ ] T046 [US2] Situar los marcadores bloqueados en `approximateArea` y los accesibles en `coords` en `app/(tabs)/index.tsx` — una localización bloqueada **nunca** se dibuja en su punto exacto (contracts/screens.md)
-- [ ] T047 [US2] Implementar la barra de modo prueba en `app/(tabs)/index.tsx` con `catalogCounts`, visible solo sin la compra, con acceso al paywall (FR-017)
-- [ ] T048 [US2] Implementar el panel de contenido bloqueado en `src/ui/sheets/LockedSheet.tsx`, alimentado **solo** por la `LocationPreview`, con las filas de candado nombrando lo que falta sin mostrar valores
-- [ ] T049 [US2] Aplicar la regla R-3 de contracts/routes.md en el punto de toque de `app/(tabs)/index.tsx`: `viewLocation` decide entre navegar a la ficha o abrir el panel; ninguna pantalla comprueba `access` por su cuenta (FR-009)
-- [ ] T050 [US2] Implementar el paywall en `app/paywall.tsx` con el precio fijo, las ventajas y los recuentos derivados del catálogo (FR-032, D-011)
-- [ ] T051 [US2] Conectar el botón "Comprar" a `InMemoryEntitlementSource.grant()`, navegar a `/` descartando la entrada modal y abrir el panel de compra completada en `src/ui/sheets/PurchasedSheet.tsx` (FR-030, R-5)
+- [X] T046 [US2] Situar los marcadores bloqueados en `approximateArea` y los accesibles en `coords` en `app/(tabs)/index.tsx` — una localización bloqueada **nunca** se dibuja en su punto exacto (contracts/screens.md)
+- [X] T047 [US2] Implementar la barra de modo prueba en `app/(tabs)/index.tsx` con `catalogCounts`, visible solo sin la compra, con acceso al paywall (FR-017)
+- [X] T048 [US2] Implementar el panel de contenido bloqueado en `src/ui/sheets/LockedSheet.tsx`, alimentado **solo** por la `LocationPreview`, con las filas de candado nombrando lo que falta sin mostrar valores
+- [X] T049 [US2] Aplicar la regla R-3 de contracts/routes.md en el punto de toque de `app/(tabs)/index.tsx`: `viewLocation` decide entre navegar a la ficha o abrir el panel; ninguna pantalla comprueba `access` por su cuenta (FR-009)
+- [X] T050 [US2] Implementar el paywall en `app/paywall.tsx` con el precio fijo, las ventajas y los recuentos derivados del catálogo (FR-032, D-011)
+- [X] T051 [US2] Conectar el botón "Comprar" a `InMemoryEntitlementSource.grant()`, navegar a `/` descartando la entrada modal y abrir el panel de compra completada en `src/ui/sheets/PurchasedSheet.tsx` (FR-030, R-5)
 
 **Checkpoint**: US1 y US2 funcionan por separado. El recorrido completo de la spec es demostrable.
 
