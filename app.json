@@ -30,7 +30,9 @@
       "expo-router",
       "expo-maps",
       "expo-sqlite",
-      "expo-splash-screen"
+      "expo-splash-screen",
+      "expo-asset",
+      "expo-font"
     ]
   }
 }

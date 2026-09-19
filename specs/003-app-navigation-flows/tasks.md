@@ -87,12 +87,12 @@ que cualquier historia necesita.
 
 ### Esqueleto de navegación (contracts/routes.md)
 
-- [ ] T025 Implementar los proveedores en `src/ui/providers/` (catálogo, titularidad suscrita a `EntitlementSource`, almacenes), cada uno exponiendo su estado de carga
-- [ ] T026 Implementar el layout raíz en `app/_layout.tsx`: `SafeAreaProvider` → `SQLiteProvider` → catálogo → titularidad → almacenes → `Stack`, con `paywall` en presentación modal y la pantalla de arranque visible hasta que los proveedores resuelvan. **Sin la redirección a onboarding todavía** (llega en US3, para que US1 y US2 sean entregables por separado)
-- [ ] T027 Implementar el layout de secciones en `app/(tabs)/_layout.tsx` con las cuatro pestañas (Mapa, Tips, Guardados, Perfil), sus iconos y el tema oscuro
-- [ ] T028 [P] Crear las cuatro rutas de sección como pantallas mínimas en `app/(tabs)/index.tsx`, `tips.tsx`, `saved.tsx` y `profile.tsx`, para que la navegación entre pestañas sea recorrible antes de tener contenido
-- [ ] T029 Implementar el anfitrión de paneles superpuestos en `src/ui/sheets/SheetHost.tsx` con `Modal` y `Animated` (D-004): fuera del historial, cerrable con el gesto de retroceso del sistema y con el toque en el fondo
-- [ ] T030 [P] Implementar los componentes compartidos en `src/ui/components/`: chip de filtro, tarjeta de lista, estado vacío y marcador de imagen con gradiente (FR-022)
+- [X] T025 Implementar los proveedores en `src/ui/providers/` (catálogo, titularidad suscrita a `EntitlementSource`, almacenes), cada uno exponiendo su estado de carga
+- [X] T026 Implementar el layout raíz en `app/_layout.tsx`: `SafeAreaProvider` → `SQLiteProvider` → catálogo → titularidad → almacenes → `Stack`, con `paywall` en presentación modal y la pantalla de arranque visible hasta que los proveedores resuelvan. **Sin la redirección a onboarding todavía** (llega en US3, para que US1 y US2 sean entregables por separado)
+- [X] T027 Implementar el layout de secciones en `app/(tabs)/_layout.tsx` con las cuatro pestañas (Mapa, Tips, Guardados, Perfil), sus iconos y el tema oscuro
+- [X] T028 [P] Crear las cuatro rutas de sección como pantallas mínimas en `app/(tabs)/index.tsx`, `tips.tsx`, `saved.tsx` y `profile.tsx`, para que la navegación entre pestañas sea recorrible antes de tener contenido
+- [X] T029 Implementar el anfitrión de paneles superpuestos en `src/ui/sheets/SheetHost.tsx` con `Modal` y `Animated` (D-004): fuera del historial, cerrable con el gesto de retroceso del sistema y con el toque en el fondo
+- [X] T030 [P] Implementar los componentes compartidos en `src/ui/components/`: chip de filtro, tarjeta de lista, estado vacío y marcador de imagen con gradiente (FR-022)
 
 **Checkpoint**: la app arranca, se navega entre las cuatro pestañas, la base de datos migra, el catálogo tiene 14 localizaciones y `npm run verify` pasa.
 
