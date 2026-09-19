@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/nocturne-4a76458f-5921-405a-a02a-3cefcf298a34/styles.css">
+<script src="_ds/nocturne-4a76458f-5921-405a-a02a-3cefcf298a34/_ds_bundle.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+body { margin:0; background:#101220; color:#e9e9ed; font-family:"Inter",system-ui,sans-serif; }
+a { color:#9184d9; }
+a:hover { color:#b5abfc; }
+.dv-turn { padding:44px 48px 40px; border-bottom:1px solid rgba(233,233,237,.08); scroll-margin-top:16px; }
+.dv-thd { display:flex; align-items:baseline; gap:10px; margin:0 0 22px; }
+.dv-tid { font:600 10px ui-monospace,Menlo,monospace; padding:3px 7px; background:#9184d9; color:#161826; border-radius:4px; text-decoration:none; }
+.dv-tname { font:500 13px/1.2 "Inter",system-ui,sans-serif; color:#e9e9ed; }
+.dv-opts { display:flex; flex-wrap:wrap; gap:32px; align-items:flex-start; }
+.dv-opt { flex:none; display:flex; flex-direction:column; gap:10px; scroll-margin-top:16px; }
+.dv-oid { font:600 10.5px ui-monospace,Menlo,monospace; padding:3px 7px; background:rgba(233,233,237,.1); color:#e9e9ed; border-radius:5px; text-decoration:none; }
+.dv-olabel { display:flex; align-items:baseline; gap:8px; font:400 11.5px/1.3 "Inter",system-ui,sans-serif; color:rgba(233,233,237,.55); }
+.dv-card { position:relative; background:#161826; border:1px solid rgba(233,233,237,.1); border-radius:44px; overflow:hidden; box-shadow:0 18px 44px rgba(0,0,0,.5); }
+.dv-opt:target .dv-oid { background:#9184d9; color:#161826; }
+.dv-next { margin:26px 0 0; font:12px/1.6 "Inter",system-ui,sans-serif; color:rgba(233,233,237,.5); }
+</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+  <div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Madrid Photo Guide · prototipo y pantallas</span></div>
+
+  <div style="max-width:760px;margin:0 0 34px;display:flex;flex-direction:column;gap:14px">
+    <p style="margin:0;font-size:14.5px;line-height:1.65;color:rgba(233,233,237,.78)">Diseñado sobre Nocturne: fondo azul-gris oscuro, un solo acento blurple usado como línea y punto, botones con borde en vez de relleno, iconos Phosphor. El repositorio está en el esqueleto Expo (pantalla vacía), así que no hay UI previa que respetar. Las fotografías son rectángulos neutros: cuando tengas las reales, se sustituyen sin tocar el layout.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <span class="tag tag-neutral">iPhone 402 × 874</span>
+      <span class="tag tag-neutral">Tabs: Mapa · Tips · Guardados · Perfil</span>
+      <span class="tag tag-neutral">5 de 60 gratis</span>
+      <span class="tag tag-neutral">Pago único 9,99 €</span>
+      <span class="tag tag-outline">Prueba → paywall → comprado, funciona de verdad</span>
+    </div>
+    <p style="margin:0;font-size:13px;line-height:1.6;color:rgba(233,233,237,.5)">Cómo recorrerlo en <a class="dv-oid" href="#1a">1a</a>: pasa el onboarding, toca un pin morado (Debod, Sol, Plaza Mayor, Plaza Castilla, Cuatro Torres) para ver la ficha completa y «Navegar hasta la foto»; toca un pin gris con candado para ver el bloqueo del modo prueba y de ahí al paywall. Al comprar, el mapa entero se desbloquea y Guardados empieza a funcionar.</p>
+  </div>
+
+  <div class="dv-opts">
+    <div class="dv-opt" id="1a">
+      <div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Prototipo navegable · empieza en el onboarding</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="402px,874px">
+        <dc-import name="MPG App" initial-screen="onb" hint-size="402px,874px"></dc-import>
+      </x-import>
+    </div>
+
+    <div class="dv-opt" id="1b">
+      <div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Mapa en modo prueba · pines exactos vs. zonas</div>
+      <div class="dv-card" style="width:402px;height:874px"><dc-import name="MPG App" initial-screen="map" hint-size="402px,874px"></dc-import></div>
+    </div>
+
+    <div class="dv-opt" id="1c">
+      <div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Detalle · EXIF en chips bajo la foto</div>
+      <div class="dv-card" style="width:402px;height:874px"><dc-import name="MPG App" initial-screen="detail" loc-id="mayor" hint-size="402px,874px"></dc-import></div>
+    </div>
+
+    <div class="dv-opt" id="1d">
+      <div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Contenido bloqueado · miniatura desenfocada y zona aproximada</div>
+      <div class="dv-card" style="width:402px;height:874px"><dc-import name="MPG App" initial-screen="map" loc-id="tiopio" sheet="locked" hint-size="402px,874px"></dc-import></div>
+    </div>
+
+    <div class="dv-opt" id="1e">
+      <div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Tips · feed único con etiquetas, siempre gratis</div>
+      <div class="dv-card" style="width:402px;height:874px"><dc-import name="MPG App" initial-screen="tips" hint-size="402px,874px"></dc-import></div>
+    </div>
+
+    <div class="dv-opt" id="1f">
+      <div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>Paywall · pago único</div>
+      <div class="dv-card" style="width:402px;height:874px"><dc-import name="MPG App" initial-screen="paywall" hint-size="402px,874px"></dc-import></div>
+    </div>
+
+    <div class="dv-opt" id="1g">
+      <div class="dv-olabel"><a class="dv-oid" href="#1g">1g</a>Comprado · mapa completo y Guardados activos</div>
+      <div class="dv-card" style="width:402px;height:874px"><dc-import name="MPG App" initial-screen="saved" owned="{{ true }}" hint-size="402px,874px"></dc-import></div>
+    </div>
+  </div>
+
+  <p class="dv-next">Siguientes pasos: «cambia el mapa de <a class="dv-oid" href="#1b">1b</a> por uno esquemático» · «en <a class="dv-oid" href="#1c">1c</a> quiero la foto a pantalla completa al tocarla» · «añade modo ruta con varias localizaciones» · o pásame fotos reales y las coloco.</p>
+</section>
+</x-dc>
+</body>
+</html>

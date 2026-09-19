@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-4a76458f-5921-405a-a02a-3cefcf298a34/styles.css">
+<script src="_ds/nocturne-4a76458f-5921-405a-a02a-3cefcf298a34/_ds_bundle.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<style>
+@keyframes mpgUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes mpgFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mpgPulse { 0%,100% { opacity: .35; transform: scale(1); } 50% { opacity: .12; transform: scale(1.35); } }
+</style>
+</helmet>
+<div style="position:absolute;inset:0;min-height:874px;overflow:hidden;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased">
+
+  <sc-if value="{{ isOnb }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:96px 28px 52px;background:radial-gradient(120% 80% at 15% 0%, #262a60 0%, #1a1c2e 45%, var(--color-bg) 100%)">
+      <div style="display:flex;gap:6px;margin-bottom:auto">
+        <sc-for list="{{ onbDots }}" as="d" hint-placeholder-count="3">
+          <div style="width:22px;height:2px;border-radius:2px;background:{{ d.bg }}"></div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="width:44px;height:44px;border-radius:14px;border:1px solid var(--color-accent);display:flex;align-items:center;justify-content:center;color:var(--color-accent);font-size:22px"><i class="{{ onbIcon }}"></i></div>
+        <h2 style="font-size:31px;line-height:1.08;letter-spacing:-0.02em;margin:0">{{ onbTitle }}</h2>
+        <p style="font-size:15px;line-height:1.55;margin:0;color:var(--color-neutral-400);max-width:300px">{{ onbBody }}</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:36px">
+        <button class="btn btn-primary btn-block" style="height:48px;font-size:15px" onClick="{{ onbNext }}">{{ onbCta }}</button>
+        <button class="btn btn-ghost" style="height:36px;font-size:13px;color:var(--color-neutral-500)" onClick="{{ onbSkip }}">{{ onbSkipLabel }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isMap }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:0">
+      <div style="position:absolute;inset:0;background:#0f1120">
+        <svg viewBox="0 0 402 874" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%">
+          <rect width="402" height="874" fill="#0f1120"></rect>
+          <g fill="#181b2b">
+            <rect x="0" y="0" width="402" height="874"></rect>
+          </g>
+          <g stroke="#222536" stroke-width="9" stroke-linecap="round" fill="none">
+            <path d="M-20 300 L180 250 L300 280 L430 250"></path>
+            <path d="M60 -20 L110 220 L160 470 L200 700 L240 900"></path>
+            <path d="M-20 520 L120 500 L260 540 L430 520"></path>
+            <path d="M300 -20 L280 200 L300 430 L340 700"></path>
+            <path d="M-20 700 L140 690 L300 720 L430 700"></path>
+          </g>
+          <g stroke="#1e2131" stroke-width="3.5" fill="none">
+            <path d="M0 120 L402 100 M0 180 L402 165 M0 380 L402 360 M0 440 L402 425 M0 600 L402 585 M0 790 L402 775"></path>
+            <path d="M140 0 L150 874 M215 0 L225 874 M360 0 L370 874 M20 0 L30 874"></path>
+          </g>
+          <path d="M-10 60 C60 180 40 340 90 470 C130 590 100 740 130 900" stroke="#1b2c3a" stroke-width="14" fill="none" opacity="0.9"></path>
+          <g fill="#17251d">
+            <ellipse cx="300" cy="500" rx="62" ry="86"></ellipse>
+            <ellipse cx="40" cy="560" rx="70" ry="120"></ellipse>
+          </g>
+          <circle cx="150" cy="470" r="230" fill="url(#mpgGlow)"></circle>
+          <defs>
+            <radialGradient id="mpgGlow">
+              <stop offset="0%" stop-color="#9184d9" stop-opacity="0.10"></stop>
+              <stop offset="100%" stop-color="#9184d9" stop-opacity="0"></stop>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <sc-for list="{{ pins }}" as="p" hint-placeholder-count="12">
+        <button onClick="{{ p.open }}" style="position:absolute;left:{{ p.left }};top:{{ p.top }};transform:translate(-50%,-50%);background:transparent;border:0;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:{{ p.hit }};height:{{ p.hit }}" aria-label="{{ p.name }}">
+          <div style="position:absolute;inset:0;border-radius:50%;background:{{ p.halo }};border:1px {{ p.haloBorder }}"></div>
+          <div style="position:relative;width:{{ p.dot }};height:{{ p.dot }};border-radius:50%;background:{{ p.fill }};border:1.5px solid {{ p.stroke }};display:flex;align-items:center;justify-content:center;color:{{ p.ink }};font-size:11px;box-shadow:0 2px 10px rgba(0,0,0,.6)"><i class="{{ p.icon }}"></i></div>
+        </button>
+      </sc-for>
+
+      <div style="position:absolute;top:58px;left:0;right:0;padding:0 14px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:var(--radius-md);background:rgba(35,37,50,.86);backdrop-filter:blur(12px);border:1px solid var(--color-divider)">
+            <i class="ph ph-magnifying-glass" style="color:var(--color-neutral-500);font-size:15px"></i>
+            <span style="font-size:13.5px;color:var(--color-neutral-500)">Buscar mirador, barrio, plaza…</span>
+          </div>
+          <button class="btn" onClick="{{ openFilters }}" style="width:40px;height:40px;padding:0;border:1px solid var(--color-divider);background:rgba(35,37,50,.86);backdrop-filter:blur(12px);color:var(--color-text)"><i class="ph ph-sliders-horizontal" style="font-size:16px"></i></button>
+        </div>
+        <div style="display:flex;gap:6px;overflow:hidden">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.pick }}" class="tag" style="cursor:pointer;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.ink }};white-space:nowrap;padding:5px 10px;font-size:11px">{{ c.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <sc-if value="{{ showTrialBar }}">
+        <div style="position:absolute;left:14px;right:14px;bottom:78px;display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:var(--radius-md);background:rgba(35,37,50,.94);backdrop-filter:blur(14px);box-shadow:var(--shadow-md)">
+          <i class="ph ph-lock-simple" style="color:var(--color-accent);font-size:17px"></i>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:12.5px;font-weight:500">Modo prueba · 5 de 60 localizaciones</div>
+            <div style="font-size:11px;color:var(--color-neutral-500)">Las demás salen en el mapa, sin punto exacto</div>
+          </div>
+          <button class="btn btn-primary" style="font-size:12.5px;padding:6px 11px" onClick="{{ goPaywall }}">Desbloquear</button>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isTips }}">
+    <div style="position:absolute;inset:0;overflow:auto;padding:58px 0 108px">
+      <div style="padding:14px 18px 8px">
+        <h3 style="font-size:26px;margin:0 0 4px;letter-spacing:-0.02em">Madrid a mano</h3>
+        <p style="font-size:13px;color:var(--color-neutral-500);margin:0">Qué ver, dónde comer y dónde dormir, en orden de utilidad.</p>
+      </div>
+      <div style="display:flex;gap:6px;padding:8px 18px 14px;overflow:hidden">
+        <sc-for list="{{ tipChips }}" as="c" hint-placeholder-count="4">
+          <button onClick="{{ c.pick }}" class="tag" style="cursor:pointer;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.ink }};white-space:nowrap;padding:5px 10px;font-size:11px">{{ c.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:0 18px">
+        <sc-for list="{{ tips }}" as="t" hint-placeholder-count="5">
+          <button onClick="{{ t.open }}" style="text-align:left;cursor:pointer;display:flex;gap:12px;padding:12px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--color-surface);color:inherit;font-family:inherit">
+            <div style="width:60px;height:60px;flex:none;border-radius:var(--radius-sm);background:linear-gradient(140deg,var(--color-neutral-800),var(--color-neutral-900))"></div>
+            <div style="min-width:0;display:flex;flex-direction:column;gap:5px">
+              <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">{{ t.tag }}</div>
+              <div style="font-size:14.5px;font-weight:500;line-height:1.25">{{ t.title }}</div>
+              <div style="font-size:12px;color:var(--color-neutral-500);line-height:1.35">{{ t.sub }}</div>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isTipDetail }}">
+    <div style="position:absolute;inset:0;overflow:auto;background:var(--color-bg)">
+      <div style="height:210px;background:linear-gradient(160deg,var(--color-neutral-800),var(--color-neutral-900));position:relative">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--color-bg),transparent 70%)"></div>
+        <button class="btn" onClick="{{ back }}" style="position:absolute;top:58px;left:14px;width:36px;height:36px;padding:0;border-radius:50%;background:rgba(22,24,38,.7);backdrop-filter:blur(10px);color:var(--color-text)"><i class="ph ph-arrow-left"></i></button>
+      </div>
+      <div style="padding:0 18px 40px;margin-top:-28px;position:relative">
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);margin-bottom:8px">{{ tip.tag }}</div>
+        <h3 style="font-size:24px;margin:0 0 12px;letter-spacing:-0.02em;line-height:1.15">{{ tip.title }}</h3>
+        <p style="font-size:14px;line-height:1.6;color:var(--color-neutral-300)">{{ tip.body }}</p>
+        <p style="font-size:14px;line-height:1.6;color:var(--color-neutral-400)">{{ tip.body2 }}</p>
+        <div style="height:1px;margin:20px 0;background:linear-gradient(to right,transparent,var(--color-divider) 40px,var(--color-divider) calc(100% - 40px),transparent)"></div>
+        <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);margin-bottom:10px">Localizaciones cerca</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ tip.near }}" as="n" hint-placeholder-count="2">
+            <button onClick="{{ n.open }}" style="cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:transparent;color:inherit;font-family:inherit">
+              <i class="ph ph-map-pin" style="color:var(--color-accent);font-size:15px"></i>
+              <span style="flex:1;font-size:13.5px">{{ n.name }}</span>
+              <i class="ph ph-caret-right" style="color:var(--color-neutral-600);font-size:13px"></i>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isSaved }}">
+    <div style="position:absolute;inset:0;overflow:auto;padding:58px 0 108px">
+      <div style="padding:14px 18px 16px">
+        <h3 style="font-size:26px;margin:0 0 4px;letter-spacing:-0.02em">Guardados</h3>
+        <p style="font-size:13px;color:var(--color-neutral-500);margin:0">{{ savedSub }}</p>
+      </div>
+      <sc-if value="{{ savedEmpty }}">
+        <div style="margin:0 18px;padding:28px 20px;border:1px dashed var(--color-neutral-800);border-radius:var(--radius-md);display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+          <i class="ph ph-bookmark-simple" style="font-size:26px;color:var(--color-neutral-600)"></i>
+          <div style="font-size:14px;font-weight:500">{{ savedEmptyTitle }}</div>
+          <div style="font-size:12.5px;color:var(--color-neutral-500);max-width:240px">{{ savedEmptyBody }}</div>
+          <button class="btn btn-primary" onClick="{{ savedEmptyAction }}" style="margin-top:4px">{{ savedEmptyCta }}</button>
+        </div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:0 18px">
+        <sc-for list="{{ savedList }}" as="s" hint-placeholder-count="0">
+          <button onClick="{{ s.open }}" style="cursor:pointer;text-align:left;display:flex;gap:12px;padding:10px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--color-surface);color:inherit;font-family:inherit">
+            <div style="width:66px;height:50px;flex:none;border-radius:var(--radius-sm);background:linear-gradient(140deg,var(--color-neutral-700),var(--color-neutral-900))"></div>
+            <div style="min-width:0;display:flex;flex-direction:column;gap:3px">
+              <div style="font-size:14px;font-weight:500">{{ s.name }}</div>
+              <div style="font-size:11.5px;color:var(--color-neutral-500)">{{ s.meta }}</div>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isProfile }}">
+    <div style="position:absolute;inset:0;overflow:auto;padding:58px 18px 108px">
+      <div style="padding:14px 0 20px">
+        <h3 style="font-size:26px;margin:0 0 4px;letter-spacing:-0.02em">Perfil</h3>
+        <p style="font-size:13px;color:var(--color-neutral-500);margin:0">{{ planLine }}</p>
+      </div>
+      <sc-if value="{{ trial }}">
+        <div style="padding:16px;border-radius:var(--radius-md);background:linear-gradient(150deg,#262a60,#1c1f38);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-300)">Modo prueba</div>
+          <div style="font-size:17px;font-weight:500;line-height:1.25">La guía completa por 9,99 €, un solo pago</div>
+          <div style="font-size:12.5px;color:var(--color-neutral-300)">60 localizaciones con punto exacto, EXIF y navegación.</div>
+          <button class="btn btn-primary btn-block" onClick="{{ goPaywall }}">Ver qué incluye</button>
+        </div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;margin-top:18px">
+        <sc-for list="{{ profileRows }}" as="r" hint-placeholder-count="5">
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 2px;border-bottom:1px solid var(--color-divider)">
+            <i class="{{ r.icon }}" style="color:var(--color-neutral-400);font-size:16px"></i>
+            <span style="flex:1;font-size:14px">{{ r.label }}</span>
+            <span style="font-size:12.5px;color:var(--color-neutral-500)">{{ r.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isDetail }}">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--color-bg)">
+     <div style="flex:1;min-height:0;overflow:auto">
+      <div style="position:relative;height:330px;background:linear-gradient(155deg,var(--color-neutral-700),var(--color-neutral-900) 70%)">
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.35)">Fotografía</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--color-bg) 2%,rgba(22,24,38,.1) 45%,rgba(22,24,38,.45))"></div>
+        <button class="btn" onClick="{{ back }}" style="position:absolute;top:58px;left:14px;width:36px;height:36px;padding:0;border-radius:50%;background:rgba(22,24,38,.66);backdrop-filter:blur(10px);color:var(--color-text)"><i class="ph ph-arrow-left"></i></button>
+        <button class="btn" onClick="{{ toggleSave }}" style="position:absolute;top:58px;right:14px;width:36px;height:36px;padding:0;border-radius:50%;background:rgba(22,24,38,.66);backdrop-filter:blur(10px);color:{{ saveInk }}"><i class="{{ saveIcon }}"></i></button>
+      </div>
+      <div style="padding:0 18px 24px;margin-top:-46px;position:relative">
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <span class="tag tag-accent">{{ sel.type }}</span>
+          <span class="tag tag-neutral">{{ sel.barrio }}</span>
+        </div>
+        <h3 style="font-size:25px;margin:0 0 6px;letter-spacing:-0.02em;line-height:1.12">{{ sel.name }}</h3>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-neutral-500);margin-bottom:16px">
+          <i class="ph ph-clock" style="font-size:14px;color:var(--color-accent)"></i><span>{{ sel.best }}</span>
+          <span style="opacity:.4">·</span><span>{{ sel.dist }}</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <sc-for list="{{ sel.exif }}" as="e" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:5px;padding:6px 10px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--color-surface)">
+              <i class="{{ e.icon }}" style="font-size:13px;color:var(--color-accent)"></i>
+              <span style="font-size:12px;font-variant-numeric:tabular-nums">{{ e.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="height:1px;margin:20px 0 18px;background:linear-gradient(to right,transparent,var(--color-divider) 40px,var(--color-divider) calc(100% - 40px),transparent)"></div>
+        <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);margin-bottom:8px">La foto</div>
+        <p style="font-size:14px;line-height:1.6;color:var(--color-neutral-300)">{{ sel.desc }}</p>
+        <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);margin:18px 0 8px">El barrio · {{ sel.barrio }}</div>
+        <p style="font-size:14px;line-height:1.6;color:var(--color-neutral-400)">{{ sel.barrioDesc }}</p>
+        <div style="margin-top:18px;padding:12px 14px;border:1px solid var(--color-divider);border-radius:var(--radius-md);display:flex;align-items:center;gap:12px">
+          <i class="ph ph-crosshair" style="color:var(--color-accent);font-size:16px"></i>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:11px;color:var(--color-neutral-500)">Punto exacto</div>
+            <div style="font-size:13px;font-variant-numeric:tabular-nums">{{ sel.coords }}</div>
+          </div>
+          <button class="btn btn-secondary" onClick="{{ copyCoords }}" style="font-size:12px;padding:5px 9px">{{ copyLabel }}</button>
+        </div>
+      </div>
+     </div>
+      <div style="flex:none;padding:12px 18px 40px;background:var(--color-bg);border-top:1px solid var(--color-divider)">
+        <button class="btn btn-primary btn-block" onClick="{{ openNav }}" style="height:48px;font-size:15px"><i class="ph ph-navigation-arrow"></i>Navegar hasta la foto</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isPaywall }}">
+    <div style="position:absolute;inset:0;overflow:auto;background:radial-gradient(120% 70% at 80% 0%, #262a60 0%, #1b1e33 42%, var(--color-bg) 100%);padding:58px 22px 40px">
+      <button class="btn" onClick="{{ back }}" style="width:34px;height:34px;padding:0;border-radius:50%;border:1px solid var(--color-divider);color:var(--color-text);margin:6px 0 22px"><i class="ph ph-x"></i></button>
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:10px">Guía completa</div>
+      <h3 style="font-size:29px;line-height:1.1;letter-spacing:-0.02em;margin:0 0 10px">60 localizaciones, con el punto exacto</h3>
+      <p style="font-size:14px;color:var(--color-neutral-400);margin:0 0 22px">Un pago y la guía es tuya. Sin suscripción, también sin conexión.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:26px">
+        <sc-for list="{{ perks }}" as="p" hint-placeholder-count="4">
+          <div style="display:flex;gap:11px;align-items:flex-start">
+            <i class="{{ p.icon }}" style="color:var(--color-accent);font-size:16px;margin-top:2px"></i>
+            <div>
+              <div style="font-size:14px;font-weight:500">{{ p.title }}</div>
+              <div style="font-size:12.5px;color:var(--color-neutral-500);line-height:1.4">{{ p.sub }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding:16px;border-radius:var(--radius-md);background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:14px">
+        <div>
+          <div style="font-size:28px;font-weight:500;letter-spacing:-0.02em">9,99 €</div>
+          <div style="font-size:11.5px;color:var(--color-neutral-500)">pago único · 60 localizaciones</div>
+        </div>
+        <button class="btn btn-primary" onClick="{{ buy }}" style="margin-left:auto;height:44px;padding:0 18px;font-size:14px">Comprar</button>
+      </div>
+      <p style="font-size:11px;color:var(--color-neutral-600);margin-top:14px;text-align:center">Restaurar compra · Los tips de Madrid siguen siendo gratis</p>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showTabs }}">
+    <div style="position:absolute;left:0;right:0;bottom:0;height:78px;display:flex;align-items:flex-start;padding:8px 6px 0;background:linear-gradient(to top,rgba(22,24,38,.98) 60%,rgba(22,24,38,.7));backdrop-filter:blur(16px);border-top:1px solid var(--color-divider)">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <button onClick="{{ t.pick }}" style="flex:1;background:transparent;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:{{ t.ink }};font-family:inherit">
+          <i class="{{ t.icon }}" style="font-size:20px"></i>
+          <span style="font-size:10px;letter-spacing:.01em">{{ t.label }}</span>
+        </button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ sheet }}">
+    <div style="position:absolute;inset:0;background:rgba(15,17,32,.6);animation:mpgFade .18s ease-out">
+      <button onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:transparent;border:0;cursor:pointer" aria-label="Cerrar"></button>
+      <div style="position:absolute;left:0;right:0;bottom:0;background:var(--color-surface);border-radius:var(--radius-lg) var(--radius-lg) 0 0;box-shadow:var(--shadow-lg);padding:10px 18px 42px;animation:mpgUp .24s cubic-bezier(.2,.8,.2,1)">
+        <div style="width:38px;height:4px;border-radius:4px;background:var(--color-neutral-700);margin:0 auto 16px"></div>
+
+        <sc-if value="{{ isLockedSheet }}">
+          <div style="display:flex;gap:14px;margin-bottom:16px">
+            <div style="width:104px;height:104px;flex:none;border-radius:var(--radius-md);overflow:hidden;position:relative;background:var(--color-neutral-900)">
+              <div style="position:absolute;inset:-20px;background:linear-gradient(150deg,var(--color-neutral-500),var(--color-neutral-800) 45%,var(--color-neutral-600) 70%,var(--color-neutral-900));filter:blur(13px)"></div>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(15,17,32,.35)"><i class="ph-fill ph-lock-simple" style="font-size:20px;color:rgba(233,233,237,.9)"></i></div>
+            </div>
+            <div style="min-width:0">
+              <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);margin-bottom:5px">Bloqueado en prueba</div>
+              <div style="font-size:18px;font-weight:500;line-height:1.2;margin-bottom:6px">{{ sel.name }}</div>
+              <div style="font-size:12.5px;color:var(--color-neutral-500);line-height:1.4">{{ sel.barrio }} · zona aproximada, a {{ sel.dist }}</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+            <sc-for list="{{ lockedRows }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--color-divider);border-radius:var(--radius-md)">
+                <i class="{{ r.icon }}" style="font-size:14px;color:var(--color-neutral-600)"></i>
+                <span style="flex:1;font-size:13px;color:var(--color-neutral-500)">{{ r.label }}</span>
+                <i class="ph ph-lock-simple" style="font-size:13px;color:var(--color-neutral-600)"></i>
+              </div>
+            </sc-for>
+          </div>
+          <button class="btn btn-primary btn-block" onClick="{{ goPaywall }}" style="height:46px;font-size:14.5px">Desbloquear por 9,99 €</button>
+          <button class="btn btn-ghost btn-block" onClick="{{ closeSheet }}" style="color:var(--color-neutral-500);font-size:13px">Seguir en modo prueba</button>
+        </sc-if>
+
+        <sc-if value="{{ isNavSheet }}">
+          <div style="font-size:16px;font-weight:500;margin-bottom:4px">Navegar hasta la foto</div>
+          <div style="font-size:12.5px;color:var(--color-neutral-500);margin-bottom:14px">{{ sel.coords }}</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ navApps }}" as="a" hint-placeholder-count="3">
+              <button onClick="{{ closeSheet }}" style="cursor:pointer;display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:transparent;color:inherit;font-family:inherit;text-align:left">
+                <div style="width:32px;height:32px;border-radius:8px;background:{{ a.bg }};display:flex;align-items:center;justify-content:center;color:var(--color-accent-100)"><i class="{{ a.icon }}" style="font-size:16px"></i></div>
+                <span style="flex:1;font-size:14px">{{ a.label }}</span>
+                <i class="ph ph-arrow-up-right" style="font-size:14px;color:var(--color-neutral-600)"></i>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isFilterSheet }}">
+          <div style="font-size:16px;font-weight:500;margin-bottom:14px">Filtros</div>
+          <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);margin-bottom:8px">Tipo de foto</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
+            <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+              <button onClick="{{ c.pick }}" class="tag" style="cursor:pointer;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.ink }};padding:6px 11px;font-size:11.5px">{{ c.label }}</button>
+            </sc-for>
+          </div>
+          <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);margin-bottom:8px">Distancia desde mí</div>
+          <div style="display:flex;gap:6px;margin-bottom:18px">
+            <sc-for list="{{ distOpts }}" as="d" hint-placeholder-count="3">
+              <button onClick="{{ d.pick }}" class="tag" style="cursor:pointer;flex:1;justify-content:center;border:1px solid {{ d.border }};background:{{ d.bg }};color:{{ d.ink }};padding:8px 0;font-size:12px">{{ d.label }}</button>
+            </sc-for>
+          </div>
+          <label style="display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--color-divider);font-size:14px;cursor:pointer" onClick="{{ toggleOnlySaved }}">
+            <i class="{{ savedFilterIcon }}" style="font-size:17px;color:var(--color-accent)"></i>
+            <span style="flex:1">Solo guardados</span>
+            <span style="font-size:12px;color:var(--color-neutral-500)">{{ savedFilterState }}</span>
+          </label>
+          <button class="btn btn-primary btn-block" onClick="{{ closeSheet }}" style="height:44px;margin-top:8px">Ver {{ resultCount }} localizaciones</button>
+        </sc-if>
+
+        <sc-if value="{{ isBoughtSheet }}">
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:6px 8px 4px">
+            <div style="width:46px;height:46px;border-radius:50%;border:1px solid var(--color-accent);display:flex;align-items:center;justify-content:center;color:var(--color-accent);font-size:22px"><i class="ph ph-check"></i></div>
+            <div style="font-size:19px;font-weight:500">Guía desbloqueada</div>
+            <div style="font-size:13px;color:var(--color-neutral-400);max-width:250px">Las 60 localizaciones ya tienen punto exacto, EXIF y navegación.</div>
+            <button class="btn btn-primary btn-block" onClick="{{ closeSheet }}" style="height:44px;margin-top:6px">Volver al mapa</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:402,&quot;height&quot;:874},&quot;initialScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;onb&quot;,&quot;map&quot;,&quot;tips&quot;,&quot;tipDetail&quot;,&quot;saved&quot;,&quot;profile&quot;,&quot;detail&quot;,&quot;paywall&quot;],&quot;default&quot;:&quot;onb&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;owned&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;locId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;debod&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;tipId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;faro&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sheet&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;locked&quot;,&quot;nav&quot;,&quot;filters&quot;,&quot;bought&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const LOCS = [
+  { id:'debod', name:'Templo de Debod', barrio:'Argüelles', type:'Atardecer', free:true, left:'26%', top:'44%',
+    best:'45 min antes del atardecer', dist:'1,2 km', coords:'40.42400, -3.71766',
+    exif:['Sony A7 IV','24 mm','f/8','1/125 s','ISO 100'],
+    desc:'El reflejo funciona desde el lado sur del estanque, agachado casi a ras de agua. Espera a que el sol caiga por detrás del templo y mide la exposición sobre el cielo: el granito aguanta bien las sombras.',
+    barrioDesc:'Argüelles es tranquilo y muy andable. Al lado tienes el Parque del Oeste para seguir con luz azul y, si te queda hambre, las terrazas de la calle Ferraz.' },
+  { id:'castilla', name:'Puerta de Europa', barrio:'Plaza Castilla', type:'Arquitectura', free:true, left:'59%', top:'15%',
+    best:'Mediodía o noche cerrada', dist:'5,8 km', coords:'40.46600, -3.68930',
+    exif:['Sony A7 IV','70 mm','f/11','1/250 s','ISO 100'],
+    desc:'Céntrate en la simetría de las dos torres inclinadas desde el paseo de la Castellana, justo en la mediana. Un teleobjetivo corto comprime la escena y deja el obelisco de Calatrava entre ambas.',
+    barrioDesc:'Zona de oficinas: entre semana hay gente a todas horas y el domingo por la mañana está vacío, que es cuando mejor se dispara.' },
+  { id:'torres', name:'Cuatro Torres', barrio:'Chamartín', type:'Skyline', free:true, left:'66%', top:'7%',
+    best:'Hora azul, 20 min tras la puesta', dist:'7,1 km', coords:'40.47614, -3.68972',
+    exif:['Sony A7 IV','135 mm','f/5.6','1/60 s','ISO 400',],
+    desc:'La vista limpia sale desde el paseo de la Castellana hacia el norte, con las torres alineadas. Con teleobjetivo desde la Dehesa de la Villa consigues el skyline entero cuando se encienden las luces.',
+    barrioDesc:'Chamartín es amplio y bien conectado por Cercanías. Poco que ver a pie, pero es la mejor esquina de Madrid para arquitectura contemporánea.' },
+  { id:'sol', name:'Puerta del Sol', barrio:'Centro', type:'Calle', free:true, left:'47%', top:'56%',
+    best:'Primera hora, antes de las 8:00', dist:'0,6 km', coords:'40.41689, -3.70379',
+    exif:['Sony A7 IV','35 mm','f/4','1/250 s','ISO 200'],
+    desc:'Sube a la escalinata del lado de Alcalá para tener algo de altura sobre la plaza. A velocidades lentas la gente se convierte en estelas y el reloj de Gobernación queda quieto.',
+    barrioDesc:'El centro se llena a partir de las 10:00. Desayuna en una de las chocolaterías de San Ginés y sigue hacia Ópera cuando la luz esté alta.' },
+  { id:'mayor', name:'Plaza Mayor', barrio:'Centro', type:'Nocturna', free:true, left:'42%', top:'61%',
+    best:'Noche cerrada, farolas encendidas', dist:'0,9 km', coords:'40.41547, -3.70714',
+    exif:['Sony A7 IV','20 mm','f/2.8','1/40 s','ISO 800'],
+    desc:'Entra por el Arco de Cuchilleros y dispara desde el soportal: el arco enmarca la plaza y las farolas dan el punto cálido. Con trípode, cierra a f/8 y deja que las estrellas de las luces salgan limpias.',
+    barrioDesc:'Alrededor está el Madrid de los Austrias, denso y muy fotografiable de noche. Para dormir, mejor en Malasaña o Chueca: igual de céntrico y bastante más silencioso.' },
+  { id:'tiopio', name:'Cerro del Tío Pío', barrio:'Vallecas', type:'Atardecer', free:false, left:'78%', top:'73%' },
+  { id:'circulo', name:'Círculo de Bellas Artes', barrio:'Centro', type:'Skyline', free:false, left:'54%', top:'51%' },
+  { id:'metropolis', name:'Edificio Metrópolis', barrio:'Centro', type:'Arquitectura', free:false, left:'50%', top:'47%' },
+  { id:'matadero', name:'Matadero', barrio:'Arganzuela', type:'Arquitectura', free:false, left:'40%', top:'86%' },
+  { id:'faro', name:'Faro de Moncloa', barrio:'Moncloa', type:'Skyline', free:false, left:'18%', top:'31%' },
+  { id:'toledo', name:'Puente de Toledo', barrio:'Arganzuela', type:'Nocturna', free:false, left:'31%', top:'80%' },
+  { id:'retiro', name:'Palacio de Cristal', barrio:'Retiro', type:'Arquitectura', free:false, left:'70%', top:'58%' },
+  { id:'campo', name:'Casa de Campo', barrio:'Latina', type:'Skyline', free:false, left:'9%', top:'62%' },
+  { id:'lavapies', name:'Calle de Lavapiés', barrio:'Lavapiés', type:'Calle', free:false, left:'52%', top:'68%' },
+];
+
+const TIPS = [
+  { id:'faro', tag:'Ver', title:'Sube al Faro de Moncloa al atardecer', sub:'8 € · 92 m de altura · vistas de 360º',
+    body:'Es el mirador más rápido de Madrid: ascensor directo, una vuelta completa a la ciudad y muy poca cola fuera de fin de semana. Llega media hora antes de la puesta de sol para pillar la luz cálida sobre la Gran Vía y quedarte a la hora azul.',
+    body2:'El cristal refleja: pega el parasol o la mano al cristal y dispara en perpendicular. Si vas con trípode, no cabe — apóyate en la barandilla.', near:['faro','debod'] },
+  { id:'cebada', tag:'Comer', title:'Desayuna en el Mercado de la Cebada', sub:'La Latina · antes de las 11:00',
+    body:'Mercado de barrio de verdad, sin precios de turista. Una tostada con tomate y un café rondan los 4 €, y a partir de las 12:00 los puestos de conservas se convierten en el aperitivo más honesto del centro.',
+    body2:'Sales directamente hacia la Cava Baja y el Rastro, así que encaja bien como primera parada de una mañana andando por el sur del centro.', near:['mayor','lavapies'] },
+  { id:'dormir', tag:'Dormir', title:'Dormir en Malasaña o Chueca, no en Sol', sub:'Céntrico, más barato y más silencioso',
+    body:'Están a diez minutos andando de Gran Vía, tienen mejor oferta de desayuno y por la noche no hay grupos gritando bajo la ventana. Para fotografía madrugadora, salir a pie hasta Sol vacío es la diferencia entre una foto y una foto con cien personas.',
+    body2:'Si buscas precio, Arganzuela y Tetuán salen más baratos y están bien conectados por metro, pero pierdes la ventaja de ir andando.', near:['sol','mayor'] },
+  { id:'metro', tag:'Transporte', title:'Abono turístico de metro, zona A', sub:'Desde 8,40 € el día · incluye aeropuerto',
+    body:'Compensa desde el segundo trayecto largo del día e incluye el suplemento del aeropuerto, que suele ser el gasto más tonto del viaje. Se compra en cualquier máquina de metro con tarjeta.',
+    body2:'El metro abre a las 6:00: suficiente para estar en cualquier mirador antes del amanecer, salvo en verano.', near:['castilla','torres'] },
+  { id:'rastro', tag:'Ver', title:'El Rastro, domingo antes de las 10:00', sub:'Ribera de Curtidores · gratis',
+    body:'Después de las once es una marea de gente y no hay foto posible. Llega temprano, cuando los puestos se están montando: hay luz lateral entre los edificios y la calle todavía respira.',
+    body2:'Termina en la plaza de Cascorro y sigue hacia la Cava Baja para el vermú, que es lo que hace todo el mundo.', near:['lavapies','mayor'] },
+];
+
+const TYPES = ['Todo','Skyline','Calle','Arquitectura','Atardecer','Nocturna'];
+const DISTS = ['< 1 km','< 3 km','Todo Madrid'];
+const AX = { 'Sony A7 IV':'ph ph-camera','mm':'ph ph-crop','f/':'ph ph-aperture','s':'ph ph-timer','ISO':'ph ph-sun-dim' };
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      screen: props.initialScreen || 'onb',
+      tab: 'map',
+      owned: !!props.owned,
+      selId: props.locId || 'debod',
+      tipId: props.tipId || 'faro',
+      sheet: props.sheet || null,
+      onbStep: 0,
+      type: 'Todo',
+      dist: 'Todo Madrid',
+      onlySaved: false,
+      saved: props.owned ? ['debod','mayor'] : [],
+      copied: false,
+    };
+  }
+
+  go(screen) { this.setState({ screen, sheet: null }); }
+  pickTab(tab) {
+    const screen = tab === 'map' ? 'map' : tab === 'tips' ? 'tips' : tab === 'saved' ? 'saved' : 'profile';
+    this.setState({ tab, screen, sheet: null });
+  }
+  openLoc(id) {
+    const loc = LOCS.find(l => l.id === id);
+    if (this.state.owned || loc.free) this.setState({ selId: id, screen: 'detail', sheet: null });
+    else this.setState({ selId: id, sheet: 'locked' });
+  }
+  exifChips(loc) {
+    const ex = loc.exif || ['Sony A7 IV','35 mm','f/5.6','1/125 s','ISO 200'];
+    return ex.map(v => {
+      let icon = 'ph ph-camera';
+      if (/mm$/.test(v)) icon = 'ph ph-crop';
+      else if (/^f\//.test(v)) icon = 'ph ph-aperture';
+      else if (/s$/.test(v)) icon = 'ph ph-timer';
+      else if (/^ISO/.test(v)) icon = 'ph ph-sun-dim';
+      return { v, icon };
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const owned = s.owned;
+    const trial = !owned;
+    const loc = LOCS.find(l => l.id === s.selId) || LOCS[0];
+    const unlocked = owned || loc.free;
+    const full = unlocked ? loc : LOCS[0];
+    const tip = TIPS.find(t => t.id === s.tipId) || TIPS[0];
+    const accent = '#9184d9';
+    const visible = LOCS.filter(l => (s.type === 'Todo' || l.type === s.type) && (!s.onlySaved || s.saved.includes(l.id)));
+
+    const onb = [
+      { icon:'ph ph-map-trifold', title:'60 sitios de Madrid, con la foto ya hecha', body:'Cada localización trae la fotografía, los parámetros con los que se tomó y cómo llegar al punto exacto.', cta:'Cómo funciona', skip:'Saltar' },
+      { icon:'ph ph-navigation-arrow', title:'¿Te localizamos para ordenar el mapa?', body:'Con la ubicación activada verás primero lo que tienes cerca y podrás navegar hasta el punto de disparo. Puedes usar la app sin darla.', cta:'Activar ubicación', skip:'Ahora no' },
+      { icon:'ph ph-lock-simple-open', title:'Empieza con 5 localizaciones gratis', body:'Debod, Plaza Castilla, Cuatro Torres, Sol y Plaza Mayor, completas. El resto se ve en el mapa por zona, y se desbloquea con un pago único de 9,99 €.', cta:'Empezar gratis', skip:'Ver la guía completa' },
+    ][s.onbStep];
+
+    return {
+      isOnb: s.screen === 'onb', isMap: s.screen === 'map', isTips: s.screen === 'tips',
+      isTipDetail: s.screen === 'tipDetail', isSaved: s.screen === 'saved',
+      isProfile: s.screen === 'profile', isDetail: s.screen === 'detail', isPaywall: s.screen === 'paywall',
+      showTabs: ['map','tips','saved','profile'].includes(s.screen),
+      showTrialBar: trial,
+      trial, owned,
+
+      onbDots: [0,1,2].map(i => ({ bg: i <= s.onbStep ? accent : 'rgba(233,233,237,.2)' })),
+      onbIcon: onb.icon, onbTitle: onb.title, onbBody: onb.body, onbCta: onb.cta, onbSkipLabel: onb.skip,
+      onbNext: () => s.onbStep < 2 ? this.setState({ onbStep: s.onbStep + 1 }) : this.go('map'),
+      onbSkip: () => s.onbStep === 2 ? this.go('paywall') : this.go('map'),
+
+      pins: visible.map(l => {
+        const open = owned || l.free;
+        return {
+          name: l.name, left: l.left, top: l.top,
+          hit: open ? '44px' : '58px', dot: open ? '26px' : '13px',
+          halo: open ? 'transparent' : 'rgba(145,132,217,.13)',
+          haloBorder: open ? 'solid transparent' : 'dashed rgba(145,132,217,.4)',
+          fill: open ? 'rgba(145,132,217,.92)' : 'rgba(89,93,108,.75)',
+          stroke: open ? '#d2cefd' : 'rgba(178,182,202,.5)',
+          ink: open ? '#1a1c2e' : 'rgba(233,233,237,.75)',
+          icon: open ? 'ph-fill ph-camera' : 'ph-fill ph-lock-simple',
+          open: () => this.openLoc(l.id),
+        };
+      }),
+
+      chips: TYPES.map(t => ({
+        label: t, pick: () => this.setState({ type: t }),
+        border: s.type === t ? accent : 'var(--color-divider)',
+        bg: s.type === t ? 'rgba(145,132,217,.16)' : 'rgba(35,37,50,.86)',
+        ink: s.type === t ? '#d2cefd' : 'var(--color-neutral-300)',
+      })),
+      distOpts: DISTS.map(d => ({
+        label: d, pick: () => this.setState({ dist: d }),
+        border: s.dist === d ? accent : 'var(--color-divider)',
+        bg: s.dist === d ? 'rgba(145,132,217,.16)' : 'transparent',
+        ink: s.dist === d ? '#d2cefd' : 'var(--color-neutral-300)',
+      })),
+      resultCount: visible.length + 46,
+      savedFilterIcon: s.onlySaved ? 'ph-fill ph-bookmark-simple' : 'ph ph-bookmark-simple',
+      savedFilterState: s.onlySaved ? 'Sí' : 'No',
+      toggleOnlySaved: () => this.setState({ onlySaved: !s.onlySaved }),
+      openFilters: () => this.setState({ sheet: 'filters' }),
+
+      tabs: [
+        { key:'map', label:'Mapa', icon:'ph ph-map-trifold' },
+        { key:'tips', label:'Tips', icon:'ph ph-list-dashes' },
+        { key:'saved', label:'Guardados', icon:'ph ph-bookmark-simple' },
+        { key:'profile', label:'Perfil', icon:'ph ph-user' },
+      ].map(t => ({
+        label: t.label, ink: s.tab === t.key ? accent : 'var(--color-neutral-500)',
+        icon: s.tab === t.key ? t.icon.replace('ph ph-', 'ph-fill ph-') : t.icon,
+        pick: () => this.pickTab(t.key),
+      })),
+
+      tipChips: ['Todo','Ver','Comer','Dormir','Transporte'].map(t => ({
+        label: t, pick: () => {},
+        border: t === 'Todo' ? accent : 'var(--color-divider)',
+        bg: t === 'Todo' ? 'rgba(145,132,217,.16)' : 'transparent',
+        ink: t === 'Todo' ? '#d2cefd' : 'var(--color-neutral-400)',
+      })),
+      tips: TIPS.map(t => ({ tag: t.tag, title: t.title, sub: t.sub, open: () => this.setState({ tipId: t.id, screen: 'tipDetail' }) })),
+      tip: {
+        tag: tip.tag, title: tip.title, body: tip.body, body2: tip.body2,
+        near: tip.near.map(id => {
+          const l = LOCS.find(x => x.id === id);
+          return { name: l.name, open: () => this.openLoc(id) };
+        }),
+      },
+
+      sel: {
+        name: full.name, barrio: full.barrio, type: full.type, best: full.best, dist: loc.dist || '3,4 km',
+        coords: unlocked ? full.coords : 'Punto exacto bloqueado',
+        desc: full.desc, barrioDesc: full.barrioDesc, exif: this.exifChips(full),
+      },
+      saveIcon: s.saved.includes(loc.id) ? 'ph-fill ph-bookmark-simple' : 'ph ph-bookmark-simple',
+      saveInk: s.saved.includes(loc.id) ? accent : 'var(--color-text)',
+      toggleSave: () => {
+        if (trial) return this.setState({ sheet: 'locked' });
+        this.setState({ saved: s.saved.includes(loc.id) ? s.saved.filter(x => x !== loc.id) : s.saved.concat(loc.id) });
+      },
+      copyLabel: s.copied ? 'Copiado' : 'Copiar',
+      copyCoords: () => { this.setState({ copied: true }); setTimeout(() => this.setState({ copied: false }), 1400); },
+      openNav: () => this.setState({ sheet: 'nav' }),
+      back: () => this.setState({ screen: s.tab === 'tips' ? 'tips' : s.tab === 'saved' ? 'saved' : s.tab === 'profile' ? 'profile' : 'map', sheet: null }),
+
+      savedSub: owned ? s.saved.length + ' localizaciones para tu próxima salida' : 'Guardar es parte de la guía completa',
+      savedEmpty: owned ? s.saved.length === 0 : true,
+      savedEmptyTitle: owned ? 'Todavía no has guardado nada' : 'Guardar es de pago',
+      savedEmptyBody: owned ? 'Toca el marcador en cualquier localización y aparecerá aquí.' : 'Con la guía completa puedes armar tu propia lista y llevarla sin conexión.',
+      savedEmptyCta: owned ? 'Ir al mapa' : 'Desbloquear por 9,99 €',
+      savedEmptyAction: owned ? () => this.pickTab('map') : () => this.go('paywall'),
+      savedList: owned ? s.saved.map(id => {
+        const l = LOCS.find(x => x.id === id);
+        return { name: l.name, meta: l.barrio + ' · ' + l.type + ' · ' + (l.dist || '3,4 km'), open: () => this.openLoc(id) };
+      }) : [],
+
+      planLine: owned ? 'Guía completa · 60 localizaciones' : 'Modo prueba · 5 de 60 localizaciones',
+      profileRows: [
+        { icon:'ph ph-download-simple', label:'Descargar sin conexión', value: owned ? 'Listo' : 'De pago' },
+        { icon:'ph ph-navigation-arrow', label:'App de navegación', value:'Preguntar siempre' },
+        { icon:'ph ph-camera', label:'Mi equipo', value:'Sin definir' },
+        { icon:'ph ph-translate', label:'Idioma', value:'Español' },
+        { icon:'ph ph-receipt', label:'Restaurar compra', value:'' },
+      ],
+
+      perks: [
+        { icon:'ph ph-map-pin', title:'Punto exacto de las 60', sub:'Coordenadas y navegación puerta a puerta' },
+        { icon:'ph ph-camera', title:'Parámetros de cada foto', sub:'Cámara, focal, diafragma, velocidad e ISO' },
+        { icon:'ph ph-eye', title:'Fotografía sin filtro', sub:'La imagen completa, en detalle y a pantalla llena' },
+        { icon:'ph ph-download-simple', title:'Todo sin conexión', sub:'Mapa y fichas descargados, sin datos en Madrid' },
+      ],
+      buy: () => this.setState({ owned: true, screen: 'map', tab: 'map', sheet: 'bought', saved: ['debod','mayor'] }),
+      goPaywall: () => this.go('paywall'),
+
+      sheet: s.sheet,
+      isLockedSheet: s.sheet === 'locked',
+      isNavSheet: s.sheet === 'nav',
+      isFilterSheet: s.sheet === 'filters',
+      isBoughtSheet: s.sheet === 'bought',
+      closeSheet: () => this.setState({ sheet: null }),
+      lockedRows: [
+        { icon:'ph ph-crosshair', label:'Coordenadas exactas' },
+        { icon:'ph ph-camera', label:'Parámetros de cámara' },
+        { icon:'ph ph-image', label:'Fotografía en detalle' },
+      ],
+      navApps: [
+        { label:'Google Maps', icon:'ph ph-map-trifold', bg:'#423a6a' },
+        { label:'Apple Maps', icon:'ph ph-compass', bg:'#3f424d' },
+        { label:'Copiar coordenadas', icon:'ph ph-copy', bg:'#292b31' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
