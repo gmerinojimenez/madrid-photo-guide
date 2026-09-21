@@ -224,8 +224,8 @@ que la línea pasa a indicar guía completa.
 2. **Given** la compra hecha, **When** abre el perfil, **Then** la línea de plan indica
    guía completa con el total de localizaciones del catálogo, y no se ofrece desbloquear.
 3. **Given** el perfil abierto, **When** se listan sus filas de ajustes, **Then** se
-   muestran descarga sin conexión, aplicación de navegación, equipo fotográfico, idioma y
-   restaurar compra, presentadas como informativas y sin acción asociada en esta entrega.
+   muestran descarga sin conexión y restaurar compra, presentadas como informativas y sin
+   acción asociada en esta entrega.
 
 ---
 
@@ -423,10 +423,11 @@ que la línea pasa a indicar guía completa.
   parámetros de captura y descripciones inventadas.
 - **Idioma único**: toda la interfaz está en español. La internacionalización a otros
   idiomas queda fuera de alcance, aunque el catálogo ya admita varios.
-- **Perfil informativo**: las filas de descarga sin conexión, aplicación de navegación,
-  equipo fotográfico, idioma y restaurar compra se muestran sin acción asociada, porque sus
-  funcionalidades de respaldo (almacenamiento offline gestionado, pagos, datos de equipo,
-  traducción) están fuera de alcance.
+- **Perfil informativo**: las filas de descarga sin conexión y restaurar compra se muestran
+  sin acción asociada, porque sus funcionalidades de respaldo (almacenamiento offline
+  gestionado, pagos) están fuera de alcance. Aplicación de navegación, equipo fotográfico e
+  idioma no forman parte de la pantalla en esta entrega: no aportan orientación sin una
+  funcionalidad de respaldo detrás, a diferencia de las dos filas que sí quedan.
 - **Dependencia de la spec 002**: esta feature consume el catálogo, la consulta de
   localizaciones, la agrupación de consejos y la proyección de acceso ya implementados, sin
   reimplementar ninguna de esas reglas.

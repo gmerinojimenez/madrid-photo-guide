@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { catalogCounts } from '../../src/core/content/counts.ts';
 import { Icon } from '../../src/ui/components/Icon.tsx';
@@ -9,25 +10,26 @@ import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
 
 const INFO_ROWS: { icon: IconName; label: string }[] = [
   { icon: 'downloadSimple', label: 'Descarga sin conexión' },
-  { icon: 'mapTrifold', label: 'App de navegación' },
-  { icon: 'user', label: 'Mi equipo' },
-  { icon: 'translate', label: 'Idioma' },
   { icon: 'receipt', label: 'Restaurar compra' },
 ];
 
 /**
  * Sección Perfil (US7, contracts/screens.md). La línea de plan es dinámica;
- * las cinco filas informativas se muestran sin acción asociada (FR-034): no
+ * las dos filas informativas se muestran sin acción asociada (FR-034): no
  * son controles rotos, es el alcance de esta entrega.
  */
 export default function ProfileScreen() {
   const catalog = useCatalog();
   const entitlement = useEntitlement();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const counts = catalogCounts(catalog);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + spacing[4] }]}
+    >
       <View style={styles.planCard}>
         <Text style={styles.planTitle}>{entitlement.owned ? 'Guía completa' : 'Modo prueba'}</Text>
         <Text style={styles.planSubtitle}>

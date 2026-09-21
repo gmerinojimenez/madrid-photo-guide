@@ -111,9 +111,9 @@ interfaz siguen respondiendo.
 - La línea de plan es dinámica (US7 §1 y §2): sin la compra, modo prueba con "{free} de
   {total}"; con ella, guía completa con el total. Los números salen de `catalogCounts`.
 - Sin la compra se ofrece desbloquear; con ella, no.
-- Las cinco filas —descarga sin conexión, app de navegación, mi equipo, idioma, restaurar
-  compra— se muestran **informativas y sin acción** (US7 §3, FR-034). No son controles
-  deshabilitados por error: es el alcance de esta entrega.
+- Las dos filas —descarga sin conexión, restaurar compra— se muestran **informativas y sin
+  acción** (US7 §3, FR-034). No son controles deshabilitados por error: es el alcance de esta
+  entrega.
 
 ---
 

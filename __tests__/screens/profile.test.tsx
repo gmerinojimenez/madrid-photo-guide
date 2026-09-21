@@ -5,7 +5,7 @@ import { skipOnboarding } from './support.ts';
 
 /**
  * US7 §1 §2 §3 — FR-012, FR-034: la línea de plan es dinámica; la oferta de
- * desbloquear solo aparece sin la compra; las cinco filas informativas se
+ * desbloquear solo aparece sin la compra; las dos filas informativas se
  * muestran sin acción.
  */
 describe('Perfil', () => {
@@ -32,14 +32,14 @@ describe('Perfil', () => {
     expect(screen.queryByLabelText('Ver la guía completa')).toBeNull();
   });
 
-  it('muestra las cinco filas informativas sin acción asociada', async () => {
+  it('muestra las dos filas informativas sin acción asociada', async () => {
     await skipOnboarding();
     renderRouter('app', { initialUrl: '/profile' });
 
     expect(await screen.findByText('Descarga sin conexión')).toBeTruthy();
-    expect(screen.getByText('App de navegación')).toBeTruthy();
-    expect(screen.getByText('Mi equipo')).toBeTruthy();
-    expect(screen.getByText('Idioma')).toBeTruthy();
     expect(screen.getByText('Restaurar compra')).toBeTruthy();
+    expect(screen.queryByText('App de navegación')).toBeNull();
+    expect(screen.queryByText('Mi equipo')).toBeNull();
+    expect(screen.queryByText('Idioma')).toBeNull();
   });
 });
