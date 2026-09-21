@@ -25,3 +25,4 @@ export {
   type Entitlement,
   type LocationPreview,
 } from './access.ts';
+export { catalogCounts, type CatalogCounts } from './counts.ts';

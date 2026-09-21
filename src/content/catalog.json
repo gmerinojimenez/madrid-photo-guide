@@ -50,6 +50,48 @@
       "description": {
         "es": "El corazón turístico de Madrid: Sol, Plaza Mayor y el Rastro a un paseo corto entre sí."
       }
+    },
+    {
+      "id": "vallecas",
+      "name": { "es": "Vallecas" },
+      "description": {
+        "es": "Barrio popular al sureste de la ciudad, con el Cerro del Tío Pío como mirador improvisado sobre todo el skyline."
+      }
+    },
+    {
+      "id": "arganzuela",
+      "name": { "es": "Arganzuela" },
+      "description": {
+        "es": "El antiguo distrito industrial junto al Manzanares, hoy reconvertido en parques y espacios culturales como Matadero."
+      }
+    },
+    {
+      "id": "moncloa",
+      "name": { "es": "Moncloa" },
+      "description": {
+        "es": "Universitario y verde, con el Faro y el Templo de Debod compartiendo las mejores vistas del oeste de Madrid."
+      }
+    },
+    {
+      "id": "retiro",
+      "name": { "es": "Retiro" },
+      "description": {
+        "es": "El gran pulmón verde de Madrid, con el Palacio de Cristal reflejándose en su estanque entre árboles centenarios."
+      }
+    },
+    {
+      "id": "latina",
+      "name": { "es": "Latina" },
+      "description": {
+        "es": "Distrito extenso al oeste del Manzanares, con la Casa de Campo como escapada rápida de skyline y atardeceres."
+      }
+    },
+    {
+      "id": "lavapies",
+      "name": { "es": "Lavapiés" },
+      "description": {
+        "es": "El barrio más multicultural de Madrid, de calles estrechas y fachadas con historia a cada paso."
+      }
     }
   ],
 
@@ -212,6 +254,294 @@
         "usage": "detail",
         "alt": { "es": "Los soportales de la Plaza Mayor al atardecer" },
         "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "tiopio",
+      "name": { "es": "Cerro del Tío Pío" },
+      "neighbourhoodId": "vallecas",
+      "tagIds": ["atardecer", "skyline"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.3972, "lng": -3.6566, "radiusMeters": 450 },
+      "thumbnail": {
+        "locationId": "tiopio",
+        "usage": "thumb",
+        "alt": { "es": "Las colinas del Cerro del Tío Pío con el skyline de Madrid al fondo" },
+        "aspectRatio": 1.5
+      },
+      "coords": { "lat": 40.3936, "lng": -3.6606 },
+      "bestTime": { "es": "atardecer, con la ciudad a contraluz desde las colinas" },
+      "shotDescription": {
+        "es": "Sube a la colina más alta y dispara con gran angular incluyendo las ondulaciones de césped en primer plano y el skyline al fondo."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 20,
+        "aperture": "f/9",
+        "shutterSpeed": "1/160 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "tiopio",
+        "usage": "detail",
+        "alt": { "es": "Las colinas del Cerro del Tío Pío con el skyline de Madrid al fondo" },
+        "aspectRatio": 1.5
+      }
+    },
+    {
+      "id": "circulo",
+      "name": { "es": "Círculo de Bellas Artes" },
+      "neighbourhoodId": "centro",
+      "tagIds": ["skyline", "atardecer"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.4222, "lng": -3.6928, "radiusMeters": 400 },
+      "thumbnail": {
+        "locationId": "circulo",
+        "usage": "thumb",
+        "alt": { "es": "Vistas de Madrid desde la azotea del Círculo de Bellas Artes al atardecer" },
+        "aspectRatio": 1.5
+      },
+      "coords": { "lat": 40.4184, "lng": -3.6968 },
+      "bestTime": { "es": "45 min antes del atardecer, para ver encenderse la ciudad" },
+      "shotDescription": {
+        "es": "Sube a la azotea y busca el hueco entre las cúpulas del centro para encuadrar Gran Vía con el sol bajo."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 35,
+        "aperture": "f/8",
+        "shutterSpeed": "1/200 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "circulo",
+        "usage": "detail",
+        "alt": { "es": "Vistas de Madrid desde la azotea del Círculo de Bellas Artes al atardecer" },
+        "aspectRatio": 1.5
+      }
+    },
+    {
+      "id": "metropolis",
+      "name": { "es": "Edificio Metrópolis" },
+      "neighbourhoodId": "centro",
+      "tagIds": ["arquitectura", "nocturna"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.4218, "lng": -3.6941, "radiusMeters": 350 },
+      "thumbnail": {
+        "locationId": "metropolis",
+        "usage": "thumb",
+        "alt": { "es": "La cúpula iluminada del Edificio Metrópolis de noche" },
+        "aspectRatio": 1.3333
+      },
+      "coords": { "lat": 40.4180, "lng": -3.6981 },
+      "bestTime": { "es": "poco después del anochecer, con la cúpula ya iluminada" },
+      "shotDescription": {
+        "es": "Desde la acera de enfrente en Gran Vía, con teleobjetivo corto para aislar la cúpula y su estatua dorada del tráfico."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 50,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/60 s",
+        "iso": 800
+      },
+      "detailImage": {
+        "locationId": "metropolis",
+        "usage": "detail",
+        "alt": { "es": "La cúpula iluminada del Edificio Metrópolis de noche" },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "matadero",
+      "name": { "es": "Matadero Madrid" },
+      "neighbourhoodId": "arganzuela",
+      "tagIds": ["arquitectura"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.3956, "lng": -3.7014, "radiusMeters": 400 },
+      "thumbnail": {
+        "locationId": "matadero",
+        "usage": "thumb",
+        "alt": { "es": "Las naves de ladrillo industrial de Matadero Madrid" },
+        "aspectRatio": 1.5
+      },
+      "coords": { "lat": 40.3919, "lng": -3.6976 },
+      "bestTime": { "es": "mediodía, cuando la luz entra directa entre las naves" },
+      "shotDescription": {
+        "es": "Camina por el patio central y dispara hacia las fachadas de ladrillo visto, buscando la simetría de los arcos de las naves."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 24,
+        "aperture": "f/8",
+        "shutterSpeed": "1/500 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "matadero",
+        "usage": "detail",
+        "alt": { "es": "Las naves de ladrillo industrial de Matadero Madrid" },
+        "aspectRatio": 1.5
+      }
+    },
+    {
+      "id": "faro",
+      "name": { "es": "Faro de Moncloa" },
+      "neighbourhoodId": "moncloa",
+      "tagIds": ["skyline"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.4415, "lng": -3.7237, "radiusMeters": 450 },
+      "thumbnail": {
+        "locationId": "faro",
+        "usage": "thumb",
+        "alt": { "es": "El skyline de Madrid visto desde la cabina panorámica del Faro de Moncloa" },
+        "aspectRatio": 1.7778
+      },
+      "coords": { "lat": 40.4378, "lng": -3.7196 },
+      "bestTime": { "es": "atardecer, cuando el sol se pone detrás de la sierra" },
+      "shotDescription": {
+        "es": "Desde la cabina panorámica, pega el objetivo al cristal para evitar el reflejo y encuadra hacia el oeste, con la sierra al fondo."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 70,
+        "aperture": "f/8",
+        "shutterSpeed": "1/250 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "faro",
+        "usage": "detail",
+        "alt": { "es": "El skyline de Madrid visto desde la cabina panorámica del Faro de Moncloa" },
+        "aspectRatio": 1.7778
+      }
+    },
+    {
+      "id": "toledo",
+      "name": { "es": "Puente de Toledo" },
+      "neighbourhoodId": "arganzuela",
+      "tagIds": ["nocturna", "arquitectura"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.4007, "lng": -3.7177, "radiusMeters": 400 },
+      "thumbnail": {
+        "locationId": "toledo",
+        "usage": "thumb",
+        "alt": { "es": "Los arcos barrocos del Puente de Toledo iluminados de noche" },
+        "aspectRatio": 1.5
+      },
+      "coords": { "lat": 40.3969, "lng": -3.7139 },
+      "bestTime": { "es": "hora azul, con la iluminación del puente ya encendida" },
+      "shotDescription": {
+        "es": "Desde la orilla del Manzanares, busca el reflejo de los arcos en el agua con una exposición larga sobre trípode."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 35,
+        "aperture": "f/11",
+        "shutterSpeed": "4 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "toledo",
+        "usage": "detail",
+        "alt": { "es": "Los arcos barrocos del Puente de Toledo iluminados de noche" },
+        "aspectRatio": 1.5
+      }
+    },
+    {
+      "id": "retiro",
+      "name": { "es": "Palacio de Cristal" },
+      "neighbourhoodId": "retiro",
+      "tagIds": ["arquitectura"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.4175, "lng": -3.6787, "radiusMeters": 350 },
+      "thumbnail": {
+        "locationId": "retiro",
+        "usage": "thumb",
+        "alt": { "es": "El Palacio de Cristal del Retiro reflejado en su estanque" },
+        "aspectRatio": 1.3333
+      },
+      "coords": { "lat": 40.4137, "lng": -3.6825 },
+      "bestTime": { "es": "media mañana entre semana, con el estanque en calma" },
+      "shotDescription": {
+        "es": "Colócate en la orilla opuesta a la entrada y agáchate cerca del agua para captar el reflejo simétrico de la estructura de cristal."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 28,
+        "aperture": "f/7.1",
+        "shutterSpeed": "1/320 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "retiro",
+        "usage": "detail",
+        "alt": { "es": "El Palacio de Cristal del Retiro reflejado en su estanque" },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "campo",
+      "name": { "es": "Casa de Campo" },
+      "neighbourhoodId": "latina",
+      "tagIds": ["skyline", "atardecer"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.4228, "lng": -3.7402, "radiusMeters": 500 },
+      "thumbnail": {
+        "locationId": "campo",
+        "usage": "thumb",
+        "alt": { "es": "El skyline de Madrid al atardecer visto desde la Casa de Campo" },
+        "aspectRatio": 1.7778
+      },
+      "coords": { "lat": 40.4190, "lng": -3.7360 },
+      "bestTime": { "es": "atardecer, con la ciudad iluminándose a lo lejos" },
+      "shotDescription": {
+        "es": "Busca una loma despejada con vistas al este y encuadra con teleobjetivo para comprimir el skyline sobre el follaje del parque."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 100,
+        "aperture": "f/8",
+        "shutterSpeed": "1/200 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "campo",
+        "usage": "detail",
+        "alt": { "es": "El skyline de Madrid al atardecer visto desde la Casa de Campo" },
+        "aspectRatio": 1.7778
+      }
+    },
+    {
+      "id": "lavapies",
+      "name": { "es": "Calle de Lavapiés" },
+      "neighbourhoodId": "lavapies",
+      "tagIds": ["callejera"],
+      "access": "premium",
+      "approximateArea": { "lat": 40.4128, "lng": -3.6972, "radiusMeters": 350 },
+      "thumbnail": {
+        "locationId": "lavapies",
+        "usage": "thumb",
+        "alt": { "es": "Fachadas y persianas de colores en una calle de Lavapiés" },
+        "aspectRatio": 1.5
+      },
+      "coords": { "lat": 40.4090, "lng": -3.7010 },
+      "bestTime": { "es": "media tarde, cuando el sol lateral resalta las fachadas" },
+      "shotDescription": {
+        "es": "Camina la calle en pendiente y dispara en vertical para captar las fachadas de colores y los balcones asomando entre sí."
+      },
+      "capture": {
+        "camera": "Sony A7 IV",
+        "focalLengthMm": 35,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/320 s",
+        "iso": 200
+      },
+      "detailImage": {
+        "locationId": "lavapies",
+        "usage": "detail",
+        "alt": { "es": "Fachadas y persianas de colores en una calle de Lavapiés" },
+        "aspectRatio": 1.5
       }
     }
   ],
