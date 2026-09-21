@@ -24,6 +24,13 @@ import {
 } from '../../src/ui/providers/index.ts';
 import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
 
+// Centro geográfico de Madrid, con un zoom que encuadra el catálogo entero (14
+// localizaciones, de Vallecas a Moncloa). Es el punto de partida del mapa al
+// abrir la app; una vez movido por la persona usuaria, expo-maps conserva su
+// posición sin que el componente vuelva a fijarla.
+const MADRID_CENTER = { lat: 40.4168, lng: -3.7038 };
+const INITIAL_ZOOM = 11;
+
 /** Estado de los paneles superpuestos (data-model.md §2, FR-004). Excluyentes entre sí. */
 type SheetState =
   | { kind: 'none' }
@@ -130,7 +137,11 @@ export default function MapScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.mapArea}>
-        <LocationMap markers={markers} onMarkerPress={handleMarkerPress} />
+        <LocationMap
+          markers={markers}
+          onMarkerPress={handleMarkerPress}
+          camera={{ coords: MADRID_CENTER, zoom: INITIAL_ZOOM }}
+        />
         {filtered.length === 0 ? (
           <View style={styles.emptyOverlay}>
             <EmptyState

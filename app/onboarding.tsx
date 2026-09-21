@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { catalogCounts } from '../src/core/content/counts.ts';
 import { localize } from '../src/core/content/localize.ts';
@@ -20,6 +21,7 @@ export default function OnboardingScreen() {
   const catalog = useCatalog();
   const preferences = usePreferencesStore();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   const counts = catalogCounts(catalog);
   const freeNames = catalog.locations
@@ -36,7 +38,15 @@ export default function OnboardingScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingTop: Math.max(insets.top, spacing[4]),
+          paddingBottom: Math.max(insets.bottom, spacing[4]),
+        },
+      ]}
+    >
       <View style={styles.progress}>
         {Array.from({ length: TOTAL_STEPS }).map((_, index) => (
           <View

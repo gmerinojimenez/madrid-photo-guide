@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { isFullLocation, localize, viewLocation } from '../../src/core/content/index.ts';
 import { formatCoordinates } from '../../src/core/navigation/links.ts';
@@ -28,6 +29,7 @@ export default function LocationDetailScreen() {
   const entitlement = useEntitlement();
   const savedLocations = useSavedLocationsStore();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const [navVisible, setNavVisible] = useState(false);
 
@@ -52,7 +54,7 @@ export default function LocationDetailScreen() {
 
   if (!full) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top }]}>
         <EmptyState
           icon="mapPin"
           title="Contenido no disponible"
@@ -85,7 +87,10 @@ export default function LocationDetailScreen() {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + spacing[4] }]}
+    >
       <View style={styles.headerRow}>
         <Pressable
           onPress={() => router.back()}

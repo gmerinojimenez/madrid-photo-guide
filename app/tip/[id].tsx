@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { isFullLocation, localize, viewLocation } from '../../src/core/content/index.ts';
 import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
@@ -18,12 +19,13 @@ export default function TipDetailScreen() {
   const catalog = useCatalog();
   const entitlement = useEntitlement();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   const tip = catalog.tips.find((candidate) => candidate.id === id);
 
   if (!tip) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top }]}>
         <EmptyState
           icon="listDashes"
           title="Contenido no disponible"
@@ -51,7 +53,10 @@ export default function TipDetailScreen() {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + spacing[4] }]}
+    >
       <Pressable
         onPress={() => router.back()}
         accessibilityRole="button"

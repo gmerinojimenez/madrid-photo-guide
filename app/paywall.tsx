@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { catalogCounts } from '../src/core/content/counts.ts';
 import { Icon } from '../src/ui/components/Icon.tsx';
@@ -22,6 +23,7 @@ export default function PaywallScreen() {
   const catalog = useCatalog();
   const purchase = usePurchase();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const counts = catalogCounts(catalog);
 
   function handleClose() {
@@ -36,7 +38,7 @@ export default function PaywallScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <Pressable
         onPress={handleClose}
         accessibilityRole="button"

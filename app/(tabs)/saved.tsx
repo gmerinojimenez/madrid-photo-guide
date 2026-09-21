@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { FlatList, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { localize } from '../../src/core/content/localize.ts';
 import type { Location } from '../../src/core/content/schema.ts';
@@ -23,6 +24,7 @@ export default function SavedScreen() {
   const entitlement = useEntitlement();
   const savedLocations = useSavedLocationsStore();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const [ids, setIds] = useState<string[]>([]);
 
   useFocusEffect(
@@ -48,7 +50,7 @@ export default function SavedScreen() {
 
   if (!entitlement.owned) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top }]}>
         <EmptyState
           icon="lockSimple"
           title="Guardar es de la guía completa"
@@ -62,7 +64,7 @@ export default function SavedScreen() {
 
   if (items.length === 0) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top }]}>
         <EmptyState
           icon="bookmarkSimple"
           title="Todavía no guardaste nada"
@@ -75,7 +77,7 @@ export default function SavedScreen() {
   return (
     <FlatList
       style={styles.container}
-      contentContainerStyle={styles.list}
+      contentContainerStyle={[styles.list, { paddingTop: insets.top + spacing[4] }]}
       data={items}
       keyExtractor={(location) => location.id}
       renderItem={({ item }) => (

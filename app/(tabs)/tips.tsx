@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'expo-router';
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { localize, tipsByCategory } from '../../src/core/content/index.ts';
 import { FilterChip } from '../../src/ui/components/FilterChip.tsx';
@@ -18,6 +19,7 @@ type Row =
 export default function TipsScreen() {
   const catalog = useCatalog();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const [categoryId, setCategoryId] = useState<string | null>(null);
 
   const groups = useMemo(() => tipsByCategory(catalog), [catalog]);
@@ -40,28 +42,34 @@ export default function TipsScreen() {
   }, [groups, categoryId]);
 
   return (
-    <View style={styles.container}>
-      <FlatList
+    <View style={[styles.container, { paddingTop: insets.top }]}>
+      <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={[
-          { id: null, label: 'Todo' },
-          ...catalog.tipCategories.map((c) => ({ id: c.id, label: localize(c.label, 'es') })),
-        ]}
-        keyExtractor={(item) => item.id ?? 'todo'}
         contentContainerStyle={styles.chips}
-        renderItem={({ item }) => (
+        style={styles.chipsRow}
+      >
+        <FilterChip
+          label="Todo"
+          selected={categoryId === null}
+          onPress={() => setCategoryId(null)}
+        />
+        {catalog.tipCategories.map((category) => (
           <FilterChip
-            label={item.label}
-            selected={categoryId === item.id}
-            onPress={() => setCategoryId(item.id)}
+            key={category.id}
+            label={localize(category.label, 'es')}
+            selected={categoryId === category.id}
+            onPress={() =>
+              setCategoryId((current) => (current === category.id ? null : category.id))
+            }
           />
-        )}
-      />
+        ))}
+      </ScrollView>
       <FlatList
+        style={styles.list}
         data={rows}
         keyExtractor={(row) => row.id}
-        contentContainerStyle={styles.list}
+        contentContainerStyle={styles.listContent}
         renderItem={({ item }) =>
           item.kind === 'header' ? (
             <Text style={styles.sectionHeader}>{item.label}</Text>
@@ -87,12 +95,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.bg,
   },
+  chipsRow: {
+    flexGrow: 0,
+  },
   chips: {
+    alignItems: 'center',
     paddingHorizontal: spacing[4],
     paddingVertical: spacing[3],
     gap: spacing[2],
   },
   list: {
+    flex: 1,
+  },
+  listContent: {
     paddingHorizontal: spacing[4],
     paddingBottom: spacing[8],
     gap: spacing[2],
