@@ -21,7 +21,10 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # --legacy-peer-deps: expo-router arrastra dependencias web opcionales
+        # (vaul/@radix-ui) que exigen una versión de React distinta a la que
+        # fija el proyecto; ver package.json para el detalle del conflicto.
+        run: npm ci --legacy-peer-deps
 
       - name: Type check
         run: npm run typecheck
