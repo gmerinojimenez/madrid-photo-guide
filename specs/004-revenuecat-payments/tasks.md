@@ -42,9 +42,9 @@ Proyecto móvil de un solo paquete (ver [plan.md](./plan.md#project-structure)):
 
 **Purpose**: dependencia, configuración y la barrera de arquitectura que guarda todo lo demás
 
-- [ ] T001 Instalar el SDK con `npx expo install react-native-purchases` y comprobar que `package.json` fija `10.10.1` y que `package-lock.json` queda versionado
-- [ ] T002 [P] Declarar `expo.extra.revenuecat` con `iosApiKey`, `androidApiKey` y `entitlementId` en `app.json`, usando marcadores de sustitución al estilo de la clave de Google Maps ya presente
-- [ ] T003 [P] Ampliar `__tests__/core/purity.test.ts` con la regla de que ningún fichero de `src/` ni de `app/` importa `react-native-purchases` salvo dentro de `src/platform/purchases/`
+- [X] T001 Instalar el SDK con `npx expo install react-native-purchases` y comprobar que `package.json` fija `10.10.1` y que `package-lock.json` queda versionado
+- [X] T002 [P] Declarar `expo.extra.revenuecat` con `iosApiKey`, `androidApiKey` y `entitlementId` en `app.json`, usando marcadores de sustitución al estilo de la clave de Google Maps ya presente
+- [X] T003 [P] Ampliar `__tests__/core/purity.test.ts` con la regla de que ningún fichero de `src/` ni de `app/` importa `react-native-purchases` salvo dentro de `src/platform/purchases/`
 
 **Checkpoint**: la barrera de capas está activa en CI antes de escribir la primera línea del adaptador
 
@@ -58,30 +58,30 @@ Proyecto móvil de un solo paquete (ver [plan.md](./plan.md#project-structure)):
 
 ### Puertos y tipos del núcleo
 
-- [ ] T004 [P] Crear `src/core/entitlement/store-gateway.ts` con `StoreFailure`, `OwnershipQuery`, `PurchaseOutcome`, `RestoreOutcome`, `StorePrice` y la interfaz `StoreGateway`, según [contracts/core-api.md §2.1](./contracts/core-api.md)
-- [ ] T005 [P] Crear `src/core/entitlement/lifecycle.ts` con la interfaz `AppLifecycle` (`onForeground`)
-- [ ] T006 [P] Crear `src/core/entitlement/cache.ts` con `EntitlementCache` y `preferencesEntitlementCache(prefs)` sobre el puerto `PreferencesStore` existente
-- [ ] T007 [P] Escribir unitarios de la caché en `__tests__/core/entitlement-cache.test.ts`: `'1'`→true, `'0'`→false, ausente→null, valor corrupto→false, y que un fallo de escritura no rechaza la promesa
+- [X] T004 [P] Crear `src/core/entitlement/store-gateway.ts` con `StoreFailure`, `OwnershipQuery`, `PurchaseOutcome`, `RestoreOutcome`, `StorePrice` y la interfaz `StoreGateway`, según [contracts/core-api.md §2.1](./contracts/core-api.md)
+- [X] T005 [P] Crear `src/core/entitlement/lifecycle.ts` con la interfaz `AppLifecycle` (`onForeground`)
+- [X] T006 [P] Crear `src/core/entitlement/cache.ts` con `EntitlementCache` y `preferencesEntitlementCache(prefs)` sobre el puerto `PreferencesStore` existente
+- [X] T007 [P] Escribir unitarios de la caché en `__tests__/core/entitlement-cache.test.ts`: `'1'`→true, `'0'`→false, ausente→null, valor corrupto→false, y que un fallo de escritura no rechaza la promesa
 
 ### Orquestador: base
 
-- [ ] T008 Crear `src/core/entitlement/store-backed.ts` con `StoreBackedEntitlementSource` implementando `current()`, `subscribe()` y `hydrate()`, incluida la invariante de no notificar dos veces el mismo valor
-- [ ] T009 Escribir unitarios de hidratación en `__tests__/core/entitlement-store-backed.test.ts`: `current()` antes de hidratar devuelve `{ owned: false }`, la caché se publica, y no se consulta a la tienda ni se escribe nada
+- [X] T008 Crear `src/core/entitlement/store-backed.ts` con `StoreBackedEntitlementSource` implementando `current()`, `subscribe()` y `hydrate()`, incluida la invariante de no notificar dos veces el mismo valor
+- [X] T009 Escribir unitarios de hidratación en `__tests__/core/entitlement-store-backed.test.ts`: `current()` antes de hidratar devuelve `{ owned: false }`, la caché se publica, y no se consulta a la tienda ni se escribe nada
 
 ### Adaptadores de plataforma
 
-- [ ] T010 [P] Crear `src/platform/purchases/config.ts` con `readRevenueCatConfig()` leyendo `expo.extra.revenuecat` vía `expo-constants`, devolviendo `apiKey: null` si falta o es un marcador
-- [ ] T011 Crear `src/platform/purchases/revenuecat.ts` con `createRevenueCatGateway(config)`: `configure` una sola vez, selección de clave por plataforma, los cinco métodos de `StoreGateway`, la tabla de mapeo de errores de [research.md D-004](./research.md), y degradación total a `unavailable: 'store'` cuando `apiKey` es `null`
-- [ ] T012 [P] Crear `src/platform/system/app-lifecycle.ts` con `appStateLifecycle()` sobre `AppState` de React Native
-- [ ] T013 [P] Crear `src/platform/purchases/index.ts` con los reexportes del adaptador
+- [X] T010 [P] Crear `src/platform/purchases/config.ts` con `readRevenueCatConfig()` leyendo `expo.extra.revenuecat` vía `expo-constants`, devolviendo `apiKey: null` si falta o es un marcador
+- [X] T011 Crear `src/platform/purchases/revenuecat.ts` con `createRevenueCatGateway(config)`: `configure` una sola vez, selección de clave por plataforma, los cinco métodos de `StoreGateway`, la tabla de mapeo de errores de [research.md D-004](./research.md), y degradación total a `unavailable: 'store'` cuando `apiKey` es `null`
+- [X] T012 [P] Crear `src/platform/system/app-lifecycle.ts` con `appStateLifecycle()` sobre `AppState` de React Native
+- [X] T013 [P] Crear `src/platform/purchases/index.ts` con los reexportes del adaptador
 
 ### Infraestructura de tests y cableado
 
-- [ ] T014 Añadir el doble de `react-native-purchases` a `jest.setup.ts`, junto a los de `expo-maps` y `expo-sqlite`, con ayudantes para sembrar "esta cuenta ya compró", forzar fallo de red, forzar cancelación y empujar una revocación
-- [ ] T015 Actualizar `src/core/entitlement/index.ts` para reexportar los módulos nuevos sin retirar `InMemoryEntitlementSource`, que sigue sirviendo a los tests de pantallas ajenos a la compra
-- [ ] T016 Actualizar `src/ui/providers/EntitlementProvider.tsx`: `usePurchase()` pasa a devolver `Promise<PurchaseOutcome>`, se añaden `useRestore()` y `useStorePrice()`, y se serializan las acciones para que una segunda pulsación no abra una segunda hoja de compra
-- [ ] T017 Actualizar `app/_layout.tsx` para componer `StoreBackedEntitlementSource` con el adaptador real y la caché, e invocar `hydrate()` al montar sin retrasar la aparición de la interfaz
-- [ ] T018 Ejecutar `npm run verify` y corregir lo que el cableado haya roto en la suite existente; **la suite debe quedar verde antes de abrir ninguna historia**
+- [X] T014 Añadir el doble de `react-native-purchases` a `jest.setup.ts`, junto a los de `expo-maps` y `expo-sqlite`, con ayudantes para sembrar "esta cuenta ya compró", forzar fallo de red, forzar cancelación y empujar una revocación
+- [X] T015 Actualizar `src/core/entitlement/index.ts` para reexportar los módulos nuevos sin retirar `InMemoryEntitlementSource`, que sigue sirviendo a los tests de pantallas ajenos a la compra
+- [X] T016 Actualizar `src/ui/providers/EntitlementProvider.tsx`: `usePurchase()` pasa a devolver `Promise<PurchaseOutcome>`, se añaden `useRestore()` y `useStorePrice()`, y se serializan las acciones para que una segunda pulsación no abra una segunda hoja de compra
+- [X] T017 Actualizar `app/_layout.tsx` para componer `StoreBackedEntitlementSource` con el adaptador real y la caché, e invocar `hydrate()` al montar sin retrasar la aparición de la interfaz
+- [X] T018 Ejecutar `npm run verify` y corregir lo que el cableado haya roto en la suite existente; **la suite debe quedar verde antes de abrir ninguna historia**
 
 **Checkpoint**: el dominio, el adaptador y el arranque están en su sitio; la app compra a través de la tienda falsa y nada de lo que ya funcionaba se ha roto
 
@@ -100,16 +100,16 @@ US2 ni de US3.
 
 > Escribir primero y verlos fallar antes de implementar
 
-- [ ] T019 [P] [US1] Unitarios de `purchase()` en `__tests__/core/entitlement-store-backed.test.ts`: `purchased` y `already-owned` conceden, persisten y notifican; `cancelled` no cambia nada ni registra error; `unavailable` no cambia nada y registra
-- [ ] T020 [P] [US1] Aceptación de la compra en `__tests__/screens/purchase-flow.test.tsx`, escenarios 1–3 de [contracts/screens.md §6](./contracts/screens.md): desbloqueo tras comprar, no poder pagar dos veces, y cancelar sin mensaje de error
-- [ ] T021 [P] [US1] Aceptación de la presentación del paywall en `__tests__/screens/paywall.test.tsx`, escenarios 10–11: el aviso de alcance por plataforma aparece antes del botón, y sin respuesta de ofertas no hay cifra y la compra queda desactivada
+- [X] T019 [P] [US1] Unitarios de `purchase()` en `__tests__/core/entitlement-store-backed.test.ts`: `purchased` y `already-owned` conceden, persisten y notifican; `cancelled` no cambia nada ni registra error; `unavailable` no cambia nada y registra
+- [X] T020 [P] [US1] Aceptación de la compra en `__tests__/screens/purchase-flow.test.tsx`, escenarios 1–3 de [contracts/screens.md §6](./contracts/screens.md): desbloqueo tras comprar, no poder pagar dos veces, y cancelar sin mensaje de error
+- [X] T021 [P] [US1] Aceptación de la presentación del paywall en `__tests__/screens/paywall.test.tsx`, escenarios 10–11: el aviso de alcance por plataforma aparece antes del botón, y sin respuesta de ofertas no hay cifra y la compra queda desactivada
 
 ### Implementation for User Story 1
 
-- [ ] T022 [US1] Implementar `purchase()` en `src/core/entitlement/store-backed.ts` según [contracts/core-api.md §3](./contracts/core-api.md), tratando `already-owned` como éxito
-- [ ] T023 [US1] Sustituir el precio literal `9,99 €` de `app/paywall.tsx` por `useStorePrice()`, dejando la cifra ausente y el botón desactivado mientras no haya precio
-- [ ] T024 [US1] Añadir a `app/paywall.tsx` el aviso de que el desbloqueo pertenece a la cuenta de tienda de esa plataforma, visible y por encima del botón de compra
-- [ ] T025 [US1] Tratar en `app/paywall.tsx` los cinco desenlaces de compra con mensajes distinguibles, sin mostrar error alguno cuando la persona cancela
+- [X] T022 [US1] Implementar `purchase()` en `src/core/entitlement/store-backed.ts` según [contracts/core-api.md §3](./contracts/core-api.md), tratando `already-owned` como éxito
+- [X] T023 [US1] Sustituir el precio literal `9,99 €` de `app/paywall.tsx` por `useStorePrice()`, dejando la cifra ausente y el botón desactivado mientras no haya precio
+- [X] T024 [US1] Añadir a `app/paywall.tsx` el aviso de que el desbloqueo pertenece a la cuenta de tienda de esa plataforma, visible y por encima del botón de compra
+- [X] T025 [US1] Tratar en `app/paywall.tsx` los cinco desenlaces de compra con mensajes distinguibles, sin mostrar error alguno cuando la persona cancela
 
 **Checkpoint**: la compra funciona de punta a punta y es demostrable por sí sola
 
@@ -126,14 +126,14 @@ US1: no hace falta haber comprado en esta sesión.
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T026 [P] [US2] Unitarios de `restore()` en `__tests__/core/entitlement-store-backed.test.ts`: `restored` concede y persiste; `nothing-to-restore` **revoca** si había titularidad, por ser una respuesta afirmativa de la tienda; `unavailable` no toca el estado
-- [ ] T027 [P] [US2] Aceptación en `__tests__/screens/restore-purchase.test.tsx`, escenarios 4–6 de [contracts/screens.md §6](./contracts/screens.md): restaurar en instalación limpia, no haber nada que restaurar, y el caso de la otra plataforma con su mensaje explicativo
+- [X] T026 [P] [US2] Unitarios de `restore()` en `__tests__/core/entitlement-store-backed.test.ts`: `restored` concede y persiste; `nothing-to-restore` **revoca** si había titularidad, por ser una respuesta afirmativa de la tienda; `unavailable` no toca el estado
+- [X] T027 [P] [US2] Aceptación en `__tests__/screens/restore-purchase.test.tsx`, escenarios 4–6 de [contracts/screens.md §6](./contracts/screens.md): restaurar en instalación limpia, no haber nada que restaurar, y el caso de la otra plataforma con su mensaje explicativo
 
 ### Implementation for User Story 2
 
-- [ ] T028 [US2] Implementar `restore()` en `src/core/entitlement/store-backed.ts`, distinguiendo `nothing-to-restore` de `unavailable`
-- [ ] T029 [US2] Convertir la fila "Restaurar compra" de `app/(tabs)/profile.tsx` en control pulsable con `accessibilityRole="button"` y mensajes para los tres desenlaces, dejando "Descarga sin conexión" como fila informativa
-- [ ] T030 [P] [US2] Añadir el control secundario "Restaurar compra" a `app/paywall.tsx`, bajo el botón de compra, con los mismos tres desenlaces
+- [X] T028 [US2] Implementar `restore()` en `src/core/entitlement/store-backed.ts`, distinguiendo `nothing-to-restore` de `unavailable`
+- [X] T029 [US2] Convertir la fila "Restaurar compra" de `app/(tabs)/profile.tsx` en control pulsable con `accessibilityRole="button"` y mensajes para los tres desenlaces, dejando "Descarga sin conexión" como fila informativa
+- [X] T030 [P] [US2] Añadir el control secundario "Restaurar compra" a `app/paywall.tsx`, bajo el botón de compra, con los mismos tres desenlaces
 
 **Checkpoint**: comprar y restaurar funcionan y se validan por separado
 
@@ -150,13 +150,13 @@ comprobar que el contenido premium sigue accesible. No requiere haber pasado por
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T031 [P] [US3] Unitarios de `reconcile()` y `watch()` en `__tests__/core/entitlement-store-backed.test.ts`: una respuesta `known` manda y se persiste en ambos sentidos; `unavailable` no cambia nada, no escribe y no notifica; dos reconciliaciones iguales notifican una sola vez
-- [ ] T032 [P] [US3] Aceptación en `__tests__/screens/entitlement-degradation.test.tsx`, escenarios 7–9 de [contracts/screens.md §6](./contracts/screens.md): arranque sin red conservando el acceso, reconciliación fallida que no revoca, y reembolso que sí vuelve a bloquear
+- [X] T031 [P] [US3] Unitarios de `reconcile()` y `watch()` en `__tests__/core/entitlement-store-backed.test.ts`: una respuesta `known` manda y se persiste en ambos sentidos; `unavailable` no cambia nada, no escribe y no notifica; dos reconciliaciones iguales notifican una sola vez
+- [X] T032 [P] [US3] Aceptación en `__tests__/screens/entitlement-degradation.test.tsx`, escenarios 7–9 de [contracts/screens.md §6](./contracts/screens.md): arranque sin red conservando el acceso, reconciliación fallida que no revoca, y reembolso que sí vuelve a bloquear
 
 ### Implementation for User Story 3
 
-- [ ] T033 [US3] Implementar `reconcile()` y `watch()` en `src/core/entitlement/store-backed.ts`, registrando los fallos por `ContentLogger` solo con el vocabulario `StoreFailure`
-- [ ] T034 [US3] Enganchar en `app/_layout.tsx` la reconciliación al arrancar y en cada vuelta a primer plano vía `appStateLifecycle()`, más `watch()`, dando de baja ambas suscripciones al desmontar
+- [X] T033 [US3] Implementar `reconcile()` y `watch()` en `src/core/entitlement/store-backed.ts`, registrando los fallos por `ContentLogger` solo con el vocabulario `StoreFailure`
+- [X] T034 [US3] Enganchar en `app/_layout.tsx` la reconciliación al arrancar y en cada vuelta a primer plano vía `appStateLifecycle()`, más `watch()`, dando de baja ambas suscripciones al desmontar
 
 **Checkpoint**: las cuatro situaciones de acceso que exige el principio III quedan cubiertas; la deuda de la feature 003 está saldada
 
@@ -165,9 +165,9 @@ comprobar que el contenido premium sigue accesible. No requiere haber pasado por
 ## Phase 6: Polish & Cross-Cutting Concerns
 
 - [ ] T035 Verificar sobre el `AndroidManifest.xml` generado tras `npx expo prebuild --clean` que `com.android.vending.BILLING` aparece por fusión de manifiestos; si no aparece, añadir un config plugin propio mínimo que lo declare (D-002)
-- [ ] T036 [P] Revisar que ningún registro emitido por `src/platform/purchases/revenuecat.ts` incluya el error crudo del SDK, precios ni identificadores de transacción, sino solo `StoreFailure` (FR-012)
-- [ ] T037 [P] Documentar en `README.md` que la app exige development build y configuración de RevenueCat, remitiendo a [quickstart.md §4](./quickstart.md) para los pasos de consola
-- [ ] T038 Ejecutar `npm run verify` con todas las puertas en verde: tipos, lint, validación de catálogo y las dos suites de tests
+- [X] T036 [P] Revisar que ningún registro emitido por `src/platform/purchases/revenuecat.ts` incluya el error crudo del SDK, precios ni identificadores de transacción, sino solo `StoreFailure` (FR-012)
+- [X] T037 [P] Documentar en `README.md` que la app exige development build y configuración de RevenueCat, remitiendo a [quickstart.md §4](./quickstart.md) para los pasos de consola
+- [X] T038 Ejecutar `npm run verify` con todas las puertas en verde: tipos, lint, validación de catálogo y las dos suites de tests
 - [ ] T039 Recorrer la validación manual en development build de [quickstart.md §2.2](./quickstart.md) en Android y en iOS
 - [ ] T040 Completar la lista de validación contra tiendas reales de [quickstart.md §3](./quickstart.md) como puerta previa a publicar, incluido el reembolso desde consola para probar la revocación
 

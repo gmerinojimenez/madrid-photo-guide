@@ -49,6 +49,23 @@ Android declarada en la configuración de la app:
 Sin ella, `npm run android` compila igual pero el mapa se muestra en blanco, con los
 marcadores encima (degradación sin conectividad, D-003).
 
+## Compra única y RevenueCat
+
+El desbloqueo del contenido premium usa [RevenueCat](https://www.revenuecat.com/) sobre
+`react-native-purchases` (ver [specs/004-revenuecat-payments](specs/004-revenuecat-payments/)).
+Es un módulo nativo autoenlazado —no un config plugin—, así que también exige **development
+build**: no funciona en Expo Go.
+
+Para comprar o restaurar de verdad hace falta configurar tres consolas (RevenueCat, Google
+Play Console y App Store Connect) y sustituir los marcadores de `app.json`
+(`expo.extra.revenuecat.iosApiKey` / `androidApiKey`) por las claves **públicas** de cada
+plataforma. Sin claves reales, la app arranca igual, el contenido gratuito funciona, y el
+paywall explica que la compra no está disponible (degradación de D-009).
+
+Los pasos de consola, la lista de comprobación de manifiesto (D-002) y la validación contra
+las tiendas reales están en
+[specs/004-revenuecat-payments/quickstart.md](specs/004-revenuecat-payments/quickstart.md#4-configuración-de-consolas-una-vez).
+
 ## Comandos
 
 ```bash

@@ -1,29 +1,49 @@
+import { useState } from 'react';
 import { useRouter } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { catalogCounts } from '../../src/core/content/counts.ts';
+import type { RestoreOutcome } from '../../src/core/entitlement/store-gateway.ts';
 import { Icon } from '../../src/ui/components/Icon.tsx';
-import type { IconName } from '../../src/ui/theme/icons.ts';
-import { useCatalog, useEntitlement } from '../../src/ui/providers/index.ts';
+import { useCatalog, useEntitlement, useRestore } from '../../src/ui/providers/index.ts';
 import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
 
-const INFO_ROWS: { icon: IconName; label: string }[] = [
-  { icon: 'downloadSimple', label: 'Descarga sin conexión' },
-  { icon: 'receipt', label: 'Restaurar compra' },
-];
-
 /**
- * Sección Perfil (US7, contracts/screens.md). La línea de plan es dinámica;
- * las dos filas informativas se muestran sin acción asociada (FR-034): no
- * son controles rotos, es el alcance de esta entrega.
+ * Sección Perfil (US7, US2, contracts/screens.md §4). La línea de plan es
+ * dinámica; "Restaurar compra" es un control pulsable (D-011) con sus tres
+ * desenlaces; "Descarga sin conexión" sigue siendo informativa (FR-034): no
+ * es un control roto, es el alcance de esta entrega.
  */
 export default function ProfileScreen() {
   const catalog = useCatalog();
   const entitlement = useEntitlement();
+  const restore = useRestore();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const counts = catalogCounts(catalog);
+
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  async function handleRestore() {
+    setMessage(null);
+    setBusy(true);
+    const outcome: RestoreOutcome = await restore();
+    setBusy(false);
+    switch (outcome.status) {
+      case 'restored':
+        setMessage('Compra restaurada: ya tienes acceso a la guía completa.');
+        return;
+      case 'nothing-to-restore':
+        setMessage(
+          'No se ha encontrado ninguna compra en esta cuenta de tienda. El desbloqueo pertenece a la plataforma donde se compró.',
+        );
+        return;
+      case 'unavailable':
+        setMessage('No se pudo contactar con la tienda. El acceso vigente no cambia.');
+    }
+  }
 
   return (
     <ScrollView
@@ -50,13 +70,25 @@ export default function ProfileScreen() {
       </View>
 
       <View style={styles.rows}>
-        {INFO_ROWS.map((row) => (
-          <View key={row.label} style={styles.row}>
-            <Icon name={row.icon} color={colors.textMuted} size={20} />
-            <Text style={styles.rowLabel}>{row.label}</Text>
-          </View>
-        ))}
+        <View style={styles.row}>
+          <Icon name="downloadSimple" color={colors.textMuted} size={20} />
+          <Text style={styles.rowLabel}>Descarga sin conexión</Text>
+        </View>
+        <Pressable
+          onPress={handleRestore}
+          disabled={busy}
+          accessibilityRole="button"
+          accessibilityLabel="Restaurar compra"
+          accessibilityState={{ disabled: busy }}
+          style={styles.row}
+        >
+          <Icon name="receipt" color={colors.textMuted} size={20} />
+          <Text style={styles.rowLabel}>Restaurar compra</Text>
+          {busy ? <ActivityIndicator color={colors.textMuted} style={styles.rowSpinner} /> : null}
+        </Pressable>
       </View>
+
+      {message ? <Text style={styles.message}>{message}</Text> : null}
     </ScrollView>
   );
 }
@@ -112,5 +144,13 @@ const styles = StyleSheet.create({
   rowLabel: {
     color: colors.text,
     fontSize: 14,
+    flex: 1,
+  },
+  rowSpinner: {
+    marginLeft: spacing[2],
+  },
+  message: {
+    color: colors.textMuted,
+    fontSize: 13,
   },
 });

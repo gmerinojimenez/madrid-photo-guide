@@ -26,6 +26,13 @@
         }
       }
     },
+    "extra": {
+      "revenuecat": {
+        "iosApiKey": "REPLACE_WITH_REVENUECAT_IOS_API_KEY",
+        "androidApiKey": "REPLACE_WITH_REVENUECAT_ANDROID_API_KEY",
+        "entitlementId": "full_guide"
+      }
+    },
     "plugins": [
       "expo-router",
       "expo-maps",

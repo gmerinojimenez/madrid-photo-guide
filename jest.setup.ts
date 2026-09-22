@@ -315,3 +315,175 @@ jest.mock('expo-clipboard', () => ({
   setStringAsync: jest.fn(async () => true),
   getStringAsync: jest.fn(async () => ''),
 }));
+
+// ---------------------------------------------------------------------------
+// expo-constants (feature 004): claves de RevenueCat que `app.json` deja como
+// marcadores de sustitución para producción. Los tests necesitan una clave
+// real (cualquier cadena que no empiece por el marcador) para que el
+// adaptador se configure y ejerza el doble de `react-native-purchases` de
+// más abajo, en lugar de degradar por clave ausente (D-009).
+// ---------------------------------------------------------------------------
+jest.mock('expo-constants', () => ({
+  __esModule: true,
+  default: {
+    expoConfig: {
+      extra: {
+        revenuecat: {
+          iosApiKey: 'test_ios_key',
+          androidApiKey: 'test_android_key',
+          entitlementId: 'full_guide',
+        },
+      },
+    },
+  },
+}));
+
+// ---------------------------------------------------------------------------
+// react-native-purchases (feature 004, D-010)
+//
+// Motor mínimo: entiende exactamente la superficie de siete llamadas que usa
+// `src/platform/purchases/revenuecat.ts` (D-003) y expone ayudantes de test
+// para sembrar "esta cuenta ya compró", forzar un fallo de red, forzar una
+// cancelación y empujar una revocación. Toda la lógica de negocio real —la
+// reconciliación— se prueba sin este doble, en Node, contra un `StoreGateway`
+// falso de quince líneas (__tests__/core/entitlement-store-backed.test.ts).
+// ---------------------------------------------------------------------------
+jest.mock('react-native-purchases', () => {
+  const PURCHASES_ERROR_CODE = {
+    PURCHASE_CANCELLED_ERROR: '1',
+    STORE_PROBLEM_ERROR: '2',
+    PURCHASE_NOT_ALLOWED_ERROR: '3',
+    PRODUCT_ALREADY_PURCHASED_ERROR: '6',
+    NETWORK_ERROR: '10',
+    CONFIGURATION_ERROR: '23',
+    OFFLINE_CONNECTION_ERROR: '35',
+  };
+
+  // `owned` es lo que refleja `customerInfo` (lo que ve `ownership()`/`observe()`).
+  // `purchasedInStore` es lo que sabe la tienda de esta cuenta (lo que ve
+  // `restore()`): en una instalación limpia puede haber una compra previa en
+  // la cuenta sin que `owned` lo refleje todavía — es justo la asimetría que
+  // hace falta el botón de restaurar en vez de que el arranque lo resuelva solo.
+  let owned = false;
+  let purchasedInStore = false;
+  let failureMode: 'offline' | 'store' | 'not-allowed' | null = null;
+  let cancelNext = false;
+  const listeners = new Set<(customerInfo: unknown) => void>();
+
+  const PACKAGE_FIXTURE = {
+    identifier: 'full_guide_lifetime',
+    packageType: 'LIFETIME',
+    product: { identifier: 'full_guide_lifetime', priceString: '9,99 €' },
+  };
+
+  function customerInfo() {
+    return { entitlements: { active: owned ? { full_guide: {} } : {} } };
+  }
+
+  function throwFor(code: string): never {
+    const error: { code: string; message: string } = { code, message: `mock failure ${code}` };
+    throw error;
+  }
+
+  function maybeThrowFailure(): void {
+    if (failureMode === 'offline') throwFor(PURCHASES_ERROR_CODE.NETWORK_ERROR);
+    if (failureMode === 'not-allowed') throwFor(PURCHASES_ERROR_CODE.PURCHASE_NOT_ALLOWED_ERROR);
+    if (failureMode === 'store') throwFor(PURCHASES_ERROR_CODE.STORE_PROBLEM_ERROR);
+  }
+
+  function notify(): void {
+    const info = customerInfo();
+    for (const listener of listeners) listener(info);
+  }
+
+  const Purchases = {
+    configure: jest.fn(),
+    isConfigured: jest.fn(async () => true),
+    getCustomerInfo: jest.fn(async () => {
+      maybeThrowFailure();
+      return customerInfo();
+    }),
+    getOfferings: jest.fn(async () => {
+      maybeThrowFailure();
+      return {
+        all: {},
+        current: { lifetime: PACKAGE_FIXTURE, availablePackages: [PACKAGE_FIXTURE] },
+      };
+    }),
+    purchasePackage: jest.fn(async () => {
+      if (cancelNext) {
+        cancelNext = false;
+        throwFor(PURCHASES_ERROR_CODE.PURCHASE_CANCELLED_ERROR);
+      }
+      maybeThrowFailure();
+      if (owned) throwFor(PURCHASES_ERROR_CODE.PRODUCT_ALREADY_PURCHASED_ERROR);
+      owned = true;
+      purchasedInStore = true;
+      const info = customerInfo();
+      return { productIdentifier: PACKAGE_FIXTURE.identifier, customerInfo: info };
+    }),
+    restorePurchases: jest.fn(async () => {
+      maybeThrowFailure();
+      if (purchasedInStore) owned = true;
+      return customerInfo();
+    }),
+    addCustomerInfoUpdateListener: jest.fn((listener: (customerInfo: unknown) => void) => {
+      listeners.add(listener);
+    }),
+    removeCustomerInfoUpdateListener: jest.fn((listener: (customerInfo: unknown) => void) => {
+      listeners.delete(listener);
+    }),
+  };
+
+  return {
+    __esModule: true,
+    default: Purchases,
+    PURCHASES_ERROR_CODE,
+    // Ayudantes de test (D-010):
+    /** Esta cuenta ya compró, y la app actual ya lo sabe (mismo dispositivo). */
+    __seedPurchased: () => {
+      owned = true;
+      purchasedInStore = true;
+    },
+    /**
+     * Esta cuenta ya compró, pero la app todavía no lo sabe: el caso de una
+     * instalación limpia (US2 §1) donde `ownership()` no lo refleja hasta que
+     * se pide `restore()` explícitamente.
+     */
+    __seedPurchasedElsewhere: () => {
+      purchasedInStore = true;
+    },
+    __forceOffline: () => {
+      failureMode = 'offline';
+    },
+    __forceStoreFailure: () => {
+      failureMode = 'store';
+    },
+    __forceNotAllowed: () => {
+      failureMode = 'not-allowed';
+    },
+    __clearFailure: () => {
+      failureMode = null;
+    },
+    __forceCancelNext: () => {
+      cancelNext = true;
+    },
+    __pushRevocation: () => {
+      owned = false;
+      purchasedInStore = false;
+      notify();
+    },
+    __reset: () => {
+      owned = false;
+      purchasedInStore = false;
+      failureMode = null;
+      cancelNext = false;
+      listeners.clear();
+    },
+  };
+});
+
+beforeEach(() => {
+  const purchases = require('react-native-purchases') as { __reset: () => void };
+  purchases.__reset();
+});

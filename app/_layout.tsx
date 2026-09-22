@@ -1,12 +1,15 @@
 import 'react-native-gesture-handler';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { SQLiteProvider } from 'expo-sqlite';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { InMemoryEntitlementSource } from '../src/core/entitlement/in-memory.ts';
+import { preferencesEntitlementCache } from '../src/core/entitlement/cache.ts';
+import { StoreBackedEntitlementSource } from '../src/core/entitlement/store-backed.ts';
+import { readRevenueCatConfig, createRevenueCatGateway } from '../src/platform/purchases/index.ts';
+import { appStateLifecycle } from '../src/platform/system/app-lifecycle.ts';
 import { migrate } from '../src/platform/storage/schema.ts';
 import { consoleLogger } from '../src/platform/system/console-logger.ts';
 import { colors } from '../src/ui/theme/tokens.ts';
@@ -19,14 +22,14 @@ import {
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
-// Única instancia por proceso: la titularidad de esta entrega no persiste
-// (D-006, FR-029), así que vive en memoria mientras la app está abierta.
-const entitlementSource = new InMemoryEntitlementSource();
+// Único gateway por proceso: `configure()` solo debe llamarse una vez (D-003).
+const revenueCatGateway = createRevenueCatGateway(readRevenueCatConfig());
+const lifecycle = appStateLifecycle();
 
 /**
- * Stack raíz: `SafeAreaProvider` → `SQLiteProvider` → catálogo → titularidad →
- * almacenes → `Stack` (contracts/routes.md), con la redirección condicional a
- * onboarding de la regla R-1.
+ * Stack raíz: `SafeAreaProvider` → `SQLiteProvider` → catálogo → almacenes →
+ * titularidad respaldada por la tienda → `Stack` (contracts/routes.md), con
+ * la redirección condicional a onboarding de la regla R-1.
  */
 export default function RootLayout() {
   return (
@@ -39,17 +42,63 @@ export default function RootLayout() {
         }
       >
         <CatalogProvider>
-          <EntitlementProvider
-            source={entitlementSource}
-            onPurchase={() => entitlementSource.grant()}
-          >
-            <StoresProvider>
+          <StoresProvider>
+            <AppEntitlementProvider>
               <RootNavigator />
-            </StoresProvider>
-          </EntitlementProvider>
+            </AppEntitlementProvider>
+          </StoresProvider>
         </CatalogProvider>
       </SQLiteProvider>
     </SafeAreaProvider>
+  );
+}
+
+/**
+ * Compone `StoreBackedEntitlementSource` con el adaptador real y la caché
+ * (contracts/core-api.md §4), e invoca `hydrate()` al montar sin retrasar la
+ * aparición de la interfaz (contracts/screens.md §5): la app arranca con el
+ * último estado conocido y se corrige sola con `reconcile()` y `watch()`.
+ */
+function AppEntitlementProvider({ children }: { children: ReactNode }) {
+  const prefs = usePreferencesStore();
+  const source = useMemo(
+    () =>
+      new StoreBackedEntitlementSource(
+        revenueCatGateway,
+        preferencesEntitlementCache(prefs),
+        consoleLogger,
+      ),
+    [prefs],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    source.hydrate().then(() => {
+      if (cancelled) return;
+      void source.reconcile();
+    });
+
+    const unwatch = source.watch();
+    const unforeground = lifecycle.onForeground(() => {
+      void source.reconcile();
+    });
+
+    return () => {
+      cancelled = true;
+      unwatch();
+      unforeground();
+    };
+  }, [source]);
+
+  return (
+    <EntitlementProvider
+      source={source}
+      onPurchase={() => source.purchase()}
+      onRestore={() => source.restore()}
+      onFetchPrice={() => revenueCatGateway.price()}
+    >
+      {children}
+    </EntitlementProvider>
   );
 }
 
