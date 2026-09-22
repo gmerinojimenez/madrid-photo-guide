@@ -1,6 +1,31 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.0.0 → 1.0.1
+Motivo del bump: PATCH. Corrección de un dato de hecho, sin cambio semántico. La
+restricción de Facturación afirmaba que RevenueCat se integra «con su config plugin». Se
+verificó contra el paquete publicado (`react-native-purchases@10.10.1`, 2026-09-21) que el
+tarball no contiene ningún `app.plugin.js`, y que la guía oficial de instalación en Expo
+prescribe `npx expo install` más una development build, sin entrada alguna en el array
+`plugins`. El permiso `com.android.vending.BILLING` llega por fusión del manifiesto del
+propio SDK de Android.
+
+Ninguna regla cambia de alcance: la exigencia real —generación nativa continua, sin editar
+`ios/` ni `android/` a mano— se mantiene intacta y se refuerza con la cláusula de que, si
+una versión futura llegara a requerir configuración nativa, esta se expresará mediante
+config plugin. No se añaden, eliminan ni redefinen principios.
+
+Secciones modificadas:
+- Restricciones Tecnológicas y de Plataforma → viñeta «Facturación» (solo el mecanismo de
+  integración; el resto de la viñeta se conserva palabra por palabra).
+
+Origen: hallazgo D-002 de specs/004-revenuecat-payments/research.md, durante la
+planificación de la feature de pagos.
+
+TODOs diferidos: ninguno.
+
+---- Histórico ----
+
 Version change: (plantilla sin rellenar) → 1.0.0
 Motivo del bump: ratificación inicial. Se sustituyen todos los placeholders de la
 plantilla por principios concretos del proyecto. Aún no existe código escrito bajo este
@@ -252,10 +277,13 @@ propia solo añadiría fricción de producto y superficie de mantenimiento.
 - **Navegación**: una única solución de navegación para todo el proyecto, basada en rutas
   declarativas. Mezclar enfoques de navegación por feature está prohibido.
 - **Facturación**: un único producto **no consumible**, comprado a través de Google Play
-  Billing y StoreKit mediante **RevenueCat** (`react-native-purchases`), integrado con su
-  config plugin. Está PROHIBIDO integrar pasarelas de pago de terceros o cobrar el
-  desbloqueo fuera de las tiendas. La biblioteca requiere development build, en línea con lo
-  ya exigido por Firebase.
+  Billing y StoreKit mediante **RevenueCat** (`react-native-purchases`), integrado por
+  autolinking de React Native. La biblioteca no publica config plugin y no lo necesita: el
+  permiso de facturación de Android lo aporta el manifiesto del propio SDK por fusión de
+  manifiestos. Si una versión futura llegara a exigir configuración nativa, esta se
+  expresará mediante un config plugin y nunca editando `ios/` ni `android/` a mano. Está
+  PROHIBIDO integrar pasarelas de pago de terceros o cobrar el desbloqueo fuera de las
+  tiendas. La biblioteca requiere development build, en línea con lo ya exigido por Firebase.
   El núcleo define su propia interfaz de titularidad y RevenueCat es un detalle de
   implementación detrás de ella: ningún módulo de dominio, pantalla o hook importa el SDK
   directamente, de modo que sustituir el proveedor no obligue a tocar reglas de negocio.
@@ -332,4 +360,4 @@ enlazarse a un issue abierto que registre la deuda y su plan de resolución.
 comprobar que el plan propuesto la respeta. Si un principio bloquea repetidamente trabajo
 legítimo, la respuesta correcta es enmendarlo, no ignorarlo.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-01 | **Last Amended**: 2026-09-01
+**Version**: 1.0.1 | **Ratified**: 2026-09-01 | **Last Amended**: 2026-09-22
