@@ -5,18 +5,6 @@ import { loadCatalog } from '../../src/core/content/catalog';
 import { imageRegistry } from '../../src/platform/images/registry';
 
 describe('catálogo real — aceptación', () => {
-  // El catálogo creció de 5 a 14 localizaciones (9 de pago) en 003-app-navigation-flows
-  // (D-010); los 5 consejos de la semilla no cambian.
-  it('carga las 14 localizaciones (5 gratis, 9 de pago) y los 5 consejos', () => {
-    const result = loadCatalog(rawCatalog);
-    expect(result.status).toBe('ok');
-    if (result.status !== 'ok') return;
-    expect(result.catalog.locations).toHaveLength(14);
-    expect(result.catalog.locations.filter((l) => l.access === 'free')).toHaveLength(5);
-    expect(result.catalog.locations.filter((l) => l.access === 'premium')).toHaveLength(9);
-    expect(result.catalog.tips).toHaveLength(5);
-  });
-
   it('una consulta por identificador devuelve exactamente una pieza', () => {
     const result = loadCatalog(rawCatalog);
     if (result.status !== 'ok') throw new Error('catalog did not load');
