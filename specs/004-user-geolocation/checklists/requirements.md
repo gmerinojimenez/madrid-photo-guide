@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -31,8 +31,9 @@
 
 ## Notes
 
-- Pendiente una clarificación (historia 4, escenario 3): el mapa no tiene hoy una lista de
-  resultados de búsqueda que ordenar.
+- Clarificación resuelta: el orden por cercanía (mapa, búsqueda y Guardados) sale del
+  alcance y se deja para una feature posterior. Se retiró su historia y su requisito, y se
+  renumeraron los requisitos siguientes (FR-019 a FR-030).
 - Las menciones al «núcleo», al «módulo de acceso» y al «doble de pruebas» (FR-023, FR-031)
   siguen la convención de la spec 003: son reglas de la constitución (principios I y III),
   no elecciones de implementación. No se nombran librerías ni módulos nativos.

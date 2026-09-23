@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "Geolocalización real: permiso de ubicación, distancia, punto azul, filtro y orden por cercanía. La spec 003 dejó fuera la geolocalización: el paso 2 de la presentación («Activar ubicación») avanza sin pedir nada, la ficha y el panel de bloqueado dicen «Distancia no disponible» y el filtro de distancia está inactivo. Esta feature lo hace real sin romper nada de lo que ya funciona sin ubicación. Permiso solo en primer plano, aproximada admitida, pedido en la presentación y de forma contextual, degradación con enlace a Ajustes, fila en Perfil; distancia en línea recta en vivo, aviso lejos de Madrid, distancia redondeada para contenido bloqueado, última posición conocida cacheada en el dispositivo, solo el estado del permiso como evento anónimo."
+**Input**: User description: "Geolocalización real: permiso de ubicación, distancia, punto azul, filtro y orden por cercanía. [Revisado tras la especificación: el orden por cercanía queda fuera de alcance.] La spec 003 dejó fuera la geolocalización: el paso 2 de la presentación («Activar ubicación») avanza sin pedir nada, la ficha y el panel de bloqueado dicen «Distancia no disponible» y el filtro de distancia está inactivo. Esta feature lo hace real sin romper nada de lo que ya funciona sin ubicación. Permiso solo en primer plano, aproximada admitida, pedido en la presentación y de forma contextual, degradación con enlace a Ajustes, fila en Perfil; distancia en línea recta en vivo, aviso lejos de Madrid, distancia redondeada para contenido bloqueado, última posición conocida cacheada en el dispositivo, solo el estado del permiso como evento anónimo."
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -80,8 +80,8 @@ sistema.
    aviso ni diálogo que pida la ubicación.
 5. **Given** la app en segundo plano, **When** la persona concede o revoca el permiso en
    los Ajustes del sistema y vuelve a la app, **Then** la app refleja el nuevo estado sin
-   reiniciarse: aparecen o desaparecen las distancias, el punto de posición y los criterios
-   por cercanía.
+   reiniciarse: aparecen o desaparecen las distancias, el punto de posición y el filtro de
+   distancia.
 
 ---
 
@@ -119,39 +119,10 @@ localizaciones a menos de 1 km de esa posición.
 
 ---
 
-### User Story 4 - Ordenar por cercanía (Priority: P2)
-
-Como persona con una lista de sitios guardados o una búsqueda hecha, quiero ordenarlos del
-más cercano al más lejano, para planificar el recorrido empezando por lo que tengo al lado.
-
-**Why this priority**: amplía el valor del filtro de distancia a las listas, pero es un
-refinamiento sobre las historias 1 y 3.
-
-**Independent Test**: con el permiso concedido, la compra hecha, varias localizaciones
-guardadas y una posición simulada, se elige el orden por cercanía en el panel de filtros y
-se comprueba que la lista de guardados aparece ordenada de menor a mayor distancia.
-
-**Acceptance Scenarios**:
-
-1. **Given** el permiso concedido, **When** se abre el panel de filtros, **Then** se ofrece
-   un criterio de orden con al menos el orden por defecto actual y «por cercanía».
-2. **Given** el orden por cercanía elegido, **When** se muestra la pestaña de Guardados,
-   **Then** las localizaciones aparecen de la más cercana a la más lejana y el orden se
-   recalcula cuando la persona se desplaza.
-3. **Given** el orden por cercanía elegido y una búsqueda activa en el mapa, **When** se
-   muestran sus resultados, **Then** aparecen de la más cercana a la más lejana.
-   [NEEDS CLARIFICATION: el mapa hoy no tiene una lista de resultados, solo filtra
-   marcadores. ¿Esta feature añade una lista de resultados ordenable sobre el mapa, o el
-   orden por cercanía se limita a Guardados?]
-4. **Given** el orden por cercanía elegido, **When** el permiso deja de estar concedido,
-   **Then** el orden vuelve al de por defecto y el criterio aparece inactivo.
-
----
-
-### User Story 5 - Distancia de lo que aún no he desbloqueado (Priority: P2)
+### User Story 4 - Distancia de lo que aún no he desbloqueado (Priority: P2)
 
 Como persona en modo prueba, quiero saber más o menos a qué distancia están las
-localizaciones de pago y que entren en el filtro y en el orden por cercanía, para valorar
+localizaciones de pago y que entren en el filtro de distancia, para valorar
 si la guía completa me compensa en la zona en la que estoy, sin que eso me revele dónde
 está exactamente el punto.
 
@@ -170,7 +141,7 @@ valor mostrado no cambia salvo al cruzar un escalón.
    abre su panel de contenido bloqueado, **Then** la distancia se muestra redondeada: «< 1
    km» por debajo de 1 km y, a partir de ahí, en múltiplos de 0,5 km («~2,5 km»).
 2. **Given** una localización de pago sin la compra, **When** se aplica el filtro de
-   distancia o el orden por cercanía, **Then** esa localización participa usando su
+   distancia, **Then** esa localización participa usando su
    distancia redondeada, no la exacta.
 3. **Given** una localización de pago sin la compra, **When** se inspecciona cualquier
    pantalla o dato que la app entrega a la interfaz, **Then** en ningún momento aparece su
@@ -180,7 +151,7 @@ valor mostrado no cambia salvo al cruzar un escalón.
 
 ---
 
-### User Story 6 - Consultar y cambiar el estado de la ubicación desde el perfil (Priority: P3)
+### User Story 5 - Consultar y cambiar el estado de la ubicación desde el perfil (Priority: P3)
 
 Como persona que quiere saber si la guía está usando su ubicación, quiero ver en el perfil
 el estado actual y tener a mano la acción para activarla, para no tener que buscar en los
@@ -209,11 +180,11 @@ corresponde a cada uno.
 ### Edge Cases
 
 - **Lejos de Madrid**: con la posición a más de 50 km de la Puerta del Sol, las distancias
-  se muestran igualmente, pero el filtro de distancia y el orden por cercanía quedan
-  inactivos con el aviso «Estás lejos de Madrid». Si la persona vuelve dentro del umbral,
+  se muestran igualmente, pero el filtro de distancia queda
+  inactivo con el aviso «Estás lejos de Madrid». Si la persona vuelve dentro del umbral,
   se reactivan sin intervención.
-- **Criterio activo al salir del umbral**: si «< 1 km» o el orden por cercanía estaban
-  elegidos y la persona pasa a estar lejos de Madrid, el criterio deja de aplicarse y el
+- **Criterio activo al salir del umbral**: si «< 1 km» o «< 3 km» estaba
+  elegido y la persona pasa a estar lejos de Madrid, el filtro deja de aplicarse y el
   panel explica por qué, en lugar de mostrar un mapa vacío.
 - **Sin señal**: con el permiso concedido pero sin poder obtener una posición (interior,
   GPS desactivado en el sistema, tiempo agotado), se usa la última posición conocida si
@@ -225,8 +196,8 @@ corresponde a cada uno.
   de 10 minutos, las distancias se marcan como antiguas hasta que llegue una lectura
   fresca, y la marca desaparece en cuanto llega.
 - **Revocación**: si el permiso se revoca o se deniega, la última posición guardada se
-  borra, desaparecen distancias, punto de posición y criterios por cercanía, y los
-  criterios activos vuelven a sus valores por defecto.
+  borra, desaparecen distancias, punto de posición y filtro de distancia, y el
+  filtro vuelve a «Todo Madrid».
 - **Paso de aproximada a precisa** (o al revés) en Ajustes: al volver a la app cambia la
   indicación de aproximada y el perfil refleja el nuevo estado.
 - **Diálogo contextual y permiso concedido a la vez**: si la persona concede el permiso
@@ -251,8 +222,8 @@ corresponde a cada uno.
   indicando de forma visible junto a cada distancia que es aproximada.
 - **FR-003**: El diálogo de permiso del sistema DEBE lanzarse solo como respuesta a una
   acción explícita de la persona: «Activar ubicación» en el paso 2 de la presentación, un
-  punto contextual (filtro de distancia, orden por cercanía, «centrar en mí», distancia de
-  la ficha) o la fila «Ubicación» del perfil.
+  punto contextual (filtro de distancia, «centrar en mí», distancia de la
+  ficha) o la fila «Ubicación» del perfil.
 - **FR-004**: «Ahora no» en el paso 2 de la presentación DEBE avanzar sin lanzar ningún
   diálogo, y la presentación DEBE avanzar al paso 3 tras «Activar ubicación» sea cual sea
   la respuesta al diálogo.
@@ -278,17 +249,17 @@ corresponde a cada uno.
 - **FR-012**: La distancia DEBE mostrarse en metros enteros por debajo de 1 km y en
   kilómetros con una decimal y coma decimal a partir de 1 km.
 - **FR-013**: Mientras la app está en primer plano y con el permiso concedido, las
-  distancias, el punto de posición, el filtro y el orden DEBEN actualizarse cuando la
+  distancias, el punto de posición y el filtro DEBEN actualizarse cuando la
   persona se desplaza más de 25 m desde la última posición usada. La app NO DEBE seguir la
   posición en segundo plano.
 - **FR-014**: Sin permiso, sin posición disponible o con posición y permiso pero sin
   lectura válida, la distancia DEBE mostrarse como no disponible, con el motivo cuando se
   conozca.
 - **FR-015**: Con la posición a más de 50 km de la Puerta del Sol, las distancias DEBEN
-  seguir mostrándose, y el filtro de distancia y el orden por cercanía DEBEN quedar
-  inactivos con el aviso «Estás lejos de Madrid».
+  seguir mostrándose, y el filtro de distancia DEBE quedar
+  inactivo con el aviso «Estás lejos de Madrid».
 
-#### Mapa, filtro y orden
+#### Mapa y filtro
 
 - **FR-016**: Con el permiso concedido, el mapa DEBE mostrar la posición actual de la
   persona y ofrecer una acción para centrar la vista en ella.
@@ -296,50 +267,47 @@ corresponde a cada uno.
   opciones «< 1 km», «< 3 km» y «Todo Madrid», siendo «Todo Madrid» la opción por defecto.
 - **FR-018**: El filtro de distancia DEBE componerse con la búsqueda, la etiqueta y «solo
   guardados»: el resultado es la intersección de todos los criterios activos.
-- **FR-019**: El panel de filtros DEBE ofrecer un criterio de orden con el orden actual por
-  defecto y «por cercanía», que se aplica a la pestaña de Guardados y a los resultados de
-  búsqueda del mapa (ver clarificación en la historia 4).
-- **FR-020**: Sin permiso, con la ubicación no disponible o lejos de Madrid, el filtro de
-  distancia y el orden por cercanía DEBEN mostrarse inactivos con su motivo, y los criterios
-  que estuvieran activos DEBEN dejar de aplicarse.
+- **FR-019**: Sin permiso, con la ubicación no disponible o lejos de Madrid, el filtro de
+  distancia DEBE mostrarse inactivo con su motivo y, si estaba activo, DEBE dejar de
+  aplicarse.
 
 #### Contenido bloqueado
 
-- **FR-021**: Para una localización de pago sin la compra, la app NUNCA DEBE mostrar ni
+- **FR-020**: Para una localización de pago sin la compra, la app NUNCA DEBE mostrar ni
   entregar a la interfaz su distancia exacta ni sus coordenadas exactas. Solo un valor
   redondeado: «< 1 km» por debajo de 1 km y, desde ahí, el múltiplo de 0,5 km más cercano.
-- **FR-022**: Las localizaciones de pago sin la compra DEBEN participar en el filtro de
-  distancia y en el orden por cercanía usando su distancia redondeada.
-- **FR-023**: La decisión de qué distancia puede verse para cada localización DEBE tomarse
+- **FR-021**: Las localizaciones de pago sin la compra DEBEN participar en el filtro de
+  distancia usando su distancia redondeada.
+- **FR-022**: La decisión de qué distancia puede verse para cada localización DEBE tomarse
   en el único módulo de acceso del núcleo, junto a la proyección de acceso existente;
   ninguna pantalla puede calcular distancias ni replicar esa regla por su cuenta.
 
 #### Última posición conocida
 
-- **FR-024**: La app DEBE guardar en el dispositivo la última posición conocida y el
+- **FR-023**: La app DEBE guardar en el dispositivo la última posición conocida y el
   momento en que se obtuvo, y usarla al arrancar mientras llega una lectura nueva.
-- **FR-025**: Una posición con más de 10 minutos de antigüedad DEBE marcarse como antigua
+- **FR-024**: Una posición con más de 10 minutos de antigüedad DEBE marcarse como antigua
   en todo lugar donde se muestre una distancia derivada de ella, hasta que llegue una
   lectura nueva.
-- **FR-026**: La última posición guardada DEBE borrarse cuando el permiso se revoca o se
+- **FR-025**: La última posición guardada DEBE borrarse cuando el permiso se revoca o se
   deniega.
-- **FR-027**: Si el almacenamiento local de la última posición falla, la app DEBE seguir
+- **FR-026**: Si el almacenamiento local de la última posición falla, la app DEBE seguir
   funcionando sin ella en lugar de fallar.
 
 #### Privacidad y observabilidad
 
-- **FR-028**: Las coordenadas y distancias de la persona NUNCA DEBEN salir del dispositivo.
-- **FR-029**: La app DEBE registrar como evento anónimo cada resultado de una petición de
+- **FR-027**: Las coordenadas y distancias de la persona NUNCA DEBEN salir del dispositivo.
+- **FR-028**: La app DEBE registrar como evento anónimo cada resultado de una petición de
   permiso: el estado resultante (concedida, aproximada, denegada) y el origen
   (presentación, contextual, perfil), sin coordenadas, distancias ni identificadores de
   localización.
 
 #### Paridad y calidad
 
-- **FR-030**: El comportamiento observable DEBE ser el mismo en Android y en iOS. Las únicas
+- **FR-029**: El comportamiento observable DEBE ser el mismo en Android y en iOS. Las únicas
   diferencias admitidas son el aspecto del diálogo de permiso del sistema y de la pantalla
   de Ajustes.
-- **FR-031**: El acceso a la ubicación del dispositivo DEBE poder sustituirse en los tests
+- **FR-030**: El acceso a la ubicación del dispositivo DEBE poder sustituirse en los tests
   por un doble que reproduzca los estados concedida, aproximada, denegada, denegada de
   forma permanente y sin señal, y una posición simulada.
 
@@ -355,8 +323,7 @@ corresponde a cada uno.
   exacta para las accesibles, redondeada para las bloqueadas, o no disponible con su
   motivo (sin permiso, sin posición). Puede llevar las marcas de aproximada y de antigua.
 - **Criterios de exploración**: los que ya existían (texto, etiqueta, solo guardados) más
-  el radio de distancia (< 1 km, < 3 km, Todo Madrid) y el criterio de orden (por defecto,
-  por cercanía).
+  el radio de distancia (< 1 km, < 3 km, Todo Madrid).
 - **Evento de permiso**: registro anónimo de un resultado de petición de permiso: estado
   resultante y origen.
 
@@ -381,7 +348,7 @@ corresponde a cada uno.
   estado en menos de 1 segundo al volver a primer plano.
 - **SC-008**: Cada flujo de permiso (conceder, conceder aproximada, denegar, denegar de
   forma permanente, revocar en Ajustes, sin señal) tiene al menos un test de aceptación, y
-  las reglas de cálculo, redondeo, filtro, orden, umbral de lejanía y antigüedad tienen
+  las reglas de cálculo, redondeo, filtro, umbral de lejanía y antigüedad tienen
   tests unitarios del núcleo.
 - **SC-009**: El comportamiento observable es idéntico en Android y en iOS salvo en el
   aspecto del diálogo de permiso y de la pantalla de Ajustes.
@@ -396,9 +363,7 @@ corresponde a cada uno.
   de antigüedad. Son constantes del producto, no configurables por la persona usuaria.
 - **Radios del filtro**: se toman del prototipo («< 1 km», «< 3 km», «Todo Madrid»), con
   límite estricto (una localización a exactamente 1 km no entra en «< 1 km»).
-- **Orden por defecto**: el orden actual de cada lista se mantiene como «por defecto»; «por
-  cercanía» ordena de menor a mayor distancia y deshace empates por ese orden por defecto.
-- **Criterios no persistidos**: el radio y el orden elegidos viven durante la sesión, como
+- **Criterios no persistidos**: el radio elegido vive durante la sesión, como
   el resto de filtros actuales, y no sobreviven al cierre de la app.
 - **Evento de permiso**: se registra a través del punto de observabilidad del núcleo.
   Mientras Firebase no esté integrado, el evento queda definido y registrado por ese punto
@@ -415,6 +380,8 @@ corresponde a cada uno.
 - Ubicación en segundo plano, geofencing y avisos de proximidad.
 - Rutas, distancia a pie o tiempo de llegada.
 - Compartir la ubicación de la persona con terceros o con otras personas.
-- Persistencia del radio y del orden elegidos entre sesiones.
+- Ordenar por cercanía, en el mapa, en los resultados de búsqueda o en Guardados: se
+  deja para una feature posterior. Las listas mantienen su orden actual.
+- Persistencia del radio elegido entre sesiones.
 - Integración real con Firebase como destino de los eventos.
 - Cambios en la navegación hasta el punto de disparo (sigue delegada en la app de mapas).
