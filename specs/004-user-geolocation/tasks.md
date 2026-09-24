@@ -213,12 +213,12 @@ necesita.
 
 ### Tests for User Story 5 (escribir primero; deben fallar)
 
-- [ ] T064 [P] [US5] Test de aceptación en `__tests__/screens/location-profile.test.tsx`: para cada estado, la fila "Ubicación" muestra "Sin pedir", "Concedida", "Aproximada" o "Denegada" (US5 §1); con `undetermined` y `denied`, tocarla lanza el diálogo (US5 §2) y el evento registrado lleva `origin: 'profile'`; con `approximate`, `blocked` y `granted`, llama a `Linking.openSettings` sin diálogo (US5 §3, §4); tras cambiar el permiso y emitir `background` → `active`, la etiqueta cambia sin salir de la pantalla (FR-007)
+- [X] T064 [P] [US5] Test de aceptación en `__tests__/screens/location-profile.test.tsx`: para cada estado, la fila "Ubicación" muestra "Sin pedir", "Concedida", "Aproximada" o "Denegada" (US5 §1); con `undetermined` y `denied`, tocarla lanza el diálogo (US5 §2) y el evento registrado lleva `origin: 'profile'`; con `approximate`, `blocked` y `granted`, llama a `Linking.openSettings` sin diálogo (US5 §3, §4); tras cambiar el permiso y emitir `background` → `active`, la etiqueta cambia sin salir de la pantalla (FR-007)
 
 ### Implementation for User Story 5
 
-- [ ] T065 [US5] En `app/(tabs)/profile.tsx`, añadir la fila "Ubicación" con la etiqueta de data-model.md §1 (`PermissionState`) y, al tocarla, `permissionAction(state) === 'request'` → `tracker.request('profile')`; si no, `openSettings()`, con el mismo estilo que las filas existentes
-- [ ] T066 [US5] Ejecutar T064 y dejarlo en verde
+- [X] T065 [US5] En `app/(tabs)/profile.tsx`, añadir la fila "Ubicación" con la etiqueta de data-model.md §1 (`PermissionState`) y, al tocarla, `permissionAction(state) === 'request'` → `tracker.request('profile')`; si no, `openSettings()`, con el mismo estilo que las filas existentes
+- [X] T066 [US5] Ejecutar T064 y dejarlo en verde
 
 **Checkpoint**: las cinco historias funcionan y se pueden probar cada una por separado.
 
