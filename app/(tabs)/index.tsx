@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -7,10 +7,22 @@ import {
   localize,
   queryLocations,
   viewLocation,
+  visibleDistance,
 } from '../../src/core/content/index.ts';
 import { catalogCounts } from '../../src/core/content/counts.ts';
 import type { Location } from '../../src/core/content/schema.ts';
-import { LocationMap, type MapMarker } from '../../src/ui/map/LocationMap.tsx';
+import {
+  effectiveRadius,
+  explorationAvailability,
+  isGranted,
+  withinRadius,
+} from '../../src/core/location/index.ts';
+import type { DistanceRadius } from '../../src/core/location/ports.ts';
+import {
+  LocationMap,
+  type LocationMapHandle,
+  type MapMarker,
+} from '../../src/ui/map/LocationMap.tsx';
 import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
 import { FilterChip } from '../../src/ui/components/FilterChip.tsx';
 import { Icon } from '../../src/ui/components/Icon.tsx';
@@ -21,6 +33,7 @@ import {
   useCatalog,
   useEntitlement,
   useSavedLocationsStore,
+  useUserLocation,
 } from '../../src/ui/providers/index.ts';
 import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
 
@@ -48,16 +61,57 @@ export default function MapScreen() {
   const catalog = useCatalog();
   const entitlement = useEntitlement();
   const savedLocations = useSavedLocationsStore();
+  const { snapshot, now, ensureLocation } = useUserLocation();
   const router = useRouter();
   const { purchased } = useLocalSearchParams<{ purchased?: string }>();
+  const mapRef = useRef<LocationMapHandle>(null);
 
   const [text, setText] = useState('');
   const [tagId, setTagId] = useState<string | null>(null);
   const [onlySaved, setOnlySaved] = useState(false);
   const [savedIds, setSavedIds] = useState<string[]>([]);
   const [sheet, setSheet] = useState<SheetState>({ kind: 'none' });
+  const [radius, setRadius] = useState<DistanceRadius>('all');
+  const [centerRequested, setCenterRequested] = useState(false);
 
   const counts = catalogCounts(catalog);
+  const availability = explorationAvailability(snapshot);
+  const radiusInUse = effectiveRadius(radius, availability);
+
+  // Revocación (data-model.md §3): el radio vuelve a "Todo Madrid" en cuanto
+  // el permiso deja de estar concedido; "lejos de Madrid" no lo toca, es
+  // temporal y se reaplica solo al volver dentro del umbral. Sincroniza con
+  // una fuente externa (el snapshot del rastreador), no con el propio render.
+  useEffect(() => {
+    if (!isGranted(snapshot.permission)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setRadius('all');
+    }
+  }, [snapshot.permission]);
+
+  // "Centrar en mí" puede pedirse antes de tener una posición: en cuanto
+  // llega una (aquí o desde el seguimiento en vivo), se centra sin que haga
+  // falta volver a tocar el botón. Mismo motivo: reacciona a un cambio del
+  // rastreador, no a un cálculo derivable del propio render.
+  useEffect(() => {
+    if (centerRequested && snapshot.position) {
+      mapRef.current?.centerOn(snapshot.position.coords);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCenterRequested(false);
+    }
+  }, [centerRequested, snapshot.position]);
+
+  function handleCenterPress() {
+    ensureLocation('contextual', () => setCenterRequested(true));
+  }
+
+  function handleRadiusChange(next: DistanceRadius) {
+    if (isGranted(snapshot.permission)) {
+      setRadius(next);
+      return;
+    }
+    ensureLocation('contextual', () => setRadius(next));
+  }
 
   // R-5: tras comprar, el paywall vuelve aquí con `?purchased=1` para señalar
   // que toca abrir la compra completada, en lugar de compartir estado ad-hoc.
@@ -91,10 +145,15 @@ export default function MapScreen() {
 
   const filtered = useMemo(() => {
     const byQuery = queryLocations(catalog, { text: text || undefined, tagId: tagId ?? undefined });
-    if (!onlySaved) return byQuery;
-    const savedSet = new Set(savedIds);
-    return byQuery.filter((location) => savedSet.has(location.id));
-  }, [catalog, text, tagId, onlySaved, savedIds]);
+    const bySaved = onlySaved
+      ? byQuery.filter((location) => new Set(savedIds).has(location.id))
+      : byQuery;
+    // FR-021 (feature 004): filtra con la distancia visible de cada
+    // localización (redondeada en las bloqueadas), nunca con la exacta.
+    return bySaved.filter((location) =>
+      withinRadius(visibleDistance(location, entitlement, snapshot, now), radiusInUse),
+    );
+  }, [catalog, text, tagId, onlySaved, savedIds, entitlement, snapshot, now, radiusInUse]);
 
   // Memoizada: solo se recalcula al cambiar búsqueda, filtro o titularidad
   // (objetivo de rendimiento de plan.md).
@@ -134,14 +193,41 @@ export default function MapScreen() {
     }
   }
 
+  // FR-015: el filtro elegido sigue aplicado, pero deja de surtir efecto
+  // mientras se está lejos de Madrid.
+  const showFarFromMadridBanner =
+    radius !== 'all' && !availability.available && availability.reason === 'far-from-madrid';
+
   return (
     <View style={styles.container}>
       <View style={styles.mapArea}>
         <LocationMap
+          ref={mapRef}
           markers={markers}
           onMarkerPress={handleMarkerPress}
           camera={{ coords: MADRID_CENTER, zoom: INITIAL_ZOOM }}
+          showsUserLocation={isGranted(snapshot.permission)}
         />
+        <Pressable
+          onPress={handleCenterPress}
+          accessibilityRole="button"
+          accessibilityLabel="Centrar en mi posición"
+          style={styles.centerButton}
+        >
+          <Icon name="crosshair" color={colors.text} size={20} />
+        </Pressable>
+        {centerRequested && !snapshot.position ? (
+          <View style={styles.centerHint} pointerEvents="none">
+            <Text style={styles.centerHintLabel}>Buscando tu posición…</Text>
+          </View>
+        ) : null}
+        {showFarFromMadridBanner ? (
+          <View style={styles.farBanner} pointerEvents="none">
+            <Text style={styles.farBannerLabel}>
+              Estás lejos de Madrid: el filtro de distancia está en pausa
+            </Text>
+          </View>
+        ) : null}
         {filtered.length === 0 ? (
           <View style={styles.emptyOverlay}>
             <EmptyState
@@ -233,6 +319,9 @@ export default function MapScreen() {
         onOnlySavedChange={setOnlySaved}
         onlySavedAvailable={entitlement.owned}
         resultCount={filtered.length}
+        radius={radius}
+        onRadiusChange={handleRadiusChange}
+        availability={availability}
       />
 
       <PurchasedSheet
@@ -256,6 +345,46 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     backgroundColor: colors.bg,
     justifyContent: 'center',
+  },
+  centerButton: {
+    position: 'absolute',
+    right: spacing[4],
+    top: spacing[4],
+    width: 40,
+    height: 40,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.surface,
+  },
+  centerHint: {
+    position: 'absolute',
+    top: spacing[4] + 48,
+    right: spacing[4],
+    backgroundColor: colors.surface,
+    borderRadius: radius.sm,
+    paddingVertical: spacing[1],
+    paddingHorizontal: spacing[2],
+  },
+  centerHintLabel: {
+    color: colors.textMuted,
+    fontSize: 11,
+  },
+  farBanner: {
+    position: 'absolute',
+    left: spacing[4],
+    right: spacing[4],
+    top: spacing[4],
+    backgroundColor: colors.section,
+    borderRadius: radius.md,
+    paddingVertical: spacing[2],
+    paddingHorizontal: spacing[3],
+    alignItems: 'center',
+  },
+  farBannerLabel: {
+    color: colors.accent300,
+    fontSize: 12,
+    textAlign: 'center',
   },
   trialBar: {
     position: 'absolute',

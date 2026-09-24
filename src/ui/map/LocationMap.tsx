@@ -1,3 +1,4 @@
+import { forwardRef, useImperativeHandle, useRef, type Ref } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import { AppleMaps, GoogleMaps } from 'expo-maps';
 
@@ -12,10 +13,18 @@ export type MapMarker = {
   locked: boolean;
 };
 
+/** Lo que expone el `ref` de `LocationMap` (feature 004, research.md D-009). */
+export type LocationMapHandle = {
+  /** Mueve la cámara a `coords`, conservando el zoom actual. */
+  centerOn(coords: LatLng): void;
+};
+
 type Props = {
   markers: MapMarker[];
   onMarkerPress: (id: string) => void;
   camera?: { coords: LatLng; zoom: number };
+  /** Punto de posición nativo del sistema, solo con el permiso concedido (US3 §1). */
+  showsUserLocation?: boolean;
 };
 
 /**
@@ -28,7 +37,24 @@ type Props = {
  * un color por marcador en Android (`GoogleMapsMarker` no tiene ese campo);
  * ambos tipos de marcador se pintan igual ahí hasta que la librería lo permita.
  */
-export function LocationMap({ markers, onMarkerPress, camera }: Props) {
+export const LocationMap = forwardRef<LocationMapHandle, Props>(function LocationMap(
+  { markers, onMarkerPress, camera, showsUserLocation = false },
+  ref,
+) {
+  const nativeRef = useRef<AppleMaps.MapView | GoogleMaps.MapView>(null);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      centerOn(coords: LatLng) {
+        nativeRef.current?.setCameraPosition({
+          coordinates: { latitude: coords.lat, longitude: coords.lng },
+        });
+      },
+    }),
+    [],
+  );
+
   const cameraPosition = camera
     ? {
         coordinates: { latitude: camera.coords.lat, longitude: camera.coords.lng },
@@ -53,9 +79,11 @@ export function LocationMap({ markers, onMarkerPress, camera }: Props) {
 
     return (
       <AppleMaps.View
+        ref={nativeRef as Ref<AppleMaps.MapView>}
         style={StyleSheet.absoluteFill}
         markers={appleMarkers}
         cameraPosition={cameraPosition}
+        properties={{ isMyLocationEnabled: showsUserLocation }}
         onMarkerClick={(marker) => marker.id && onMarkerPress(marker.id)}
         // @ts-expect-error prop propia para el doble de test (ver comentario arriba)
         lockedIds={lockedIds}
@@ -71,12 +99,14 @@ export function LocationMap({ markers, onMarkerPress, camera }: Props) {
 
   return (
     <GoogleMaps.View
+      ref={nativeRef as Ref<GoogleMaps.MapView>}
       style={StyleSheet.absoluteFill}
       markers={googleMarkers}
       cameraPosition={cameraPosition}
+      properties={{ isMyLocationEnabled: showsUserLocation }}
       onMarkerClick={(marker) => marker.id && onMarkerPress(marker.id)}
       // @ts-expect-error prop propia para el doble de test (ver comentario arriba)
       lockedIds={lockedIds}
     />
   );
-}
+});

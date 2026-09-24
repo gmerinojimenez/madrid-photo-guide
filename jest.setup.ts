@@ -21,21 +21,32 @@ jest.mock('expo-maps', () => {
   const React = require('react');
   const { View, Pressable, Text } = require('react-native');
 
-  function FakeMapView({
-    markers,
-    annotations,
-    onMarkerClick,
-    onAnnotationClick,
-    testID,
-    lockedIds,
-  }: any) {
+  // Última llamada a `setCameraPosition` de la instancia de mapa activa
+  // (T051, feature 004, US3): expuesta como `__lastSetCameraPosition()` para
+  // que los tests comprueben que "centrar en mí" mueve la cámara.
+  let lastSetCameraPosition: unknown = null;
+
+  const FakeMapView = React.forwardRef(function FakeMapView(
+    { markers, annotations, onMarkerClick, onAnnotationClick, testID, lockedIds, properties }: any,
+    ref: any,
+  ) {
     const items: any[] = markers ?? annotations ?? [];
     const handler = onMarkerClick ?? onAnnotationClick;
     const locked: Set<string> = new Set(lockedIds ?? []);
+
+    React.useImperativeHandle(ref, () => ({
+      setCameraPosition: (config: unknown) => {
+        lastSetCameraPosition = config;
+      },
+    }));
+
     return React.createElement(
       View,
       { testID: testID ?? 'location-map' },
-      items.map((marker: any) =>
+      properties?.isMyLocationEnabled
+        ? React.createElement(View, { testID: 'user-location-dot' })
+        : null,
+      ...items.map((marker: any) =>
         React.createElement(
           Pressable,
           {
@@ -53,11 +64,15 @@ jest.mock('expo-maps', () => {
         ),
       ),
     );
-  }
+  });
 
   return {
     GoogleMaps: { View: FakeMapView },
     AppleMaps: { View: FakeMapView },
+    __lastSetCameraPosition: () => lastSetCameraPosition,
+    __resetMapDouble: () => {
+      lastSetCameraPosition = null;
+    },
     requestPermissionsAsync: jest.fn(async () => ({ granted: false, status: 'undetermined' })),
     getPermissionsAsync: jest.fn(async () => ({ granted: false, status: 'undetermined' })),
     useLocationPermissions: jest.fn(() => [
@@ -66,6 +81,11 @@ jest.mock('expo-maps', () => {
       jest.fn(),
     ]),
   };
+});
+
+beforeEach(() => {
+  const maps = require('expo-maps') as { __resetMapDouble: () => void };
+  maps.__resetMapDouble();
 });
 
 // ---------------------------------------------------------------------------
