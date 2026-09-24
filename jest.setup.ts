@@ -308,8 +308,13 @@ jest.mock('expo-sqlite', () => {
 import { AppState, Linking } from 'react-native';
 
 beforeEach(() => {
-  jest.spyOn(Linking, 'openURL').mockResolvedValue(true as never);
-  jest.spyOn(Linking, 'openSettings').mockResolvedValue(undefined as never);
+  // `jest.spyOn` sobre una propiedad ya espiada devuelve el mismo espía sin
+  // vaciar su historial de llamadas (no hay `clearMocks` en la configuración
+  // de Jest de este proyecto): sin `mockClear()`, un test que comprueba
+  // `toHaveBeenCalledTimes` vería también las llamadas de tests anteriores
+  // del mismo fichero.
+  jest.spyOn(Linking, 'openURL').mockResolvedValue(true as never).mockClear();
+  jest.spyOn(Linking, 'openSettings').mockResolvedValue(undefined as never).mockClear();
 });
 
 // ---------------------------------------------------------------------------

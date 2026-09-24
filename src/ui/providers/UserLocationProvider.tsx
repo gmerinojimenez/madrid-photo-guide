@@ -4,6 +4,7 @@ import { AppState, type AppStateStatus } from 'react-native';
 import { permissionAction } from '../../core/location/permission.ts';
 import type { LocationSnapshot, PermissionOrigin } from '../../core/location/ports.ts';
 import type { LocationTracker } from '../../core/location/tracker.ts';
+import { LocationSheet } from '../sheets/LocationSheet.tsx';
 
 /**
  * Los tres motivos por los que `ensureLocation` no puede completar la acción
@@ -141,7 +142,15 @@ export function UserLocationProvider({
     [snapshot, now, sheetRequest],
   );
 
-  return <UserLocationContext.Provider value={value}>{children}</UserLocationContext.Provider>;
+  return (
+    <UserLocationContext.Provider value={value}>
+      {children}
+      {/* Panel global (T043): sirve a todas las pantallas y es excluyente
+          con los paneles propios de la pantalla activa, porque vive fuera
+          de su árbol de componentes. */}
+      <LocationSheet request={sheetRequest} />
+    </UserLocationContext.Provider>
+  );
 }
 
 export function useUserLocation(): UserLocationContextValue {
