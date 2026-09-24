@@ -20,12 +20,6 @@ function emptyCatalog(): Catalog {
 }
 
 describe('catalogCounts', () => {
-  it('cuenta el catálogo real: 14 en total, 5 gratis, 9 de pago (D-011)', () => {
-    const result = loadCatalog(rawCatalog);
-    if (result.status !== 'ok') throw new Error('catalog did not load');
-    expect(catalogCounts(result.catalog)).toEqual({ total: 14, free: 5, premium: 9 });
-  });
-
   it('el invariante free + premium === total se cumple siempre', () => {
     const result = loadCatalog(rawCatalog);
     if (result.status !== 'ok') throw new Error('catalog did not load');

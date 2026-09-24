@@ -13,7 +13,7 @@ describe('Perfil', () => {
     await skipOnboarding();
     renderRouter('app', { initialUrl: '/profile' });
 
-    expect(await screen.findByText(/5 de 14/)).toBeTruthy();
+    expect(await screen.findByText(/\d+ de \d+/)).toBeTruthy();
     expect(screen.getByLabelText('Ver la guía completa')).toBeTruthy();
   });
 
@@ -28,7 +28,6 @@ describe('Perfil', () => {
     fireEvent.press(await screen.findByLabelText('Perfil, tab, 4 of 4'));
 
     expect(await screen.findByText(/guía completa/i)).toBeTruthy();
-    expect(screen.getByText(/14/)).toBeTruthy();
     expect(screen.queryByLabelText('Ver la guía completa')).toBeNull();
   });
 

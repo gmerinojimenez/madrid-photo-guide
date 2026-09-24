@@ -1,276 +1,614 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-18",
-  "locales": ["es"],
-
+  "updatedAt": "2026-09-22",
+  "locales": [
+    "es",
+    "en"
+  ],
   "access": {
-    "premiumFields": ["coords", "bestTime", "shotDescription", "neighbourhoodDescription", "capture", "detailImage", "extraImages"]
+    "premiumFields": [
+      "coords",
+      "bestTime",
+      "shotDescription",
+      "neighbourhoodDescription",
+      "capture",
+      "detailImage",
+      "extraImages"
+    ]
   },
-
   "tags": [
-    { "id": "skyline", "label": { "es": "Skyline" } },
-    { "id": "callejera", "label": { "es": "Callejera" } },
-    { "id": "arquitectura", "label": { "es": "Arquitectura" } },
-    { "id": "atardecer", "label": { "es": "Atardecer" } },
-    { "id": "nocturna", "label": { "es": "Nocturna" } }
+    {
+      "id": "skyline",
+      "label": {
+        "es": "Skyline"
+      }
+    },
+    {
+      "id": "callejera",
+      "label": {
+        "es": "Callejera"
+      }
+    },
+    {
+      "id": "arquitectura",
+      "label": {
+        "es": "Arquitectura"
+      }
+    },
+    {
+      "id": "atardecer",
+      "label": {
+        "es": "Atardecer"
+      }
+    },
+    {
+      "id": "nocturna",
+      "label": {
+        "es": "Nocturna"
+      }
+    },
+    {
+      "id": "deportivo",
+      "label": {
+        "es": "Deportivo",
+        "en": "Sports"
+      }
+    },
+    {
+      "id": "evento",
+      "label": {
+        "es": "Evento",
+        "en": "Event"
+      }
+    },
+    {
+      "id": "mercado",
+      "label": {
+        "es": "Mercado",
+        "en": "Market"
+      }
+    },
+    {
+      "id": "mirador",
+      "label": {
+        "es": "Mirador",
+        "en": "Viewpoint"
+      }
+    },
+    {
+      "id": "monumento",
+      "label": {
+        "es": "Monumento",
+        "en": "Monument"
+      }
+    },
+    {
+      "id": "museo",
+      "label": {
+        "es": "Museo/cultura",
+        "en": "Museum/culture"
+      }
+    },
+    {
+      "id": "parque",
+      "label": {
+        "es": "Parque",
+        "en": "Park"
+      }
+    },
+    {
+      "id": "puente",
+      "label": {
+        "es": "Puente",
+        "en": "Bridge"
+      }
+    },
+    {
+      "id": "religioso",
+      "label": {
+        "es": "Religioso",
+        "en": "Religious"
+      }
+    }
   ],
-
   "tipCategories": [
-    { "id": "ver", "label": { "es": "Ver" } },
-    { "id": "comer", "label": { "es": "Comer" } },
-    { "id": "dormir", "label": { "es": "Dormir" } },
-    { "id": "transporte", "label": { "es": "Transporte" } }
+    {
+      "id": "ver",
+      "label": {
+        "es": "Ver"
+      }
+    },
+    {
+      "id": "comer",
+      "label": {
+        "es": "Comer"
+      }
+    },
+    {
+      "id": "dormir",
+      "label": {
+        "es": "Dormir"
+      }
+    },
+    {
+      "id": "transporte",
+      "label": {
+        "es": "Transporte"
+      }
+    },
+    {
+      "id": "practico",
+      "label": {
+        "es": "Práctico",
+        "en": "Practical info"
+      }
+    },
+    {
+      "id": "cultura",
+      "label": {
+        "es": "Cultura y eventos",
+        "en": "Culture and events"
+      }
+    }
   ],
-
   "neighbourhoods": [
     {
       "id": "arguelles",
-      "name": { "es": "Argüelles" },
+      "name": {
+        "es": "Argüelles"
+      },
       "description": {
         "es": "Argüelles es tranquilo y muy andable. Al lado tienes el Parque del Oeste y el Templo de Debod, perfecto para combinar en la misma tarde."
       }
     },
     {
       "id": "plaza-castilla",
-      "name": { "es": "Plaza Castilla" },
+      "name": {
+        "es": "Plaza Castilla"
+      },
       "description": {
         "es": "El límite entre el Madrid antiguo y el moderno: rascacielos, tráfico y la Puerta de Europa inclinándose una hacia la otra."
       }
     },
     {
       "id": "chamartin",
-      "name": { "es": "Chamartín" },
+      "name": {
+        "es": "Chamartín"
+      },
       "description": {
         "es": "El distrito financiero, con las Cuatro Torres dominando el horizonte desde casi cualquier punto alto de la ciudad."
       }
     },
     {
       "id": "centro",
-      "name": { "es": "Centro" },
+      "name": {
+        "es": "Centro"
+      },
       "description": {
         "es": "El corazón turístico de Madrid: Sol, Plaza Mayor y el Rastro a un paseo corto entre sí."
       }
     },
     {
       "id": "vallecas",
-      "name": { "es": "Vallecas" },
+      "name": {
+        "es": "Vallecas"
+      },
       "description": {
         "es": "Barrio popular al sureste de la ciudad, con el Cerro del Tío Pío como mirador improvisado sobre todo el skyline."
       }
     },
     {
       "id": "arganzuela",
-      "name": { "es": "Arganzuela" },
+      "name": {
+        "es": "Arganzuela"
+      },
       "description": {
         "es": "El antiguo distrito industrial junto al Manzanares, hoy reconvertido en parques y espacios culturales como Matadero."
       }
     },
     {
       "id": "moncloa",
-      "name": { "es": "Moncloa" },
+      "name": {
+        "es": "Moncloa"
+      },
       "description": {
         "es": "Universitario y verde, con el Faro y el Templo de Debod compartiendo las mejores vistas del oeste de Madrid."
       }
     },
     {
       "id": "retiro",
-      "name": { "es": "Retiro" },
+      "name": {
+        "es": "Retiro"
+      },
       "description": {
         "es": "El gran pulmón verde de Madrid, con el Palacio de Cristal reflejándose en su estanque entre árboles centenarios."
       }
     },
     {
       "id": "latina",
-      "name": { "es": "Latina" },
+      "name": {
+        "es": "Latina"
+      },
       "description": {
         "es": "Distrito extenso al oeste del Manzanares, con la Casa de Campo como escapada rápida de skyline y atardeceres."
       }
     },
     {
       "id": "lavapies",
-      "name": { "es": "Lavapiés" },
+      "name": {
+        "es": "Lavapiés"
+      },
       "description": {
         "es": "El barrio más multicultural de Madrid, de calles estrechas y fachadas con historia a cada paso."
       }
+    },
+    {
+      "id": "barajas",
+      "name": {
+        "es": "Barajas",
+        "en": "Barajas"
+      },
+      "description": {
+        "es": "Distrito al este de la ciudad, junto al aeropuerto, donde se esconde el Parque de El Capricho.",
+        "en": "A district on the eastern edge of the city, next to the airport, home to El Capricho park."
+      }
+    },
+    {
+      "id": "embajadores",
+      "name": {
+        "es": "Embajadores",
+        "en": "Embajadores"
+      },
+      "description": {
+        "es": "El barrio del Rastro y el Campo de la Cebada: mercadillo dominical, arte urbano y vida de calle.",
+        "en": "Home to El Rastro and Campo de la Cebada: the Sunday flea market, street art and street life."
+      }
+    },
+    {
+      "id": "moratalaz",
+      "name": {
+        "es": "Moratalaz",
+        "en": "Moratalaz"
+      },
+      "description": {
+        "es": "Barrio residencial al sureste de la ciudad, con un mirador poco conocido sobre el skyline de Madrid.",
+        "en": "A residential district southeast of the city, with a little-known viewpoint over the Madrid skyline."
+      }
+    },
+    {
+      "id": "ventas",
+      "name": {
+        "es": "Las Ventas",
+        "en": "Las Ventas"
+      },
+      "description": {
+        "es": "En torno a la Plaza de Toros de Las Ventas, la mayor plaza de toros de España.",
+        "en": "Around the Las Ventas bullring, the largest bullring in Spain."
+      }
     }
   ],
-
   "locations": [
     {
       "id": "debod",
-      "name": { "es": "Templo de Debod" },
-      "neighbourhoodId": "arguelles",
-      "tagIds": ["atardecer", "arquitectura"],
+      "name": {
+        "es": "Templo de Debod",
+        "en": "Debod Temple"
+      },
+      "neighbourhoodId": "moncloa",
+      "tagIds": [
+        "atardecer",
+        "nocturna",
+        "skyline"
+      ],
       "access": "free",
-      "approximateArea": { "lat": 40.424, "lng": -3.7177, "radiusMeters": 400 },
+      "approximateArea": {
+        "lat": 40.424069,
+        "lng": -3.717613,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "debod",
         "usage": "thumb",
-        "alt": { "es": "El Templo de Debod reflejado en su estanque al atardecer" },
+        "alt": {
+          "es": "Templo de Debod",
+          "en": "Debod temple"
+        },
         "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.424, "lng": -3.71766 },
-      "bestTime": { "es": "45 min antes del atardecer" },
+      "coords": {
+        "lat": 40.424069,
+        "lng": -3.717613
+      },
+      "bestTime": {
+        "es": "Anochecer, llegar con media hora de antelación",
+        "en": "Dusk, arrive at least 30 minutes early"
+      },
       "shotDescription": {
-        "es": "El reflejo funciona desde el lado sur del estanque, agachado casi a ras de agua. Espera a que el cielo tome color antes de disparar."
+        "es": "El templo de Debod probablemente sea el lugar más famoso para los fotógrafos de toda la ciudad. Es un antiguo templo egipcio donado en 1968 y transportado piedra a piedra hasta Madrid. Está ubicado en la antigua localización del Cuartel de la Montaña en el que se produjo un sangriento episodio de la Guerra Civil. Al caer la noche, es un lugar muy frecuentado por fotógrafos, tanto para fotografiar al templo como para retrato o fotografía de boda. Es muy aconsejable ir con al menos media hora de adelanto, para intentar coger un buen sitio. También recomiendo llevar trípode ya que la luminosidad será escasa.",
+        "en": "The Debod temple is probably the most famous place for photographers in the entire city. It is an ancient Egyptian temple donated in 1968 and transported stone by stone to Madrid. It is located where the Cuartel de la Montaña was. There was a bloody episode of the Civil War there. At nightfall, it is a place frequented by photographers, both for photographing the temple and for portrait or wedding photography. It is very advisable to go with at least half an hour in advance, to try to catch a good spot. I also recommend carrying a tripod since the luminosity could be low."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 24,
-        "aperture": "f/8",
-        "shutterSpeed": "1/125 s",
-        "iso": 100
+        "camera": "Nikon D90",
+        "focalLengthMm": 18.0,
+        "aperture": "f/5.0",
+        "shutterSpeed": "1/60 s",
+        "iso": 200
       },
       "detailImage": {
         "locationId": "debod",
         "usage": "detail",
-        "alt": { "es": "El Templo de Debod reflejado en su estanque al atardecer" },
+        "alt": {
+          "es": "Templo de Debod",
+          "en": "Debod temple"
+        },
         "aspectRatio": 1.3333
       }
     },
     {
       "id": "castilla",
-      "name": { "es": "Puerta de Europa" },
+      "name": {
+        "es": "Puerta de Europa (Torres KIO)",
+        "en": "Puerta de Europa (KIO Towers)"
+      },
       "neighbourhoodId": "plaza-castilla",
-      "tagIds": ["skyline", "arquitectura"],
-      "access": "free",
-      "approximateArea": { "lat": 40.4656, "lng": -3.6889, "radiusMeters": 350 },
+      "tagIds": [
+        "skyline",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.466282,
+        "lng": -3.689664,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "castilla",
         "usage": "thumb",
-        "alt": { "es": "Las dos torres inclinadas de la Puerta de Europa" },
-        "aspectRatio": 1.5
+        "alt": {
+          "es": "Torres KIO",
+          "en": "KIO towers"
+        },
+        "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4658, "lng": -3.6885 },
-      "bestTime": { "es": "mediodía, para que el sol no queme el contraluz" },
+      "coords": {
+        "lat": 40.466282,
+        "lng": -3.689664
+      },
       "shotDescription": {
-        "es": "Colócate en la mediana del Paseo de la Castellana para que las dos torres se inclinen la una hacia la otra en el encuadre."
+        "es": "La Puerta de Europa, comúnmente conocidas como Torres KIO, fueron los primeros rascacielos inclinados del mundo. Hoy en día son propiedad de un banco, se pueden usar sus paredes de espejo para fotografiar los reflejos. El metro más cercano es el de Plaza Castilla, que además comunica con una estación de autobuses y está cerca de la Estación de Chamartín, así que es posible que el turista tenga que pasar cerca de aquí.",
+        "en": "The Europa Gate -commonly known as KIO Towers- were the first slanted skyscrapers in the world. Nowadays they are owned by a bank. Their mirror walls can be used to photograph their reflections. The closest subway is Plaza Castilla, which also connects with a bus station and it is very close to the Chamartín Station, so it is possible that the tourist has to pass nearby."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 16,
-        "aperture": "f/11",
-        "shutterSpeed": "1/250 s",
+        "camera": "Nikon D810",
+        "focalLengthMm": 30.0,
+        "aperture": "f/8.0",
+        "shutterSpeed": "1/25 s",
         "iso": 100
       },
       "detailImage": {
         "locationId": "castilla",
         "usage": "detail",
-        "alt": { "es": "Las dos torres inclinadas de la Puerta de Europa" },
-        "aspectRatio": 1.5
+        "alt": {
+          "es": "Torres KIO",
+          "en": "KIO towers"
+        },
+        "aspectRatio": 1.3333
       }
     },
     {
       "id": "torres",
-      "name": { "es": "Cuatro Torres" },
+      "name": {
+        "es": "Cuatro Torres Business Area",
+        "en": "Cuatro Torres Business Area"
+      },
       "neighbourhoodId": "chamartin",
-      "tagIds": ["skyline", "nocturna"],
-      "access": "free",
-      "approximateArea": { "lat": 40.4759, "lng": -3.6890, "radiusMeters": 500 },
+      "tagIds": [
+        "skyline",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.476001,
+        "lng": -3.687009,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "torres",
         "usage": "thumb",
-        "alt": { "es": "El perfil de las Cuatro Torres al anochecer" },
-        "aspectRatio": 1.7778
+        "alt": {
+          "es": "Torre Cepsa",
+          "en": "Cepsa Tower"
+        },
+        "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4761, "lng": -3.6887 },
-      "bestTime": { "es": "20 min tras la puesta de sol, en la hora azul" },
+      "coords": {
+        "lat": 40.476001,
+        "lng": -3.687009
+      },
+      "bestTime": {
+        "es": "Anochecer",
+        "en": "Dusk"
+      },
       "shotDescription": {
-        "es": "Desde el Paseo de la Castellana a la altura de Fuencarral, con teleobjetivo para comprimir las cuatro torres en una sola línea."
+        "es": "Torre Cepsa:\nLas conocidas como “cuatro torres” son los rascacielos más altos de la ciudad. Aunque polémicas (se construyeron en los peores momentos de la crisis y muchos madrileños las ven como un símbolo de la corrupción y la desmesura), son un buen escenario para la fotografía. Esta en concreto es la torre Cepsa, tomada desde abajo con un gran angular (22mm).\n\nTorres PwC y Cepsa:\nLa Torre PwC y Torre Cepsa desde la parte trasera de las torres. En la base hay un pequeño parque con elementos que se pueden incluir en la fotografía, como en este caso los árboles. Este parque resulta muy fotogénico y es normal ver a otros fotógrafos trabajando, muchos lo usan como fondo para fotografía de retrato. En la primera de las torres, la PwC también hay un hotel de 5 estrellas, el Eurostars Madrid Tower.\n\nTorre Espacio y Torre Cristal, desde la distancia:\nAlejándonos de las torres, al cruzar la Avenida Monforte de Lemos se pueden ver las torres desde la distancia, pudiendo incluir los árboles del parque como marcos naturales de las torres, en este caso la Torre Espacio y la Torre de Cristal.\n\nLas Cuatro Torres desde Sanchinarro:\nEn esta fotografía puede verse la N-1, que es la autovía que comunica Madrid con Burgos, en la entrada a Madrid, con las torres de Plaza Castilla al fondo. Está tomada desde un puente cercano al Corte Inglés de Sanchinarro. Es un lugar algo alejado y recomiendo ir solo si se dispone de coche. Sin embargo es un lugar muy visitado por los fotógrafos al anochecer, ya que pueden conseguirse fotografías espectaculares. En esta en concreto, usé un teleobjetivo con el diafragma bastante cerrado para poder hacer una larga exposición y que se impresionaran las estelas de los coches en la fotografía.",
+        "en": "Cepsa Tower:\nThe so-called \"cuatro torres\" (four towers) are the tallest skyscrapers in the city. Although controversial -they were built in the worst moments of the crisis and many people in Madrid see them as a symbol of corruption and disrespect- they are a good setting for photography. This is the Cepsa tower, photographed from below with a wide angle (22mm).\n\nPwC and Cepsa towers:\nThey are the PwC and Cepsa Tower taken from the back. At the base there is a small garden with elements that can be included in the photograph, as in this case the trees. This park is very photogenic and it’s normal to see other photographers working. Many of them use this site as a scenario for portrait photography. In the PwC tower -the first one on the photo- there is also a 5 star hotel, the Eurostars Madrid Tower.\n\nSpace and Crystal towers, from the distance:\nMoving away from the towers, crossing the Monforte de Lemos avenue you can see the towers from the distance. There you’ll be able to include the trees of the park as natural frames of the towers, in this case the Space Tower and the Crystal Tower.\n\nFour Towers, from Sanchinarro:\nIn this photograph you can see the N-1, which is the highway that connects Madrid with Burgos, at the entrance to Madrid with the towers of Plaza Castilla in the background. It is taken from a bridge near the Corte Inglés of Sanchinarro. It is a bit remote place and I recommend going only if you have a car. However, it is a place visited by photographers at nightfall, because here it’s possible to obtain spectacular photographs. For this one in particular, I used a telephoto lens with the diaphragm quite closed to make a long exposure and to have the stelae of the cars in the photograph."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 70,
-        "aperture": "f/8",
-        "shutterSpeed": "2 s",
-        "iso": 200
+        "camera": "Nikon D810",
+        "focalLengthMm": 22.0,
+        "aperture": "f/7.1",
+        "shutterSpeed": "1/30 s",
+        "iso": 100
       },
       "detailImage": {
         "locationId": "torres",
         "usage": "detail",
-        "alt": { "es": "El perfil de las Cuatro Torres al anochecer" },
-        "aspectRatio": 1.7778
-      }
+        "alt": {
+          "es": "Torres PwC y Cepsa",
+          "en": "PwC and Cepsa towers"
+        },
+        "aspectRatio": 1.3333
+      },
+      "extraImages": [
+        {
+          "locationId": "torres",
+          "usage": "extra",
+          "alt": {
+            "es": "Torre Espacio y Torre Cristal, desde la distancia",
+            "en": "Space and Crystal towers, from the distance"
+          },
+          "aspectRatio": 1.3333,
+          "index": 0
+        },
+        {
+          "locationId": "torres",
+          "usage": "extra",
+          "alt": {
+            "es": "Las Cuatro Torres desde Sanchinarro",
+            "en": "Four Towers, from Sanchinarro"
+          },
+          "aspectRatio": 1.3333,
+          "index": 1
+        }
+      ]
     },
     {
       "id": "sol",
-      "name": { "es": "Puerta del Sol" },
+      "name": {
+        "es": "Puerta del Sol",
+        "en": "Puerta del Sol"
+      },
       "neighbourhoodId": "centro",
-      "tagIds": ["callejera", "nocturna"],
-      "access": "free",
-      "approximateArea": { "lat": 40.4169, "lng": -3.7033, "radiusMeters": 300 },
+      "tagIds": [
+        "callejera"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.416863,
+        "lng": -3.703876,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "sol",
         "usage": "thumb",
-        "alt": { "es": "El bullicio de la Puerta del Sol de noche" },
-        "aspectRatio": 1.5
+        "alt": {
+          "es": "Artista callejero en Sol",
+          "en": "Street artist in Sol"
+        },
+        "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4169, "lng": -3.7033 },
-      "bestTime": { "es": "cualquier noche de fin de semana, cuanto más gente mejor" },
+      "coords": {
+        "lat": 40.416863,
+        "lng": -3.703876
+      },
       "shotDescription": {
-        "es": "Sube a la escalinata frente al reloj y dispara hacia el oso y el madroño con la gente moviéndose en primer plano para dar sensación de vida."
+        "es": "En la Puerta del Sol hay muchos artistas callejeros y gente disfrazada esperando conseguir unas monedas a cambio de hacerse una foto con los turistas. Si se es amable con ellos te dejarán fotografiarles y siendo algo creativo se pueden conseguir fotografías interesantes.",
+        "en": "In Puerta del Sol there are many street artists and people with costumes waiting to get some coins in exchange for letting tourist taking pictures with them. If you are kind to them, they will let you photograph them. And if you are creative, you can get interesting photographs."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 35,
-        "aperture": "f/4",
-        "shutterSpeed": "1/60 s",
-        "iso": 1600
+        "camera": "X-t2",
+        "focalLengthMm": 40.7,
+        "aperture": "f/4.5",
+        "shutterSpeed": "1/640 s",
+        "iso": 200
       },
       "detailImage": {
         "locationId": "sol",
         "usage": "detail",
-        "alt": { "es": "El bullicio de la Puerta del Sol de noche" },
-        "aspectRatio": 1.5
+        "alt": {
+          "es": "Artista callejero en Sol",
+          "en": "Street artist in Sol"
+        },
+        "aspectRatio": 1.3333
       }
     },
     {
       "id": "mayor",
-      "name": { "es": "Plaza Mayor" },
+      "name": {
+        "es": "Plaza Mayor",
+        "en": "Plaza Mayor"
+      },
       "neighbourhoodId": "centro",
-      "tagIds": ["arquitectura", "callejera"],
+      "tagIds": [
+        "callejera",
+        "arquitectura",
+        "atardecer"
+      ],
       "access": "free",
-      "approximateArea": { "lat": 40.4155, "lng": -3.7074, "radiusMeters": 300 },
+      "approximateArea": {
+        "lat": 40.415395,
+        "lng": -3.706997,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "mayor",
         "usage": "thumb",
-        "alt": { "es": "Los soportales de la Plaza Mayor al atardecer" },
+        "alt": {
+          "es": "Artista callejero en la Plaza Mayor",
+          "en": "Street artist in Plaza Mayor"
+        },
         "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4155, "lng": -3.7074 },
-      "bestTime": { "es": "última hora de la tarde, cuando el sol entra rasante bajo los soportales" },
+      "coords": {
+        "lat": 40.415395,
+        "lng": -3.706997
+      },
+      "bestTime": {
+        "es": "Atardecer",
+        "en": "Sunset"
+      },
       "shotDescription": {
-        "es": "Entra por el Arco de Cuchilleros y dispara hacia el centro de la plaza; los soportales enmarcan la escena a ambos lados."
+        "es": "Fotografía callejera en la Plaza Mayor:\nEjemplo de fotografía callejera, tomada desde una de las entradas a la Plaza Mayor, en concreto esta entrada es particularmente bonita durante el atardecer, su orientación hace que el sol cree un contraluz espectacular. El suelo adoquinado y las terrazas de los edificios crean unas texturas interesantes.\n\nArtista callejero en la Plaza Mayor:\nArtista callejero creando pompas de jabón para los niños. Es común verlos en la Plaza Mayor, que es un destino turístico muy común, recomiendo visitarla si el fotógrafo es aficionado a la fotografía callejera ya que resulta fácil encontrar momentos interesantes que fotografiar.",
+        "en": "Street photography in Plaza Mayor:\nStreet photography example, taken from one of the entrances to the Plaza Mayor. Specifically this entrance is particularly beautiful during the sunset. Its orientation lets the sun create a spectacular backlight. The paved floor and the terraces of the buildings make interesting textures.\n\nStreet artist in Plaza Mayor:\nIn this picture you can see a street artist creating soap bubbles for children. It is easy to see them in Plaza Mayor, which is a very touristic place. I recommend visiting it you’re fan of street photography because it is easy to find interesting moments to photograph."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 24,
-        "aperture": "f/5.6",
-        "shutterSpeed": "1/200 s",
-        "iso": 200
+        "camera": "X-t2",
+        "focalLengthMm": 35.8,
+        "aperture": "f/5.0",
+        "shutterSpeed": "1/800 s",
+        "iso": 400
       },
       "detailImage": {
         "locationId": "mayor",
         "usage": "detail",
-        "alt": { "es": "Los soportales de la Plaza Mayor al atardecer" },
+        "alt": {
+          "es": "Artista callejero en la Plaza Mayor",
+          "en": "Street artist in Plaza Mayor"
+        },
         "aspectRatio": 1.3333
       }
     },
     {
       "id": "tiopio",
-      "name": { "es": "Cerro del Tío Pío" },
+      "name": {
+        "es": "Cerro del Tío Pío"
+      },
       "neighbourhoodId": "vallecas",
-      "tagIds": ["atardecer", "skyline"],
+      "tagIds": [
+        "atardecer",
+        "skyline"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.3972, "lng": -3.6566, "radiusMeters": 450 },
+      "approximateArea": {
+        "lat": 40.3972,
+        "lng": -3.6566,
+        "radiusMeters": 450
+      },
       "thumbnail": {
         "locationId": "tiopio",
         "usage": "thumb",
-        "alt": { "es": "Las colinas del Cerro del Tío Pío con el skyline de Madrid al fondo" },
+        "alt": {
+          "es": "Las colinas del Cerro del Tío Pío con el skyline de Madrid al fondo"
+        },
         "aspectRatio": 1.5
       },
-      "coords": { "lat": 40.3936, "lng": -3.6606 },
-      "bestTime": { "es": "atardecer, con la ciudad a contraluz desde las colinas" },
+      "coords": {
+        "lat": 40.3936,
+        "lng": -3.6606
+      },
+      "bestTime": {
+        "es": "atardecer, con la ciudad a contraluz desde las colinas"
+      },
       "shotDescription": {
         "es": "Sube a la colina más alta y dispara con gran angular incluyendo las ondulaciones de césped en primer plano y el skyline al fondo."
       },
@@ -284,25 +622,43 @@
       "detailImage": {
         "locationId": "tiopio",
         "usage": "detail",
-        "alt": { "es": "Las colinas del Cerro del Tío Pío con el skyline de Madrid al fondo" },
+        "alt": {
+          "es": "Las colinas del Cerro del Tío Pío con el skyline de Madrid al fondo"
+        },
         "aspectRatio": 1.5
       }
     },
     {
       "id": "circulo",
-      "name": { "es": "Círculo de Bellas Artes" },
+      "name": {
+        "es": "Círculo de Bellas Artes"
+      },
       "neighbourhoodId": "centro",
-      "tagIds": ["skyline", "atardecer"],
+      "tagIds": [
+        "skyline",
+        "atardecer"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.4222, "lng": -3.6928, "radiusMeters": 400 },
+      "approximateArea": {
+        "lat": 40.4222,
+        "lng": -3.6928,
+        "radiusMeters": 400
+      },
       "thumbnail": {
         "locationId": "circulo",
         "usage": "thumb",
-        "alt": { "es": "Vistas de Madrid desde la azotea del Círculo de Bellas Artes al atardecer" },
+        "alt": {
+          "es": "Vistas de Madrid desde la azotea del Círculo de Bellas Artes al atardecer"
+        },
         "aspectRatio": 1.5
       },
-      "coords": { "lat": 40.4184, "lng": -3.6968 },
-      "bestTime": { "es": "45 min antes del atardecer, para ver encenderse la ciudad" },
+      "coords": {
+        "lat": 40.4184,
+        "lng": -3.6968
+      },
+      "bestTime": {
+        "es": "45 min antes del atardecer, para ver encenderse la ciudad"
+      },
       "shotDescription": {
         "es": "Sube a la azotea y busca el hueco entre las cúpulas del centro para encuadrar Gran Vía con el sol bajo."
       },
@@ -316,57 +672,97 @@
       "detailImage": {
         "locationId": "circulo",
         "usage": "detail",
-        "alt": { "es": "Vistas de Madrid desde la azotea del Círculo de Bellas Artes al atardecer" },
+        "alt": {
+          "es": "Vistas de Madrid desde la azotea del Círculo de Bellas Artes al atardecer"
+        },
         "aspectRatio": 1.5
       }
     },
     {
       "id": "metropolis",
-      "name": { "es": "Edificio Metrópolis" },
+      "name": {
+        "es": "Edificio Metrópolis",
+        "en": "Metropolis Building"
+      },
       "neighbourhoodId": "centro",
-      "tagIds": ["arquitectura", "nocturna"],
+      "tagIds": [
+        "arquitectura",
+        "skyline"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.4218, "lng": -3.6941, "radiusMeters": 350 },
+      "approximateArea": {
+        "lat": 40.418766,
+        "lng": -3.697386,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "metropolis",
         "usage": "thumb",
-        "alt": { "es": "La cúpula iluminada del Edificio Metrópolis de noche" },
+        "alt": {
+          "es": "Edificio Metrópolis y la Gran Vía",
+          "en": "Metropolis building and Gran Vía"
+        },
         "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4180, "lng": -3.6981 },
-      "bestTime": { "es": "poco después del anochecer, con la cúpula ya iluminada" },
+      "coords": {
+        "lat": 40.418766,
+        "lng": -3.697386
+      },
+      "bestTime": {
+        "es": "Días festivos sin tráfico",
+        "en": "Holidays with no traffic"
+      },
       "shotDescription": {
-        "es": "Desde la acera de enfrente en Gran Vía, con teleobjetivo corto para aislar la cúpula y su estatua dorada del tráfico."
+        "es": "Fotografía con ojo de pez de la Gran Vía durante el día. En los festivos y fines de semana hay restricciones de tráfico y se puede aprovechar para tomar fotografías sin coches de por medio. Esta en concreto está tomada con un ojo de pez (Tamron 15-30mm) y un filtro Haida polarizador. En la foto aparece el edificio Metrópolis, es otro de los iconos de la ciudad que hace esquina entre la Gran Vía y la calle Alcalá.",
+        "en": "Fisheye photography of the Gran Vía during the day. On holidays and weekends there are traffic restrictions and you can take advantage of them by taking pictures without cars. This in particular is taken with a fisheye (Tamron 15-30mm) and a polarizing Haida filter. The Metropolis building that appears in the photo is another icon of the city in the corner between Gran Vía and Calle Alcalá."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 50,
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
         "aperture": "f/5.6",
-        "shutterSpeed": "1/60 s",
-        "iso": 800
+        "shutterSpeed": "1/160 s",
+        "iso": 100
       },
       "detailImage": {
         "locationId": "metropolis",
         "usage": "detail",
-        "alt": { "es": "La cúpula iluminada del Edificio Metrópolis de noche" },
+        "alt": {
+          "es": "Edificio Metrópolis y la Gran Vía",
+          "en": "Metropolis building and Gran Vía"
+        },
         "aspectRatio": 1.3333
       }
     },
     {
       "id": "matadero",
-      "name": { "es": "Matadero Madrid" },
+      "name": {
+        "es": "Matadero Madrid"
+      },
       "neighbourhoodId": "arganzuela",
-      "tagIds": ["arquitectura"],
+      "tagIds": [
+        "arquitectura"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.3956, "lng": -3.7014, "radiusMeters": 400 },
+      "approximateArea": {
+        "lat": 40.3956,
+        "lng": -3.7014,
+        "radiusMeters": 400
+      },
       "thumbnail": {
         "locationId": "matadero",
         "usage": "thumb",
-        "alt": { "es": "Las naves de ladrillo industrial de Matadero Madrid" },
+        "alt": {
+          "es": "Las naves de ladrillo industrial de Matadero Madrid"
+        },
         "aspectRatio": 1.5
       },
-      "coords": { "lat": 40.3919, "lng": -3.6976 },
-      "bestTime": { "es": "mediodía, cuando la luz entra directa entre las naves" },
+      "coords": {
+        "lat": 40.3919,
+        "lng": -3.6976
+      },
+      "bestTime": {
+        "es": "mediodía, cuando la luz entra directa entre las naves"
+      },
       "shotDescription": {
         "es": "Camina por el patio central y dispara hacia las fachadas de ladrillo visto, buscando la simetría de los arcos de las naves."
       },
@@ -380,227 +776,2796 @@
       "detailImage": {
         "locationId": "matadero",
         "usage": "detail",
-        "alt": { "es": "Las naves de ladrillo industrial de Matadero Madrid" },
+        "alt": {
+          "es": "Las naves de ladrillo industrial de Matadero Madrid"
+        },
         "aspectRatio": 1.5
       }
     },
     {
       "id": "faro",
-      "name": { "es": "Faro de Moncloa" },
+      "name": {
+        "es": "Faro de Moncloa",
+        "en": "Faro de Moncloa"
+      },
       "neighbourhoodId": "moncloa",
-      "tagIds": ["skyline"],
+      "tagIds": [
+        "skyline",
+        "mirador"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.4415, "lng": -3.7237, "radiusMeters": 450 },
+      "approximateArea": {
+        "lat": 40.437298,
+        "lng": -3.721676,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "faro",
         "usage": "thumb",
-        "alt": { "es": "El skyline de Madrid visto desde la cabina panorámica del Faro de Moncloa" },
-        "aspectRatio": 1.7778
+        "alt": {
+          "es": "Faro de Moncloa desde la Casa de Campo",
+          "en": "Faro de Moncloa from Casa de Campo"
+        },
+        "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4378, "lng": -3.7196 },
-      "bestTime": { "es": "atardecer, cuando el sol se pone detrás de la sierra" },
+      "coords": {
+        "lat": 40.437298,
+        "lng": -3.721676
+      },
       "shotDescription": {
-        "es": "Desde la cabina panorámica, pega el objetivo al cristal para evitar el reflejo y encuadra hacia el oeste, con la sierra al fondo."
+        "es": "Desde lo alto de la Casa de Campo puede verse Madrid en la distancia. En esta foto se observa el Faro de Moncloa, que es un mirador construido en el año 1992. El Faro es visitable de martes a domingo, de 9:30 a 20:00 aunque el aforo es limitado, con lo que es recomendable visitar antes su web https://www.esmadrid.com/informacion-turistica/faro-de-moncloa La Casa de Campo, desde donde está tomada la fotografía, es el mayor parque de la ciudad. Está muy frecuentado por deportistas que lo aprovechan para entrenar y, aunque no es tan bonito como El Retiro, puede ser una visita interesante.",
+        "en": "From the top of a hill in Casa de Campo you can see Madrid in the distance. In this photo you can see the Faro de Moncloa, which is a viewpoint built in 1992. The place is open from Tuesday to Sunday, from 9:30 a.m. to 8:00 p.m. although the capacity is limited, so it is recommended to check its web in advance https://www.esmadrid.com/informacion-turistica/faro-de-moncloa. The Casa de Campo, from where the photograph is taken, is the largest park in the city. It is very frequented by runners and cyclist and -although it is not as beautiful as El Retiro- it can be an interesting visit if you have enough time."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 70,
-        "aperture": "f/8",
-        "shutterSpeed": "1/250 s",
-        "iso": 100
+        "camera": "Nikon D90",
+        "focalLengthMm": 55.0,
+        "aperture": "f/16.0",
+        "shutterSpeed": "1/160 s",
+        "iso": 200
       },
       "detailImage": {
         "locationId": "faro",
         "usage": "detail",
-        "alt": { "es": "El skyline de Madrid visto desde la cabina panorámica del Faro de Moncloa" },
-        "aspectRatio": 1.7778
+        "alt": {
+          "es": "Faro de Moncloa desde la Casa de Campo",
+          "en": "Faro de Moncloa from Casa de Campo"
+        },
+        "aspectRatio": 1.3333
       }
     },
     {
       "id": "toledo",
-      "name": { "es": "Puente de Toledo" },
+      "name": {
+        "es": "Puente de Toledo",
+        "en": "Puente de Toledo"
+      },
       "neighbourhoodId": "arganzuela",
-      "tagIds": ["nocturna", "arquitectura"],
+      "tagIds": [
+        "puente",
+        "nocturna",
+        "arquitectura"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.4007, "lng": -3.7177, "radiusMeters": 400 },
+      "approximateArea": {
+        "lat": 40.399122,
+        "lng": -3.715134,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "toledo",
         "usage": "thumb",
-        "alt": { "es": "Los arcos barrocos del Puente de Toledo iluminados de noche" },
-        "aspectRatio": 1.5
+        "alt": {
+          "es": "Puente de Toledo de noche",
+          "en": "Puente de Toledo at night"
+        },
+        "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.3969, "lng": -3.7139 },
-      "bestTime": { "es": "hora azul, con la iluminación del puente ya encendida" },
+      "coords": {
+        "lat": 40.399122,
+        "lng": -3.715134
+      },
+      "bestTime": {
+        "es": "Noche",
+        "en": "Night"
+      },
       "shotDescription": {
-        "es": "Desde la orilla del Manzanares, busca el reflejo de los arcos en el agua con una exposición larga sobre trípode."
+        "es": "El Puente de Toledo es de estilo barroco (churrigueresco) y fue construido entre 1718 y 1732 por el arquitecto Pedro de Ribera. Históricamente es un puente muy utilizado por los madrileños, ya que comunica la glorieta de Pirámides con Marqués de Vadillo y el barrio popular de Carabanchel. El puente tiene nueve arcos de medio punto y un ancho de 4.95 metros La foto está tomada de noche, desde uno de los salientes en el extremo del puente. Para llegar hasta él, el metro más cercano es Pirámides.",
+        "en": "The Bridge of Toledo has baroque -churrigueresco- elements. It was built between 1718 and 1732 by the architect Pedro de Ribera. Traditionally it was a bridge very used by the locals, since it communicates the roundabout of Pirámides with Marqués de Vadillo and the popular neighborhood of Carabanchel. The bridge has nine semicircular arches and a width of 4.95 meters The photo is taken at night, from one of the ledges at the end of the bridge. To get there, the nearest metro is Piramides."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 35,
-        "aperture": "f/11",
-        "shutterSpeed": "4 s",
+        "camera": "Nikon D810",
+        "focalLengthMm": 23.0,
+        "aperture": "f/5.0",
+        "shutterSpeed": "8.0 s",
         "iso": 100
       },
       "detailImage": {
         "locationId": "toledo",
         "usage": "detail",
-        "alt": { "es": "Los arcos barrocos del Puente de Toledo iluminados de noche" },
-        "aspectRatio": 1.5
+        "alt": {
+          "es": "Puente de Toledo de noche",
+          "en": "Puente de Toledo at night"
+        },
+        "aspectRatio": 1.3333
       }
     },
     {
       "id": "retiro",
-      "name": { "es": "Palacio de Cristal" },
+      "name": {
+        "es": "Palacio de Cristal",
+        "en": "Crystal Palace"
+      },
       "neighbourhoodId": "retiro",
-      "tagIds": ["arquitectura"],
+      "tagIds": [
+        "parque",
+        "arquitectura"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.4175, "lng": -3.6787, "radiusMeters": 350 },
+      "approximateArea": {
+        "lat": 40.413598,
+        "lng": -3.682065,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "retiro",
         "usage": "thumb",
-        "alt": { "es": "El Palacio de Cristal del Retiro reflejado en su estanque" },
+        "alt": {
+          "es": "Palacio de Cristal",
+          "en": "Crystal Palace"
+        },
         "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4137, "lng": -3.6825 },
-      "bestTime": { "es": "media mañana entre semana, con el estanque en calma" },
+      "coords": {
+        "lat": 40.413598,
+        "lng": -3.682065
+      },
+      "bestTime": {
+        "es": "Entre semana, fuera de horas punta",
+        "en": "Weekdays, off-peak hours"
+      },
       "shotDescription": {
-        "es": "Colócate en la orilla opuesta a la entrada y agáchate cerca del agua para captar el reflejo simétrico de la estructura de cristal."
+        "es": "Palacio de Cristal:\nEn el Parque del Retiro está el Palacio de Cristal, un pequeño edificio cuyas paredes están compuestas por cristales y que resulta fotogénico, en caso de no encontrarlo, ya que está un poco escondido, recomiendo seguir las indicaciones que hay en el lago para llegar hasta él. Durante el día, y más concretamente los fines de semana, suele tener muchos visitantes, para evitar que aparecieran turistas en la foto usé la combinación de un filtro ND de 10 pasos Haida y un degradado de 3 pasos NiSi para borrar las figuras humanas usando una larga exposición.\n\nLago y Palacio de Cristal:\nEl Palacio de Cristal tiene, frente a su fachada principal, un pequeño estanque rodeado de árboles. Desde la orilla opuesta al palacio se pueden conseguir fotos interesantes. Como nota curiosa, decir que el Palacio fue construido en 1887 para la Exposición de las Islas Filipinas, celebrada ese año. Diseñado por Ricardo Velázquez Bosco e inspirado en el Crystal Palace de Londres. Hoy en día acoge exposiciones de arte contemporáneo.",
+        "en": "Crystal Palace:\nIn El Retiro you can find the Palacio de Cristal, a small building whose walls are made of crystal. Just in case you can not find it -it is a little bit hidden- you can follow the signs that are near the lake. During the day, and especially on weekends, it has many visitors. To avoid tourists in the photo I used the combination of a Haida 10-step ND filter and a NiSi 3-step gradient to erase the human figures using a long exposition.\n\nLake and Crystal Palace:\nIn front of its main facade, the Palacio de Cristal has a small lake surrounded by trees. From the opposite bank to the palace you can get interesting photos. The Palace was built in 1887 for the Exposition of the Philippine Islands celebrated that year. It was designed by Ricardo Velázquez Bosco and inspired by the Crystal Palace in London. Nowadays, it hosts exhibitions of contemporary art."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 28,
-        "aperture": "f/7.1",
-        "shutterSpeed": "1/320 s",
-        "iso": 100
+        "camera": "Nikon D810",
+        "focalLengthMm": 18.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "30.0 s",
+        "iso": 200
       },
       "detailImage": {
         "locationId": "retiro",
         "usage": "detail",
-        "alt": { "es": "El Palacio de Cristal del Retiro reflejado en su estanque" },
+        "alt": {
+          "es": "Lago y Palacio de Cristal",
+          "en": "Lake and Crystal Palace"
+        },
         "aspectRatio": 1.3333
       }
     },
     {
       "id": "campo",
-      "name": { "es": "Casa de Campo" },
-      "neighbourhoodId": "latina",
-      "tagIds": ["skyline", "atardecer"],
+      "name": {
+        "es": "Casa de Campo",
+        "en": "Casa de Campo"
+      },
+      "neighbourhoodId": "moncloa",
+      "tagIds": [
+        "skyline",
+        "parque",
+        "mirador"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.4228, "lng": -3.7402, "radiusMeters": 500 },
+      "approximateArea": {
+        "lat": 40.424191,
+        "lng": -3.755858,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "campo",
         "usage": "thumb",
-        "alt": { "es": "El skyline de Madrid al atardecer visto desde la Casa de Campo" },
-        "aspectRatio": 1.7778
+        "alt": {
+          "es": "Plaza de España desde la Casa de Campo",
+          "en": "Plaza de España from Casa de Campo"
+        },
+        "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4190, "lng": -3.7360 },
-      "bestTime": { "es": "atardecer, con la ciudad iluminándose a lo lejos" },
+      "coords": {
+        "lat": 40.424191,
+        "lng": -3.755858
+      },
       "shotDescription": {
-        "es": "Busca una loma despejada con vistas al este y encuadra con teleobjetivo para comprimir el skyline sobre el follaje del parque."
+        "es": "Desde la parte más alta de la Casa de Campo puede observarse Madrid en la distancia. En concreto en esta foto se pueden ver dos edificios de la Plaza de España, la Torre Madrid y el Edificio España a izquierda y derecha, respectivamente. Aunque la Plaza de Campo puede quedar algo retirada para el turista, existe la opción de alquilar una bici, por ejemplo se puede usar el servicio municipal BiciMad, para acercarse a pasar el día en el parque. https://www.bicimad.com/",
+        "en": "From the highest part of Casa de Campo you can see Madrid in the distance. Specifically in this photo you can see two buildings of the Plaza de España: Torre Madrid on the left and Edificio España on the right. Although the Plaza de Campo may be a bit far away for tourists, bike rental is an option. For example you can use the municipal BiciMad service to go to the park and spend the day there. https://www.bicimad.com/"
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 100,
-        "aperture": "f/8",
-        "shutterSpeed": "1/200 s",
-        "iso": 100
+        "camera": "Nikon D90",
+        "focalLengthMm": 55.0,
+        "aperture": "f/11.0",
+        "shutterSpeed": "1/160 s",
+        "iso": 200
       },
       "detailImage": {
         "locationId": "campo",
         "usage": "detail",
-        "alt": { "es": "El skyline de Madrid al atardecer visto desde la Casa de Campo" },
-        "aspectRatio": 1.7778
+        "alt": {
+          "es": "Plaza de España desde la Casa de Campo",
+          "en": "Plaza de España from Casa de Campo"
+        },
+        "aspectRatio": 1.3333
       }
     },
     {
       "id": "lavapies",
-      "name": { "es": "Calle de Lavapiés" },
+      "name": {
+        "es": "Calle de Lavapiés",
+        "en": "Lavapiés street"
+      },
       "neighbourhoodId": "lavapies",
-      "tagIds": ["callejera"],
+      "tagIds": [
+        "callejera"
+      ],
       "access": "premium",
-      "approximateArea": { "lat": 40.4128, "lng": -3.6972, "radiusMeters": 350 },
+      "approximateArea": {
+        "lat": 40.408514,
+        "lng": -3.70095,
+        "radiusMeters": 150
+      },
       "thumbnail": {
         "locationId": "lavapies",
         "usage": "thumb",
-        "alt": { "es": "Fachadas y persianas de colores en una calle de Lavapiés" },
-        "aspectRatio": 1.5
+        "alt": {
+          "es": "Fotografía callejera en Lavapies",
+          "en": "Street photography in Lavapies"
+        },
+        "aspectRatio": 1.3333
       },
-      "coords": { "lat": 40.4090, "lng": -3.7010 },
-      "bestTime": { "es": "media tarde, cuando el sol lateral resalta las fachadas" },
+      "coords": {
+        "lat": 40.408514,
+        "lng": -3.70095
+      },
+      "bestTime": {
+        "es": "Primeras y últimas horas del día",
+        "en": "First and last hours of the day"
+      },
       "shotDescription": {
-        "es": "Camina la calle en pendiente y dispara en vertical para captar las fachadas de colores y los balcones asomando entre sí."
+        "es": "Lavapiés es uno de los barrios de moda de Madrid, habitado principalmente por jóvenes e inmigrantes, rebosa cultura y vanguardismo. Muchas de sus paredes lucen graffitis y es un escenario muy apetecible para el fotógrafo callejero. Recomiendo las primeras y últimas horas del día, la luz puede crear contrastes muy interesantes en los suelos adoquinados. Por último, es una de las zonas de marcha de la ciudad, recomiendo la calle Argumosa para cenar de tapeo después de la sesión.",
+        "en": "Lavapiés is one of Madrid's trendiest neighborhoods, inhabited mainly by young people and immigrants, full of culture and avant-garde. Many of its walls have graffiti and it is a very interesting place for the street photographer. I recommend the first and last hours of the day. The light can create very interesting contrasts in the paved floors. Finally, it is one of the party areas of the city. I’d recommend the Argumosa street for tapas after the session."
       },
       "capture": {
-        "camera": "Sony A7 IV",
-        "focalLengthMm": 35,
+        "camera": "Nikon D810",
+        "focalLengthMm": 70.0,
         "aperture": "f/5.6",
-        "shutterSpeed": "1/320 s",
-        "iso": 200
+        "shutterSpeed": "1/125 s",
+        "iso": 140
       },
       "detailImage": {
         "locationId": "lavapies",
         "usage": "detail",
-        "alt": { "es": "Fachadas y persianas de colores en una calle de Lavapiés" },
-        "aspectRatio": 1.5
+        "alt": {
+          "es": "Fotografía callejera en Lavapies",
+          "en": "Street photography in Lavapies"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "basilica-san-francisco",
+      "name": {
+        "es": "Basílica de San Francisco el Grande",
+        "en": "Basilica of San Francisco el Grande"
+      },
+      "neighbourhoodId": "latina",
+      "tagIds": [
+        "religioso",
+        "arquitectura",
+        "atardecer"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.410435,
+        "lng": -3.714479,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "basilica-san-francisco",
+        "usage": "thumb",
+        "alt": {
+          "es": "Basílica de San Francisco el Grande",
+          "en": "Basilica of San Francisco el Grande"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.410435,
+        "lng": -3.714479
+      },
+      "bestTime": {
+        "es": "Atardecer",
+        "en": "Sunset"
+      },
+      "shotDescription": {
+        "es": "Vista de la basílica de San Francisco el Grande al anochecer, la foto está tomada desde la calle Bailén, al lado de la parada de autobús. Es una foto de larga exposición para la que he usado un filtro ND de 10 pasos, concretamente uno de la marca Haida y un degradado NiSi de 3 pasos para quitarle luz al cielo. También tiene algo de “light painting” en la parte de abajo debido a las luces de los coches. Un consejo, la luz de los autobuses que se detienen en la parada puede hacer un arco bonito. La basílica es especialmente interesante durante las puestas de sol, su iluminación es muy bonita y la fachada principal está orientada hacia el este, con el sol en la parte de atrás. El edificio es del Siglo XVIII y destaca por sus frescos de Zurbarán y Goya.",
+        "en": "View of San Francisco church at sunset. The photo is taken from calle Bailén, next to the bus station. It’s a long exposure photo taken with a 10 stops ND filter from Haida and a degraded one of 3 stops from NiSi to equalize the sky. It also has light painting at the bottom because of the car lights. This church is specially interesting during sunsets. Its lightning is wonderful and the main gate is oriented to the east, so the sun is on its back. The building is from 18th century. The most remarkable features are its dome and Zurbarán and Goya paintings."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/4.5",
+        "shutterSpeed": "30.0 s",
+        "iso": 250
+      },
+      "detailImage": {
+        "locationId": "basilica-san-francisco",
+        "usage": "detail",
+        "alt": {
+          "es": "Basílica de San Francisco el Grande",
+          "en": "Basilica of San Francisco el Grande"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "palacio-real",
+      "name": {
+        "es": "Palacio Real",
+        "en": "Royal Palace"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "arquitectura",
+        "atardecer"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.41674,
+        "lng": -3.713622,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "palacio-real",
+        "usage": "thumb",
+        "alt": {
+          "es": "Puerta del Palacio Real",
+          "en": "Royal Palace gate"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.41674,
+        "lng": -3.713622
+      },
+      "bestTime": {
+        "es": "Atardecer",
+        "en": "Sunset"
+      },
+      "shotDescription": {
+        "es": "Puerta del Palacio Real:\nVista de una de las puertas del Palacio Real, durante el atardecer el sol crea un contraluz que queda muy bien en fotos en blanco y negro. Situándose en la calle (casi no pasan coches) se puede crear una composición interesante. El Palacio Real se comenzó a construir en 1738, por orden de Felipe V, aunque el primer monarca que lo habitó fue Carlos III. Se puede visitar, accediendo por la puerta que queda a la izquierda de esta, en frente de la Catedral.\n\nTiovivo en el Palacio Real:\nDurante las navidades, el ayuntamiento instala un tiovivo en la esquina Norte del Palacio Real. Durante la noche suele acaparar la atención de fotógrafos aficionados que crean composiciones con el palacio de fondo. Para esta foto usé un trípode y una exposición larga para crear el efecto de movimiento.",
+        "en": "Royal Palace gate:\nView of one of the doors of the Royal Palace. During sunset the sun creates a backlight effect that looks great in black and white photos. Standing on the street (almost no cars pass) you can create an interesting composition. The Royal Palace construction begun in 1738 ordered by Felipe V, the first monarch who lived there was Carlos III though. You can visit it by accessing the door that is on the left of the one on the photo, in front of the Cathedral.\n\nCarousel near Royal Palace:\nDuring Christmas, the City Council installs a carousel in the Northern corner of the Royal Palace. During the night it usually captures the attention of amateur photographers who create compositions with the palace in the background. For this photo I used a tripod and a long exposure to create the effect of movement."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 50.0,
+        "aperture": "f/2.5",
+        "shutterSpeed": "1/6400 s",
+        "iso": 160
+      },
+      "detailImage": {
+        "locationId": "palacio-real",
+        "usage": "detail",
+        "alt": {
+          "es": "Tiovivo en el Palacio Real",
+          "en": "Carousel near Royal Palace"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "rastro",
+      "name": {
+        "es": "El Rastro",
+        "en": "El Rastro"
+      },
+      "neighbourhoodId": "embajadores",
+      "tagIds": [
+        "callejera",
+        "mercado"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.408633,
+        "lng": -3.70733,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "rastro",
+        "usage": "thumb",
+        "alt": {
+          "es": "El Rastro",
+          "en": "El Rastro"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.408633,
+        "lng": -3.70733
+      },
+      "bestTime": {
+        "es": "Domingo por la mañana",
+        "en": "Sunday morning"
+      },
+      "shotDescription": {
+        "es": "El Rastro:\nEl Rastro es el mercado ambulante más importante de la ciudad. Se organiza todos los domingos y festivos y a él acuden miles de madrileños, así como turistas, a comprar o simplemente pasear por los puestos. La calle principal es Ribera de Curtidores, sin embargo, es en las calles paralelas a esta donde encontraremos el mercado en estado puro, con menos turistas y más puestos “de toda la vida”.\n\nMúsicos callejeros en El Rastro:\nEl Rastro es el mercado callejero más famoso de Madrid, se organiza cada domingo y es donde muchos lugareños van a pasar la mañana, normalmente hay muchos músicos que amenizan el paseo a cambio de unas monedas y no tendrán inconveniente en que les hagáis fotos. Recomiendo las tostas de los bares que encontraréis en la calle de la Ribera de Curtidores.",
+        "en": "El Rastro:\nEl Rastro is the most important street market in the city. It is organized every Sunday and bank holidays. Thousands of locals, as well as tourists, go there to buy or just walk through the stalls. The main street is Ribera de Curtidores. However, in the parallel streets we will find the market in its purest state, with fewer tourists and more \"traditional\" stalls.\n\nStreet musicians in El Rastro:\nEl Rastro is the most famous street market in Madrid. It is organized every Sunday and many locals go there during the morning. There are usually musicians who liven up the ride in exchange of some coins and they will not mind if you take photos. I’d recommend the “tostas” that you can eat in the local restaurants that you will find in the street of Ribera de Curtidores."
+      },
+      "detailImage": {
+        "locationId": "rastro",
+        "usage": "detail",
+        "alt": {
+          "es": "Músicos callejeros en El Rastro",
+          "en": "Street musicians in El Rastro"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "gran-via",
+      "name": {
+        "es": "Gran Vía",
+        "en": "Gran Vía"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "callejera",
+        "nocturna",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.423123,
+        "lng": -3.71042,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "gran-via",
+        "usage": "thumb",
+        "alt": {
+          "es": "Gran Vía de noche",
+          "en": "Gran Vía at night"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.423123,
+        "lng": -3.71042
+      },
+      "bestTime": {
+        "es": "Noche, o temprano (9-10h) para callejera",
+        "en": "Night, or early (9-10am) for street photography"
+      },
+      "shotDescription": {
+        "es": "Gran Vía de noche:\nFoto de larga exposición tomada desde el paso de cebra. Durante la noche, los edificios de la Gran Vía están iluminados con una luz tenue muy fotogénica y es fácil conseguir fotos bonitas. Atención que durante las navidades u otras festividades el tráfico puede estar restringido. La Gran Vía es una de las principales calles de Madrid, tiene comercios de las principales firmas, para los que quieran comprar ropa y es una visita obligada para cualquier turista. Fue diseñada a finales del Siglo XIX, aunque las obras se demoraron hasta 1910, cuando fue inaugurada en presencia de Alfonso XIII. A día de hoy es una de las principales arterias de Madrid y miles de turistas la visitan cada día. Para comer recomiendo las calles paralelas, hay muchos restaurantes, de cualquier tipo de comida y durante la semana tienen menús del día.\n\nFotografía callejera en Gran Vía:\nLa Gran Vía es un lugar perfecto para la fotografía callejera, hay gente de lo más variopinta y normalmente todo el mundo está demasiado ocupado como para reparar en el fotógrafo. Tal vez, y dependiendo de la época del año, durante las horas álgidas del día haya demasiada gente, pero si se acude temprano (9 a 10 a.m.) se podrán conseguir buenas fotos. Recomiendo elegir un punto y esperar pacientemente el momento decisivo hasta conseguir la foto.\n\nGran Vía desde Callao:\nEn medio de la Gran Vía, a la altura de la Plaza de Callao, hay una pequeña isleta a la que podemos acceder si somos cuidadosos. En ella se pueden sacar fotografías del tramo que transcurre entre Callao y Plaza España. La Gran Vía es una de las principales arterias de Madrid, su construcción se inició en 1910 y hoy en día está repleta de comercios de moda. Es una de las vías más transitadas de la ciudad y es común ver a muchos turistas (y fotógrafos locales) haciendo fotografías en ella.",
+        "en": "Gran Vía at night:\nLong exposure photo taken from the crossroad. During the night, the buildings of the Gran Vía are illuminated with a very photogenic light. Please note that during Christmas or other festivities traffic may be restricted. Gran Vía is one of the most important streets in Madrid. It has shops of the main firms for those who want to buy clothes and is a must-see for any tourist. It was designed at the end of the 19th century, although the works were delayed until 1910, when it was inaugurated by Alfonso XIII. Today it is one of the main arteries of Madrid and thousands of tourists visit it every day. If you want to eat something, I recommend the parallel streets. There are many restaurants, of any type of food and during the week they have economic menus.\n\nStreet photography in Gran Vía:\nGran Vía is a perfect place for street photography. There you can find very diverse people and everyone is usually too busy to notice the photographer. Maybe, and depending on the time of the year, during the peak hours of the day there are too many people, but if you go early (9 a.m. to 10 a.m.) you can get good photos. I’d recommend to choose a place and waiting patiently for the decisive moment to take the photo.\n\nGran Vía, near Callao:\nIn Gran Vía, near to Plaza de Callao, there is a small space that we can access if we are careful. There you can take photographs of the section of the street that goes from Callao to Plaza España. Gran Vía is one of the main arteries of Madrid. Its construction began in 1910 and today it is full of fashion shops. It is one of the busiest routes in the city and it is common to see many tourists (and local photographers) taking photographs in it."
+      },
+      "capture": {
+        "camera": "Nikon D90",
+        "focalLengthMm": 18.0,
+        "aperture": "f/22.0",
+        "shutterSpeed": "8.0 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "gran-via",
+        "usage": "detail",
+        "alt": {
+          "es": "Fotografía callejera en Gran Vía",
+          "en": "Street photography in Gran Vía"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "puerta-toledo",
+      "name": {
+        "es": "Puerta de Toledo",
+        "en": "Puerta de Toledo"
+      },
+      "neighbourhoodId": "latina",
+      "tagIds": [
+        "arquitectura",
+        "monumento"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.407051,
+        "lng": -3.711066,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "puerta-toledo",
+        "usage": "thumb",
+        "alt": {
+          "es": "Puerta de Toledo",
+          "en": "Toledo’s gate"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.407051,
+        "lng": -3.711066
+      },
+      "shotDescription": {
+        "es": "La Puerta de Toledo fue una de las puertas de acceso a Madrid, se construyó entre los años 1813 y 1827, aunque ha sido restaurada por el Ayuntamiento en el año 1995, por ella transcurría la calle Toledo, que más abajo cruza el río Manzanares a través del puente de Toledo. Aproveché para tomar esta foto un día en el que estaba bastante nublado y había una luz bastante suave. Usé mi filtro ND de 10 pasos, de la marca Haida y otro degradado para quitarle algo de intensidad al cielo.",
+        "en": "Puerta de Toledo was one of the access gates to the city. It was built between 1813 and 1827, although it was restored by the City Council in 1995. Toledo street goes through it ending in the Toledo bridge, which crosses Manzanares river. I took this photo on a quite cloudy day and there was a soft light. I used my 10-step ND filter -from Haida- and another gradient filter to low some intensity from the sky."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 30.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "13.0 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "puerta-toledo",
+        "usage": "detail",
+        "alt": {
+          "es": "Puerta de Toledo",
+          "en": "Toledo’s gate"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "calle-alcala",
+      "name": {
+        "es": "Calle Alcalá",
+        "en": "Calle Alcalá"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "nocturna",
+        "callejera"
+      ],
+      "access": "free",
+      "approximateArea": {
+        "lat": 40.426048,
+        "lng": -3.672944,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "calle-alcala",
+        "usage": "thumb",
+        "alt": {
+          "es": "Calle Alcalá de noche",
+          "en": "Alcalá street at night"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.426048,
+        "lng": -3.672944
+      },
+      "bestTime": {
+        "es": "Noche",
+        "en": "Night"
+      },
+      "shotDescription": {
+        "es": "Al lado de una de las salidas del metro Sevilla hay una pequeña zona segura para los peatones que los coches sobrepasan por ambos lados. En ella es fácil sacar fotografías con la técnica del lightpainting de toda la Calle Alcalá.",
+        "en": "Next to one of the Sevilla’s subway exits there is a small safe area for pedestrians that cars pass on both sides. In it it is easy to take light-painting photographs of the whole Calle Alcalá."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/16.0",
+        "shutterSpeed": "20.0 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "calle-alcala",
+        "usage": "detail",
+        "alt": {
+          "es": "Calle Alcalá de noche",
+          "en": "Alcalá street at night"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "campo-cebada",
+      "name": {
+        "es": "Campo de la Cebada",
+        "en": "Campo de la Cebada"
+      },
+      "neighbourhoodId": "embajadores",
+      "tagIds": [
+        "callejera",
+        "evento"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.410929,
+        "lng": -3.70924,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "campo-cebada",
+        "usage": "thumb",
+        "alt": {
+          "es": "Día de los muertos en La Cebada",
+          "en": "Day of the dead in La Cebada"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.410929,
+        "lng": -3.70924
+      },
+      "shotDescription": {
+        "es": "El Campo de la Cebada es una de las zonas autogestionadas más famosas de Madrid, es común que haya fiestas temáticas como la de la foto (el día de los muertos mexicano). Para seguir la información de los eventos: https://twitter.com/campodecebada",
+        "en": "El Campo de la Cebada is one of the most famous self-managed areas of Madrid. It is common to have thematic parties such as the one in the photo (Mexican Day of the Dead). To follow the information of the events: https://twitter.com/campodecebada"
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 50.0,
+        "aperture": "f/1.8",
+        "shutterSpeed": "1/125 s",
+        "iso": 12800
+      },
+      "detailImage": {
+        "locationId": "campo-cebada",
+        "usage": "detail",
+        "alt": {
+          "es": "Día de los muertos en La Cebada",
+          "en": "Day of the dead in La Cebada"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "puerta-alcala",
+      "name": {
+        "es": "Puerta de Alcalá",
+        "en": "Puerta de Alcalá"
+      },
+      "neighbourhoodId": "retiro",
+      "tagIds": [
+        "monumento",
+        "nocturna",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.419984,
+        "lng": -3.688726,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "puerta-alcala",
+        "usage": "thumb",
+        "alt": {
+          "es": "Puerta de Alcalá",
+          "en": "Puerta de Alcalá"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.419984,
+        "lng": -3.688726
+      },
+      "shotDescription": {
+        "es": "La Puerta de Alcalá es uno de los monumentos más famosos de Madrid, construida por el rey Carlos III era la puerta de entrada a la ciudad de aquellos viajeros que vinieran de Francia, Aragón o Cataluña. Es de estilo neoclásico y uno de los iconos de la ciudad. Si tenéis oportunidad de acercaros podréis ver daños producidos por la metralla de la Guerra de Independencia. La foto está tomada desde la pequeña isleta del paso de cebra, es importante no superar las pequeñas lindes que hay en el suelo ya que la policía podría multaros por invadir una zona verde, aunque no esté señalizada. La foto está tomada con un filtro ND de 10 pasos de la marca Haida y un degradado NiSi de 3 pasos para quitarle intensidad al cielo",
+        "en": "Puerta de Alcalá is one of the most famous monuments of Madrid, built by King Carlos III. It was city’s gateway of those travelers who came from France, Aragon or Catalonia. It’s Neoclassical style and it’s one of the icons of the city. If you have the opportunity to approach it, you can see damages produced by the shrapnel of the War of Independence against France. The photo is taken from the small area near the zebra crossing. It is important not to overcome the small milestones on the ground because the police could fine you for invading a garden, even if it is not stated. The photo is taken with a ND filter of 10 steps of Haida and a NiSi 3 steps degraded to make the sky less intense."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 30.0,
+        "aperture": "f/8.0",
+        "shutterSpeed": "20.0 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "puerta-alcala",
+        "usage": "detail",
+        "alt": {
+          "es": "Puerta de Alcalá",
+          "en": "Puerta de Alcalá"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "retiro-arroyo",
+      "name": {
+        "es": "Arroyo en El Retiro",
+        "en": "Stream in El Retiro"
+      },
+      "neighbourhoodId": "retiro",
+      "tagIds": [
+        "parque"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.414946,
+        "lng": -3.683285,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "retiro-arroyo",
+        "usage": "thumb",
+        "alt": {
+          "es": "Arroyo en El Retiro",
+          "en": "Stream in El Retiro"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.414946,
+        "lng": -3.683285
+      },
+      "bestTime": {
+        "es": "Otoño",
+        "en": "Autumn"
+      },
+      "shotDescription": {
+        "es": "Un pequeño ejemplo de los rincones escondidos del Parque del Retiro, situado cerca de la estatua que preside el estanque. El Retiro es una visita muy recomendable durante el otoño, sus árboles de hoja caduca crearán escenarios muy interesantes para ser fotografiados. Para los más curiosos, el Parque del Retiro, antes conocido como Real Sitio del Buen Retiro, fue diseñado por el Conde Duque de Olivares bajo órdenes del Rey Felipe IV como un lugar de descanso y reflexión. Es el segundo parque más grande de Madrid y probablemente el más bonito. Durante los fines de semana muchos madrileños van a pasar el día al parque.",
+        "en": "An example of the hidden corners of El Retiro park, located near the statue that presides the small lake. El Retiro is a highly recommended visit during the fall. Its deciduous trees create very interesting scenarios to be photographed. El Retiro, formerly known as Real Sitio del Buen Retiro, was designed by the Count Duque de Olivares under orders of King Felipe IV as a place of rest and reflection. It is the second largest park in Madrid and probably the most beautiful. During the weekends many people from Madrid spend the day at the park."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/4.0",
+        "shutterSpeed": "20.0 s",
+        "iso": 200
+      },
+      "detailImage": {
+        "locationId": "retiro-arroyo",
+        "usage": "detail",
+        "alt": {
+          "es": "Arroyo en El Retiro",
+          "en": "Stream in El Retiro"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "retiro-lago",
+      "name": {
+        "es": "Lago del Retiro",
+        "en": "El Retiro lake"
+      },
+      "neighbourhoodId": "retiro",
+      "tagIds": [
+        "parque"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.414946,
+        "lng": -3.683285,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "retiro-lago",
+        "usage": "thumb",
+        "alt": {
+          "es": "Lago del Retiro",
+          "en": "Retiro’s lake"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.414946,
+        "lng": -3.683285
+      },
+      "shotDescription": {
+        "es": "El lago del Parque del Retiro está presidido por una estatua de Alfonso XII, desde su pie, se puede contemplar el lago y los árboles del Retiro. Es un escenario recomendable si el cielo es interesante. En concreto esta fotografía es un HDR de 3 fotografías tomadas con un paso de diferencia para conseguir compensar las diferencias de luz entre cielo y suelo.",
+        "en": "The lake of the Retiro Park is presided by a statue of Alfonso XII. Below it, you can see the lake and the trees of the Retiro. I suggest this perspective if there is an interesting sky. Specifically, this photograph is an HDR of 3 photographs taken with one step of difference to compensate the light differences between the sky and the ground."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 16.0,
+        "aperture": "f/8.0",
+        "shutterSpeed": "1/320 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "retiro-lago",
+        "usage": "detail",
+        "alt": {
+          "es": "Lago del Retiro",
+          "en": "Retiro’s lake"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "retiro-rosaleda",
+      "name": {
+        "es": "La Rosaleda",
+        "en": "La Rosaleda rose garden"
+      },
+      "neighbourhoodId": "retiro",
+      "tagIds": [
+        "parque"
+      ],
+      "access": "free",
+      "approximateArea": {
+        "lat": 40.411016,
+        "lng": -3.680866,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "retiro-rosaleda",
+        "usage": "thumb",
+        "alt": {
+          "es": "La Rosaleda",
+          "en": "Rosaleda"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.411016,
+        "lng": -3.680866
+      },
+      "bestTime": {
+        "es": "Primavera",
+        "en": "Spring"
+      },
+      "shotDescription": {
+        "es": "En el Parque del Retiro hay un pequeño jardín llamado La Rosaleda, en el, miles de rosas y otras flores dispuestas en un jardín de estilo francés harán las delicias de los aficionados a la fotografía macro. Recomiendo ir durante la primavera para poder ver las épocas de florecimiento.",
+        "en": "In the Retiro Park there is a small garden called La Rosaleda, where thousands of roses and other flowers are arranged in a French-style garden that will delight macro photography lovers. I’d recommend going during the spring to be able to see them flowering."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 24.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "20.0 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "retiro-rosaleda",
+        "usage": "detail",
+        "alt": {
+          "es": "La Rosaleda",
+          "en": "Rosaleda"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "moratalaz-mirador",
+      "name": {
+        "es": "Mirador de Moratalaz",
+        "en": "Moratalaz viewpoint"
+      },
+      "neighbourhoodId": "moratalaz",
+      "tagIds": [
+        "skyline",
+        "atardecer",
+        "mirador"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.418427,
+        "lng": -3.653692,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "moratalaz-mirador",
+        "usage": "thumb",
+        "alt": {
+          "es": "Madrid desde Moratalaz",
+          "en": "Madrid from Moratalaz neighbourhood"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.418427,
+        "lng": -3.653692
+      },
+      "bestTime": {
+        "es": "Atardecer",
+        "en": "Sunset"
+      },
+      "shotDescription": {
+        "es": "La localización para esta foto puede quedar algo retirada, solo es recomendable si el fotógrafo se hospeda cerca. Es un parque con una colina desde la que, con un teleobjetivo, se puede fotografiar Madrid desde lo alto. Está ubicada al sureste de la ciudad, con lo cual es perfecta para los atardeceres. Si se dispone de coche, no suele haber problemas para aparcar justo al lado del parque.",
+        "en": "The location for this photo may be too far away. It is only recommended if the photographer stays nearby. It is a park with a hill from which you can photograph Madrid from the top, with a telephoto lens. It is located southeast of the city, which is perfect for sunsets. If you have a car, there are usually available places to park just next to the hill."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 105.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/5 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "moratalaz-mirador",
+        "usage": "detail",
+        "alt": {
+          "es": "Madrid desde Moratalaz",
+          "en": "Madrid from Moratalaz neighbourhood"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "sala-x",
+      "name": {
+        "es": "Sala X",
+        "en": "Sala X"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "callejera"
+      ],
+      "access": "free",
+      "approximateArea": {
+        "lat": 40.46397,
+        "lng": -3.68848,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "sala-x",
+        "usage": "thumb",
+        "alt": {
+          "es": "Sala X",
+          "en": "Sala X"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.46397,
+        "lng": -3.68848
+      },
+      "shotDescription": {
+        "es": "Un pequeño rincón recomendado si se quiere usar como fondo para fotografía de retrato, por ejemplo. Es la entrada de un antiguo cine, la Sala X, que era la sala pornográfica más conocida de la ciudad. Actualmente está reconvertido en un bar con hamacas y tumbonas en el que también programan películas (hoy en día de otras temáticas). El ambiente es muy agradable, recomiendo entrar a tomar algo.",
+        "en": "It is a small recommended corner if you want to use it as a scenario for portrait photography. It is the entrance of an old cinema, Room X, which was the most famous pornographic room in the city. It is currently converted into a bar with hammocks and loungers in which they also show films -nowadays of other thematics. The atmosphere is very nice. I’d recommend going in for a drink."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/3.2",
+        "shutterSpeed": "1/50 s",
+        "iso": 320
+      },
+      "detailImage": {
+        "locationId": "sala-x",
+        "usage": "detail",
+        "alt": {
+          "es": "Sala X",
+          "en": "Sala X"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "congreso-diputados",
+      "name": {
+        "es": "Congreso de los Diputados",
+        "en": "Congress of Deputies"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "arquitectura",
+        "nocturna",
+        "monumento"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.416442,
+        "lng": -3.697034,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "congreso-diputados",
+        "usage": "thumb",
+        "alt": {
+          "es": "Congreso de los Diputados",
+          "en": "Congress of Deputies"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.416442,
+        "lng": -3.697034
+      },
+      "bestTime": {
+        "es": "Noche",
+        "en": "Night"
+      },
+      "shotDescription": {
+        "es": "El congreso de los Diputados es la sede del gobierno del país. Uno de los lugares más importantes de la ciudad, no es infrecuente que esté vallado en previsión de manifestaciones y eso pueda fastidiar nuestra foto. Para los interesados en la historia decir que este fue el escenario del fallido golpe de estado conocido como 23-F. Su iluminación durante la noche resulta muy interesante, pero puede resultar algo difícil fotografiarlo debido al alto rango de luces que hay entre el frontón y el resto. En mi caso solucioné el problema combinando fotografías HDR y usando un filtro degradado de 3 pasos, marca NiSi, para bajar 3 pasos la iluminación del frontón. Como nota curiosa, tuve que sujetar el filtro con las manos, ¡me había dejado el portafiltros en casa!",
+        "en": "The Congress of Deputies is the house of the government of the country. Because it is one of the most important places in the city, it is not uncommon that it is fenced in anticipation of demonstrations. They might spoil the photo. For those interested in history, this was the scene of the failed coup known as 23-F in 1981. Its illumination during the night is very interesting, but it can be a bit difficult to photograph due to the high range of lights between the front and the rest. In my case I solved the problem by combining HDR photographs and using a 3-step graduated filter, NiSi brand, to lower 3 steps of the pediment lighting. As a curious note, I had to hold the filter with my hands because I forgot the filter holder at home!"
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 24.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/8 s",
+        "iso": 320
+      },
+      "detailImage": {
+        "locationId": "congreso-diputados",
+        "usage": "detail",
+        "alt": {
+          "es": "Congreso de los Diputados",
+          "en": "Congress of Deputies"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "plaza-cortes-edificio",
+      "name": {
+        "es": "Edificio en la Plaza de las Cortes",
+        "en": "Building in Plaza de las Cortes"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "arquitectura",
+        "nocturna"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.415937,
+        "lng": -3.696541,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "plaza-cortes-edificio",
+        "usage": "thumb",
+        "alt": {
+          "es": "Edificio en la Plaza de las Cortes",
+          "en": "Building near Plaza de las Cortes"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.415937,
+        "lng": -3.696541
+      },
+      "bestTime": {
+        "es": "Noche",
+        "en": "Night"
+      },
+      "shotDescription": {
+        "es": "Frente al congreso de los Diputados se encuentra este edificio, sede de una compañía de seguros, que tiene una iluminación tenue perfecta para la fotografía nocturna. En concreto la foto está tomada justo delante de la estatua de Cervantes y es HDR, con 3 fotografías tomadas a 1 paso de diferencia. para conseguir mayor rango dinámico.",
+        "en": "In front of the Congress of Deputies you can find this building. It is the headquarters of an insurance company and it has a perfect lighting for night photography. Specifically the photo is taken right in front of the statue of Cervantes and is HDR, with 3 photographs taken 1 step apart to achieve greater dynamic range."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 16.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/8 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "plaza-cortes-edificio",
+        "usage": "detail",
+        "alt": {
+          "es": "Edificio en la Plaza de las Cortes",
+          "en": "Building near Plaza de las Cortes"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "cason-buen-retiro",
+      "name": {
+        "es": "Casón del Buen Retiro",
+        "en": "Casón del Buen Retiro"
+      },
+      "neighbourhoodId": "retiro",
+      "tagIds": [
+        "arquitectura",
+        "museo"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.415232,
+        "lng": -3.689594,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "cason-buen-retiro",
+        "usage": "thumb",
+        "alt": {
+          "es": "Casón del Buen Retiro (Museo del Prado)",
+          "en": "Casón del Buen Retiro (Prado museum)"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.415232,
+        "lng": -3.689594
+      },
+      "shotDescription": {
+        "es": "El Museo Nacional del Prado es una visita obligada para los viajeros que vengan a Madrid, es uno de los principales y más visitados del mundo, probablemente el más importante de pintura europea. Tiene una gran representación de pinturas del Siglo de Oro español, Velázquez, el Greco y Goya, entre otros. Esta foto no es de la fachada principal, es el Casón del Buen Retiro, que hoy en día es un centro de estudios del museo, desde el 2009. Hasta entonces alojaba obras, entre otras, el Guernica de Picasso.",
+        "en": "The National Prado Museum is a must-see for travelers coming to Madrid. It is one of the main and most visited museum in the world. It could be considered the most important museum in European painting. It has a great representation of paintings of the Spanish Golden Age such as Velázquez, El Greco or Goya. This photo is not from the main façade but from the Casón del Buen Retiro. This building has been a center for museum studies since 2009. Until then it housed paintings,such as, Picasso's Guernica."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 22.0,
+        "aperture": "f/3.2",
+        "shutterSpeed": "1/13 s",
+        "iso": 220
+      },
+      "detailImage": {
+        "locationId": "cason-buen-retiro",
+        "usage": "detail",
+        "alt": {
+          "es": "Casón del Buen Retiro (Museo del Prado)",
+          "en": "Casón del Buen Retiro (Prado museum)"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "jeronimos",
+      "name": {
+        "es": "Iglesia de los Jerónimos",
+        "en": "Church of the Jerónimos"
+      },
+      "neighbourhoodId": "retiro",
+      "tagIds": [
+        "religioso",
+        "arquitectura",
+        "nocturna"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.413792,
+        "lng": -3.692041,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "jeronimos",
+        "usage": "thumb",
+        "alt": {
+          "es": "Iglesia de los Jerónimos",
+          "en": "Church of the Jerónimos"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.413792,
+        "lng": -3.692041
+      },
+      "bestTime": {
+        "es": "Noche",
+        "en": "Night"
+      },
+      "shotDescription": {
+        "es": "Iglesia de los Jerónimos:\nFachada principal de la Iglesia de los Jerónimos, es uno de los monasterios más importantes de Madrid. Construido en 1503, por orden de los Reyes Católicos. En la actualidad el aledaño claustro de los jerónimos forma parte de la ampliación del Museo del Prado. Esta foto está tomada durante la noche, directamente frente a la fachada con un gran angular.\n\nVista lateral de la Iglesia de los Jerónimos:\nImagen del lateral de la Iglesia de los Jerónimos, tomada durante la noche. Es una calle poco transitada, así que normalmente no habrá transeúntes que puedan molestaros si queréis hacer largas exposiciones.",
+        "en": "Church of the Jerónimos:\nIt is the main facade of the Church of the Jerónimos, which is one of the most important monasteries of Madrid. It was built in 1503 by the Catholic Monarchs. Nowadays, the nearby cloister of the Jerónimos is part of the expansion of the Prado Museum. This photo is taken during the night, directly in front of the facade with a wide angle lens.\n\nLateral view of Jerónimos:\nImage of the side of the Church of the Jerónimos taken during the night. Normally, there are not so many people in the street, so you will have no problem to take long exposures."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/6 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "jeronimos",
+        "usage": "detail",
+        "alt": {
+          "es": "Vista lateral de la Iglesia de los Jerónimos",
+          "en": "Lateral view of Jerónimos"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "plaza-castilla",
+      "name": {
+        "es": "Plaza de Castilla",
+        "en": "Plaza de Castilla"
+      },
+      "neighbourhoodId": "plaza-castilla",
+      "tagIds": [
+        "arquitectura",
+        "skyline"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.466282,
+        "lng": -3.689664,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "plaza-castilla",
+        "usage": "thumb",
+        "alt": {
+          "es": "Obelisco de Plaza Castilla",
+          "en": "Obelisk in Plaza de Castilla"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.466282,
+        "lng": -3.689664
+      },
+      "bestTime": {
+        "es": "Temprano por la mañana",
+        "en": "Early morning"
+      },
+      "shotDescription": {
+        "es": "Obelisco de Plaza Castilla:\nEn el centro de la Plaza de Castilla se encuentra un obelisco diseñado por el famoso arquitecto Santiago Calatrava. Como curiosidad: el obelisco estaba diseñado para girar, sin embargo una vez finalizada la obra se descubrió que los costes de mantenimiento eran mucho más elevados de lo esperado, por lo que se decidió dejarlo estático. Además el obelisco está tasado en 100.000€, siendo su coste de 14 millones de euros, más 300.000€ anuales de mantenimiento. En la foto se aprovecha el obelisco para tapar el sol y crear una sombra a contraluz. Si se quiere hacer algo parecido hay que estar temprano en la plaza.\n\nPlaza de Castilla:\nLa Plaza de Castilla al completo, con el obelisco de Calatrava y las 2 torres Kio. Para hacer esta foto usé un filtro degradado de 3 pasos NiSi. En la plaza hay una pequeña isleta que sirve de parada de taxis en la que podréis hacer la foto sin peligro de que pase ningún coche.",
+        "en": "Obelisk in Plaza de Castilla:\nIn the center of Plaza de Castilla there is an obelisk designed by the famous architect Santiago Calatrava. As a curiosity: the obelisk was designed to rotate. However once the work was completed it was discovered that its maintenance costs were much higher than expected, so the city council decided to stop it. In addition, the obelisk is valued at 100,000€, with a cost of 14.000.000€, plus 300,000€ annual maintenance. In the photo, the obelisk is used to cover the sun and creates a shadow against the light. If you want to do something similar you have to be early in the street while the sun is still low.\n\nPlaza de Castilla:\nThis is a panoramic view of Plaza de Castilla, with the obelisk of Calatrava and the 2 Kio towers. To make this photo I used a 3-step gradient filter from NiSi. In the square there is a small space used as a taxi stop where you can make the photo without danger."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/8.0",
+        "shutterSpeed": "1/640 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "plaza-castilla",
+        "usage": "detail",
+        "alt": {
+          "es": "Plaza de Castilla",
+          "en": "Plaza de Castilla"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "deposito-canal",
+      "name": {
+        "es": "Centro de Arte Canal",
+        "en": "Centro de Arte Canal"
+      },
+      "neighbourhoodId": "plaza-castilla",
+      "tagIds": [
+        "arquitectura",
+        "museo"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.464444,
+        "lng": -3.688202,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "deposito-canal",
+        "usage": "thumb",
+        "alt": {
+          "es": "Depósito del Canal",
+          "en": "Water deposit of Canal de Isabel II"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.464444,
+        "lng": -3.688202
+      },
+      "shotDescription": {
+        "es": "Depósito del Canal:\nEn la misma Plaza de Castilla, se encuentra este depósito de agua perteneciente al Canal de Isabel II, construido en 1939, se ha convertido en un edificio representativo de la plaza. Para la foto, he usado un gran angular y editado con alto contraste para potenciar la textura en las columnas.\n\nParque sobre el Centro de Exposiciones de Arte Canal:\nSobre el centro de Exposiciones de Arte Canal, que por cierto es bastante recomendable y suele acoger exposiciones de fotografía, hay un parque construído recientemente. Tiene varios espacios construidos de forma geométrica que se pueden usar para crear composiciones algo menos habituales.",
+        "en": "Water deposit of Canal de Isabel II:\nThis water deposit, which belongs to the Canal de Isabel II, is in Plaza de Castilla. It was built in 1939, and it has become a representative building of the plaza. For the photo, I used a wide angle and edited it with high contrast to enhance the texture in the columns.\n\nPark in the Canal Art Exhibition Center:\nAbove the Canal Art Exhibition Center, which, by the way, is highly recommended and usually hosts photography exhibitions, there is a park recently built. It has several geometric spaces that can be used to create more creative compositions."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/8.0",
+        "shutterSpeed": "1/125 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "deposito-canal",
+        "usage": "detail",
+        "alt": {
+          "es": "Parque sobre el Centro de Exposiciones de Arte Canal",
+          "en": "Park in the Canal Art Exhibition Center"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "monumento-calvo-sotelo",
+      "name": {
+        "es": "Monumento a Calvo Sotelo",
+        "en": "Calvo Sotelo Monument"
+      },
+      "neighbourhoodId": "plaza-castilla",
+      "tagIds": [
+        "monumento",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.465195,
+        "lng": -3.689416,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "monumento-calvo-sotelo",
+        "usage": "thumb",
+        "alt": {
+          "es": "Monumento a Calvo Sotelo",
+          "en": "Calvo Sotelo’s monument"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.465195,
+        "lng": -3.689416
+      },
+      "shotDescription": {
+        "es": "En primer plano está el monumento a Calvo Sotelo. Calvo Sotelo fue un político activo durante la dictadura de Primo de Rivera. Su asesinato en 1936 fue usado como desencadenante para que Francisco Franco se uniera al golpe de estado militar que desencadenaría la Guerra Civil Española y la dictadura fascista. Este monumento se construyó durante dicha dictadura en 1960. El monumento puede tener interés para los fotógrafos por las líneas rectas, esbeltas, de la composición entre el obelisco, las torres y el monumento. Para la foto usé un filtro degradado para quitarle luminosidad al cielo.",
+        "en": "In the foreground you can see the monument to Calvo Sotelo. Calvo Sotelo was an active politician during the dictatorship of Primo de Rivera. His assassination in 1936 was used as a trigger for Francisco Franco to join the military coup that would unleash the Spanish Civil War and the fascist dictatorship. This monument was built during that dictatorship in 1960. The monument may be interesting for photographers because of the straight, slender lines of the composition between the obelisk, the towers and the monument. For the photo I used a graduated filter to make the sky brighter."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/8.0",
+        "shutterSpeed": "1/200 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "monumento-calvo-sotelo",
+        "usage": "detail",
+        "alt": {
+          "es": "Monumento a Calvo Sotelo",
+          "en": "Calvo Sotelo’s monument"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "edificio-colores",
+      "name": {
+        "es": "Edificio de colores",
+        "en": "Colored building"
+      },
+      "neighbourhoodId": "plaza-castilla",
+      "tagIds": [
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.463755,
+        "lng": -3.690309,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "edificio-colores",
+        "usage": "thumb",
+        "alt": {
+          "es": "Edificio de colores",
+          "en": "Colored building"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.463755,
+        "lng": -3.690309
+      },
+      "shotDescription": {
+        "es": "Este edificio de viviendas se encuentra a un par de minutos andando desde Plaza Castilla, al lado del Instituto Nacional de Estadística. Tiene pintadas sus terrazas de diversos colores.",
+        "en": "This residential building is a few minutes away walking from Plaza Castilla, next to the National Institute of Statistics. It has its terraces painted of different colors. Using a teleobjective you can take interesting photos."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 70.0,
+        "aperture": "f/8.0",
+        "shutterSpeed": "1/100 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "edificio-colores",
+        "usage": "detail",
+        "alt": {
+          "es": "Edificio de colores",
+          "en": "Colored building"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "centro-comercial-castellana",
+      "name": {
+        "es": "Centro comercial en La Castellana",
+        "en": "Shopping center in La Castellana"
+      },
+      "neighbourhoodId": "chamartin",
+      "tagIds": [
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.466282,
+        "lng": -3.689664,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "centro-comercial-castellana",
+        "usage": "thumb",
+        "alt": {
+          "es": "Centro Comercial en la Castellana",
+          "en": "Shopping Center in la Castellana"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.466282,
+        "lng": -3.689664
+      },
+      "shotDescription": {
+        "es": "En el Paseo de la Castellana, cerca de Plaza Castilla, se encuentra un centro comercial construído recientemente. Su fachada es de cristal y muy fotogénica si se juega correctamente con la luz. Desde el lateral arbolado de la Castellana se le puede hacer fotos sin problemas. En el interior hay tiendas de moda y electrónica. Y dado que la zona tiene muchas oficinas, es fácil encontrar buenas opciones para comer.",
+        "en": "In Paseo de la Castellana, near Plaza Castilla, there is a shopping center recently built. Its facade is made of glass and very photogenic with the proper illumination. From the small garden at the side of the Castellana you can take photos without problems. Inside, there are fashion and electronics stores. And, as the area has many offices, it is easy to find good places to eat."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 70.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/500 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "centro-comercial-castellana",
+        "usage": "detail",
+        "alt": {
+          "es": "Centro Comercial en la Castellana",
+          "en": "Shopping Center in la Castellana"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "bernabeu",
+      "name": {
+        "es": "Estadio Santiago Bernabéu",
+        "en": "Santiago Bernabéu Stadium"
+      },
+      "neighbourhoodId": "chamartin",
+      "tagIds": [
+        "deportivo",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.453044,
+        "lng": -3.688197,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "bernabeu",
+        "usage": "thumb",
+        "alt": {
+          "es": "Estadio Santiago Bernabéu",
+          "en": "Santiago Bernabéu Stadium"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.453044,
+        "lng": -3.688197
+      },
+      "shotDescription": {
+        "es": "El Estadio Santiago Bernabéu es uno de los estadios de fútbol más famosos del mundo, en él juega el Real Madrid y suele ser un lugar para visitar para muchos turistas. Si no se quiere ver un partido, también tiene visitas guiadas durante el día. Alrededor del estadio hay muchos restaurantes, aunque no es la zona más barata para comer.",
+        "en": "The Santiago Bernabéu Stadium is one of the most famous football stadiums in the world, where Real Madrid plays and it is usually a place to visit for many tourists. If you do not want to watch a game, you can also have guided tours during the day. Around the stadium there are many restaurants, although it is not the cheapest area to eat."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 26.0,
+        "aperture": "f/2.8",
+        "shutterSpeed": "1/500 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "bernabeu",
+        "usage": "detail",
+        "alt": {
+          "es": "Estadio Santiago Bernabéu",
+          "en": "Santiago Bernabéu Stadium"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "plaza-lima",
+      "name": {
+        "es": "Plaza de Lima",
+        "en": "Plaza de Lima"
+      },
+      "neighbourhoodId": "chamartin",
+      "tagIds": [
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.451755,
+        "lng": -3.691072,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "plaza-lima",
+        "usage": "thumb",
+        "alt": {
+          "es": "Edificio en la Plaza de Lima",
+          "en": "Building near Plaza de Lima"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.451755,
+        "lng": -3.691072
+      },
+      "shotDescription": {
+        "es": "Fotografía de un edificio desde la Plaza de Lima. Este edificio pertenece a uno de los principales complejos financieros de la ciudad, “presidido” por la Torre Picasso que se encuentra en el centro de la manzana.",
+        "en": "Photograph of a building taken from the Plaza de Lima. This building belongs to one of the main financial complexes of the city, which most representative building is the Picasso Tower. This tower is located in the center of the block."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 30.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/200 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "plaza-lima",
+        "usage": "detail",
+        "alt": {
+          "es": "Edificio en la Plaza de Lima",
+          "en": "Building near Plaza de Lima"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "azca",
+      "name": {
+        "es": "Complejo AZCA",
+        "en": "AZCA complex"
+      },
+      "neighbourhoodId": "chamartin",
+      "tagIds": [
+        "arquitectura",
+        "skyline"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.449382,
+        "lng": -3.693204,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "azca",
+        "usage": "thumb",
+        "alt": {
+          "es": "Complejo AZCA",
+          "en": "AZCA complex"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.449382,
+        "lng": -3.693204
+      },
+      "shotDescription": {
+        "es": "Complejo AZCA:\nEl complejo financiero AZCA es una supermanzana rectangular de 19 hectáreas compuesta por edificios de oficinas. Es una zona en la que se pueden encontrar figuras geométricas y jugar con las líneas de los edificios y el mobiliario contrastando con las sombras. A la derecha de esta foto puede verse la torre Picasso, el edificio más representativo del complejo.\n\nDetalle del complejo AZCA:\nMuchos de los edificios del complejo Azca están construidos con largas líneas metálicas que pueden crear efectos interesantes en blanco y negro. Esta imagen está tomada en la plaza que está situada frente a la Torre Picasso.",
+        "en": "AZCA complex:\nThe AZCA financial complex is a 19-hectare rectangular superblock composed of office buildings. It is an area where you can find geometric figures and play with the lines of the buildings and furniture. At the right of this photo you can see the Picasso Tower, the most representative building in the complex.\n\nAZCA complex detail:\nMany of the buildings of the Azca complex are built with long metallic lines that can create interesting effects in black and white. This image is taken in the square that is located in front of the Picasso Tower."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 19.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/500 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "azca",
+        "usage": "detail",
+        "alt": {
+          "es": "Detalle del complejo AZCA",
+          "en": "AZCA complex detail"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "nuevos-ministerios",
+      "name": {
+        "es": "Nuevos Ministerios",
+        "en": "Nuevos Ministerios"
+      },
+      "neighbourhoodId": "chamartin",
+      "tagIds": [
+        "arquitectura",
+        "callejera"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.446604,
+        "lng": -3.692189,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "nuevos-ministerios",
+        "usage": "thumb",
+        "alt": {
+          "es": "El Corte Inglés de Nuevos Ministerios",
+          "en": "Corte Inglés in Nuevos Ministerios"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.446604,
+        "lng": -3.692189
+      },
+      "shotDescription": {
+        "es": "El Corte Inglés de Nuevos Ministerios:\nEl edificio nuevo del Corte Inglés se asienta donde antes estuvo el edificio Windsor, que se quemó en un incendio hace unos años. El edificio es bastante original y fotogénico. Para los extranjeros: el Corte Inglés es el mayor conglomerado de grandes almacenes del país. Dentro podréis encontrar prácticamente cualquier artículo, desde ropa a tecnología, gastronomía o muebles, aunque no sean famosos por ser los más baratos.\n\nPatinador en Nuevos Ministerios:\nEn los exteriores de la parada de Metro de Nuevos Ministerios suelen congregarse patinadores. Si habláis con ellos probablemente no tengan inconvenientes en que les fotografiéis. En esta foto en concreto usé un objetivo gran angular en un contra picado, es decir con la cámara casi a ras de suelo.",
+        "en": "Corte Inglés in Nuevos Ministerios:\nThe new building of Corte Inglés is placed where the Windsor building once stood, which burned down in a fire a few years ago. The building is quite original and photogenic. For foreigners: El Corte Inglés is the largest conglomerate of department stores in Europe and ranked fourth worldwide. Inside you can find almost any item, from clothing to technology, gastronomy or furniture, although they are not famous for being the cheapest ones.\n\nNuevos Ministerios skater:\nSkaters often congregate on the surroundings of the Nuevos Ministerios Metro stop. If you talk to them, they probably do not have any inconvenience to let you photograph them. In this particular photo I used a wide-angle lens in a low-angle shot -this means with the camera almost at ground level."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 70.0,
+        "aperture": "f/6.3",
+        "shutterSpeed": "1/60 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "nuevos-ministerios",
+        "usage": "detail",
+        "alt": {
+          "es": "Patinador en Nuevos Ministerios",
+          "en": "Nuevos Ministerios skater"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "plaza-oriente",
+      "name": {
+        "es": "Plaza de Oriente",
+        "en": "Plaza de Oriente"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "arquitectura",
+        "nocturna",
+        "callejera"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.418337,
+        "lng": -3.713202,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "plaza-oriente",
+        "usage": "thumb",
+        "alt": {
+          "es": "Plaza de Oriente",
+          "en": "Plaza de Oriente"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.418337,
+        "lng": -3.713202
+      },
+      "bestTime": {
+        "es": "Noche",
+        "en": "Night"
+      },
+      "shotDescription": {
+        "es": "Plaza de Oriente:\nEn la Plaza de Oriente se encuentran frente a frente el Palacio y el Teatro Real, en el centro, entre ellos, destaca la estatua de Felipe IV, una obra del siglo XVII de PIetro Tacca. Como curiosidad, decir que es la primera estatua ecuestre del mundo sujetada únicamente por las patas traseras del caballo. En la fotografía, en el fondo, está el Teatro Real. Recomiendo sus visitas guiadas, si se dispone de tiempo, es un edificio digno de ver. Durante la noche la iluminación del Teatro Real es muy interesante. Si conseguís unos instantes sin demasiados turistas, se pueden tomar imágenes bonitas.\n\nCiclista en Plaza de Oriente:\nJusto enfrente de la trasera del Teatro Real, en la Plaza de Oriente, suele haber ciclistas de BMX practicando acrobacias, no suelen poner impedimento en que se les fotografíe, si antes se les pide permiso.",
+        "en": "Plaza de Oriente:\nIn Plaza de Oriente, the Palace and the Royal Theater are one in front of each other. In the center, there is a statue of Philip IV, a seventeenth-century sculpture made by PIetro Tacca. As a curiosity, this is the first equestrian statue of the world held only by the hind legs of the horse. In the photograph, in the background, there is the Royal Theater. I recommend you to do the guided tours, if you have time. It is a building that is worth seeing. During the night, the lighting of the Teatro Real is very interesting. If you get a few moments without too many tourists, you can get nice pictures.\n\nCyclist in Plaza de Oriente:\nRight in front of Teatro Real, in the Plaza de Oriente, there are usually BMX cyclists practicing. They do not usually have any impediment in being photographed if you ask them for permission."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 50.0,
+        "aperture": "f/1.8",
+        "shutterSpeed": "1/400 s",
+        "iso": 5000
+      },
+      "detailImage": {
+        "locationId": "plaza-oriente",
+        "usage": "detail",
+        "alt": {
+          "es": "Ciclista en Plaza de Oriente",
+          "en": "Cyclist in Plaza de Oriente"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "almudena",
+      "name": {
+        "es": "Catedral de la Almudena",
+        "en": "Almudena Cathedral"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "religioso",
+        "arquitectura",
+        "atardecer"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.415711,
+        "lng": -3.714589,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "almudena",
+        "usage": "thumb",
+        "alt": {
+          "es": "Fachada principal de la Catedral de la Almudena",
+          "en": "Almudena Cathedral front facade."
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.415711,
+        "lng": -3.714589
+      },
+      "bestTime": {
+        "es": "Últimos momentos de la hora dorada, otoño o primavera",
+        "en": "End of golden hour, autumn or spring"
+      },
+      "shotDescription": {
+        "es": "Fachada principal de la Catedral de la Almudena:\nLa fachada frontal de la Catedral de la Almudena está orientada de tal manera que es posible capturar anocheceres como este. Especialmente bonitos durante el otoño y la primavera. Recomiendo acercarse durante los últimos momentos de la hora dorada.\n\nInterior de la catedral de la Almudena:\nInterior de la catedral, con el presbiterio al fondo. La catedral es de planta de cruz latina y en el interior predomina el estilo neogótico, con esculturas góticas e imágenes barrocas. La catedral se empezó a construir muy tardíamente, teniendo en cuenta el tamaño y la importancia de la ciudad, fue en 1883 cuando Alfonso XII puso la primera piedra. Tras múltiples problemas: falta de financiación y los destrozos que sufrió durante la Guerra Civil, fue consagrada por Juan Pablo II en 1993. Nota para los morbosos, aquí se casaron los reyes actuales: Felipe VI y Letizia Ortiz.",
+        "en": "Almudena Cathedral front facade.:\nThe front facade of the Almudena Cathedral is oriented in such a way that it is possible to capture nightfalls like this. It is especially beautiful during the fall and spring. I’d recommend to go during the last moments of the golden hour.\n\nInterior of the Almudena cathedral:\nInterior of the cathedral, with the presbytery in the background. The cathedral is of Latin cross plan and in the interior the Neo-Gothic style predominates, with Gothic sculptures and Baroque images. The cathedral began to be built very late, taking into account the size and importance of the city. It was in 1883 when Alfonso XII laid the first stone. After multiple problems, such as the lack of funding and the damage that it suffered during the Civil War, it was consecrated by John Paul II in 1993. For the curious, here the current Spanish kings were married: Felipe VI and Letizia Ortiz."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/9.0",
+        "shutterSpeed": "1/320 s",
+        "iso": 160
+      },
+      "detailImage": {
+        "locationId": "almudena",
+        "usage": "detail",
+        "alt": {
+          "es": "Interior de la catedral de la Almudena",
+          "en": "Interior of the Almudena cathedral"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "plaza-armeria",
+      "name": {
+        "es": "Plaza de la Armería",
+        "en": "Plaza de la Armería"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "arquitectura",
+        "atardecer"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.416347,
+        "lng": -3.714429,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "plaza-armeria",
+        "usage": "thumb",
+        "alt": {
+          "es": "Plaza de la Armería al anochecer",
+          "en": "Plaza de la Armería during sunset."
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.416347,
+        "lng": -3.714429
+      },
+      "bestTime": {
+        "es": "Atardecer",
+        "en": "Sunset"
+      },
+      "shotDescription": {
+        "es": "La Plaza de la Armería es un espacio que conecta el Palacio Real con la Catedral, normalmente tiene muchos turistas, con lo que puede ser complicado conseguir buenas fotografías, sin embargo los espectaculares atardeceres que se pueden ver en ella hacen que merezca la pena intentarlo.",
+        "en": "The Plaza de la Armería is a space that connects the Royal Palace with the Cathedral. It usually has many tourists, which can make difficult to get good pictures. However, the spectacular sunsets make it worthwhile to try."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/14.0",
+        "shutterSpeed": "1/50 s",
+        "iso": 125
+      },
+      "detailImage": {
+        "locationId": "plaza-armeria",
+        "usage": "detail",
+        "alt": {
+          "es": "Plaza de la Armería al anochecer",
+          "en": "Plaza de la Armería during sunset."
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "semana-santa",
+      "name": {
+        "es": "Procesión de Semana Santa",
+        "en": "Easter procession"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "evento",
+        "callejera"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.415108,
+        "lng": -3.712984,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "semana-santa",
+        "usage": "thumb",
+        "alt": {
+          "es": "Procesión de Semana Santa",
+          "en": "Easter procession"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.415108,
+        "lng": -3.712984
+      },
+      "bestTime": {
+        "es": "Semana Santa (finales de marzo / abril)",
+        "en": "Easter week (late March / April)"
+      },
+      "shotDescription": {
+        "es": "Procesión de Semana Santa:\nEsta foto está tomada durante la Semana Santa. Podemos ver a una nazareno portando la cruz mientras lleva el capirote tradicional de su hermandad. Estas fechas son una perfecta oportunidad para los fotógrafos callejeros de acercarse y tomar fotografías. Normalmente la ruta de los pasos de la hermandad están programados, así que recomiendo preguntar y elegir con tiempo el mejor sitio ya que durante estas celebraciones suele haber mucha gente, así que conviene estar allí pronto.\n\nDetalle de procesión de Semana Santa:\nFotografía de los pasos de la Semana Santa. Durante estas fechas es posible tomar fotografías de prácticas bastante anacrónicas. Aunque no tengan la fama de las procesiones del sur de España, las de Madrid están a la altura. Una vez más, si se quiere fotografiar una procesión, recomiendo ir pronto para intentar coger un buen sitio. ¡Habrá mucha gente!",
+        "en": "Easter procession:\nThis photo is taken during “Semana Santa” (Easter) celebrations. We can see a “nazareno” carrying the cross while wearing typical clothes of his brotherhood. It’s a perfect opportunity for street photographers to get close and take photographs. Normally the route of the brotherhood is scheduled , so you can ask for information and pick the best spot. During these celebrations it’s always overcrowded, so it’s convenient to be there early.\n\nEaster procession detail:\nPhotograph of the “pasos” of Easter. During these dates it is possible to take pictures of very anachronic practices. Although they do not have the fame of the processions of Southern Spain, those of Madrid are up to the task and are also famous. If you want to photograph a procession, I recommend going early to try to get a good spot. There will be many people!"
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 70.0,
+        "aperture": "f/2.8",
+        "shutterSpeed": "1/160 s",
+        "iso": 500
+      },
+      "detailImage": {
+        "locationId": "semana-santa",
+        "usage": "detail",
+        "alt": {
+          "es": "Detalle de procesión de Semana Santa",
+          "en": "Easter procession detail"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "las-vistillas",
+      "name": {
+        "es": "Las Vistillas",
+        "en": "Las Vistillas"
+      },
+      "neighbourhoodId": "latina",
+      "tagIds": [
+        "parque",
+        "atardecer",
+        "evento"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.412072,
+        "lng": -3.713945,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "las-vistillas",
+        "usage": "thumb",
+        "alt": {
+          "es": "Fuente en Las Vistillas",
+          "en": "Fountain in Las Vistillas"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.412072,
+        "lng": -3.713945
+      },
+      "bestTime": {
+        "es": "Atardecer",
+        "en": "Sunset"
+      },
+      "shotDescription": {
+        "es": "Las Vistillas:\nLas Vistillas son un famoso jardín en pleno corazón de Madrid. Es uno de los lugares en los que se celebran las fiestas de San Isidro y durante esas fechas se organizan conciertos y se vende comida y bebida en la calle. En el lateral del jardín hay una pequeña pradera a la que suelen ir los madrileños a pasar el día cuando hace buen tiempo. Esta foto está tomada al atardecer, usando un árbol para disminuir el contraluz.\n\nFuente en Las Vistillas:\nEsta fuente se encuentra en los jardines de Las Vistillas. En estos mismos jardines, y gracias a que están sobre una pequeña colina, se puede fotografiar un bonito atardecer. Para esta foto usé HDR para compensar el alto rango de luces.\n\nLa Almudena desde Las Vistillas:\nDesde Las Vistillas puede verse la parte trasera y la cúpula de la Catedral de la Almudena. Durante la noche está iluminada y crea un efecto bastante bonito. Para tomar la foto usé un trípode para realizar una larga exposición. La catedral es un conglomerado de estilos, de reciente construcción (está terminada en el Siglo XX), pero en el exterior predominan el neoclásico con reminiscencias barrocas.",
+        "en": "Las Vistillas:\nLas Vistillas is a famous garden in the center of Madrid. It is one of the places where the fiestas of San Isidro are celebrated. During those dates concerts are organized and food and drinks are sold in the street. On one side of the garden there is a small meadow where the locals usually go to spend the day when the weather is fine. This photo is taken at sunset, using a tree to decrease the backlight.\n\nFountain in Las Vistillas:\nThis fountain is located in the gardens of Las Vistillas. In this gardens, and because they are on the top of a small hill, you can photograph a beautiful sunset. For this photo I used HDR to compensate the high range of lights.\n\nAlmudena Cathedral from Las Vistillas:\nFrom Las Vistillas you can see the back and the dome of the Cathedral of Almudena. During the night it is illuminated and creates a pretty nice effect. To take the photo I used a tripod to make a long exposure. The cathedral is a conglomerate of styles, of recent construction -it is finished in the twentieth century- but outside the Neoclassical predominates with Baroque reminiscences."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 50.0,
+        "aperture": "f/5.0",
+        "shutterSpeed": "1/500 s",
+        "iso": 64
+      },
+      "detailImage": {
+        "locationId": "las-vistillas",
+        "usage": "detail",
+        "alt": {
+          "es": "La Almudena desde Las Vistillas",
+          "en": "Almudena Cathedral from Las Vistillas"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "telefonica",
+      "name": {
+        "es": "Edificio Telefónica",
+        "en": "Telefónica Building"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "arquitectura",
+        "nocturna",
+        "museo"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.420193,
+        "lng": -3.701957,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "telefonica",
+        "usage": "thumb",
+        "alt": {
+          "es": "Escalera en el Edificio Telefónica",
+          "en": "Stairs in Telefónica building"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.420193,
+        "lng": -3.701957
+      },
+      "bestTime": {
+        "es": "Noche",
+        "en": "Night"
+      },
+      "shotDescription": {
+        "es": "Escalera en el Edificio Telefónica:\nEn el Edificio Telefónica, en plena Gran Vía, se encuentra la Fundación Telefónica. Un espacio dedicado a exposiciones (frecuentemente tienen de fotografía, recomiendo mirar la programación en su página web: https://www.fundaciontelefonica.com/). Pese a que el edificio es antiguo, como nota curiosa, fue el primer rascacielos de España y uno de los primeros de Europa (aunque hoy en día se haya quedado pequeño en comparación), el espacio de la fundación está totalmente reformado y los detalles de su arquitectura pueden ser el objetivo de nuestras cámaras. En esta foto, un detalle de la escalera de caracol que comunica distintas plantas de la exposición. Vista desde abajo.\n\nEdificio Telefónica de noche:\nFotografía hecha con un teleobjetivo de la torre del Edificio Telefónica durante la noche. El edificio está construido entre 1926 y 1929, convirtiéndose en el primer rascacielos de España y uno de los primeros de Europa. Tradicionalmente ha sido la sede de la principal compañía de telefonía de España: Telefónica, que hoy en día sigue ocupándolo. En la planta baja cuenta con una tienda de telefonía y su fundación puede visitarse gratuitamente.",
+        "en": "Stairs in Telefónica building:\nThe Telefónica Foundation is located in the Telefónica Building on Gran Vía. It is a space dedicated to exhibitions -they often have photography ones. I’d recommend to check their website in advance: https://www.fundaciontelefonica.com. The building is old. As a curious note, it was the first skyscraper in Spain and one of the first in Europe -although today it is smaller in comparison. The space of the foundation is completely renovated and the details of its architecture can be the target of our cameras. In this photo, a detail of the spiral staircase that connects different floors of the exhibition. This is a view from below.\n\nTelefónica building at night:\nPhotograph taken with a telephoto lens of the Telefónica Building tower during the night. The building was built between 1926 and 1929, becoming the first skyscraper in Spain and one of the first in Europe. Traditionally it has been the headquarters of the main telephone company in Spain: Telefónica, which continues using it today. On the ground floor, it has a telephone shop and its foundation can be visited for free."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/3.5",
+        "shutterSpeed": "1/25 s",
+        "iso": 200
+      },
+      "detailImage": {
+        "locationId": "telefonica",
+        "usage": "detail",
+        "alt": {
+          "es": "Edificio Telefónica de noche",
+          "en": "Telefónica building at night"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "madrid-rio-puente",
+      "name": {
+        "es": "Puentes de Madrid Río",
+        "en": "Madrid Río bridges"
+      },
+      "neighbourhoodId": "arganzuela",
+      "tagIds": [
+        "puente",
+        "parque"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.400597,
+        "lng": -3.720755,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "madrid-rio-puente",
+        "usage": "thumb",
+        "alt": {
+          "es": "Puente en Madrid Río",
+          "en": "Madrid Río bridge"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.400597,
+        "lng": -3.720755
+      },
+      "bestTime": {
+        "es": "Primeras y últimas horas del día",
+        "en": "First and last hours of the day"
+      },
+      "shotDescription": {
+        "es": "El parque de Madrid Río, construido después de las obras de soterramiento de la M30, tiene varios puentes que cruzan el río. Son todos de diseños atractivos y es fácil conseguir buenas fotos en ellos. Recomiendo las primeras y las últimas horas del día, para evitar aglomeraciones de gente. A lo largo del parque hay terrazas, por si se quiere parar a tomar algo.",
+        "en": "The Madrid Río Park, built after the burial works of the M30, has several bridges that cross the river. They have attractive designs and it is easy to get good pictures there. I recommend the first and last hours of the day, to avoid crowds. Along the park there are terraces, in case you want to stop for a drink."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/2.8",
+        "shutterSpeed": "1/200 s",
+        "iso": 1000
+      },
+      "detailImage": {
+        "locationId": "madrid-rio-puente",
+        "usage": "detail",
+        "alt": {
+          "es": "Puente en Madrid Río",
+          "en": "Madrid Río bridge"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "viaducto-segovia",
+      "name": {
+        "es": "Viaducto de Segovia",
+        "en": "Segovia Viaduct"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "puente",
+        "nocturna",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.413948,
+        "lng": -3.71364,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "viaducto-segovia",
+        "usage": "thumb",
+        "alt": {
+          "es": "Acueducto de Segovia",
+          "en": "Segovia Viaduct"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.413948,
+        "lng": -3.71364
+      },
+      "bestTime": {
+        "es": "Noche",
+        "en": "Night"
+      },
+      "shotDescription": {
+        "es": "En la calle Segovia, a la altura de la Catedral de la Almudena, está el viaducto de Segovia. Ha sido reformado hace poco y es interesante para fotografía nocturna. En este caso usé un trípode para conseguir una larga exposición. No usé ningún filtro. Un poco más abajo hay un semáforo, esperé a que se abriera para que pasaran el máximo número de coches. También pasan bastantes autobuses, que pueden ayudar a que las líneas de luz ocupen más espacio en la fotografía. Como nota curiosa, el viaducto de Segovia, construido en 1974, es tristemente recordado en la ciudad como uno de los lugares más comunes para el suicidio, siendo reconocido como tal tanto en literatura como en el cine (como por ejemplo en Los Amantes Pasajeros, de Almodóvar).",
+        "en": "In Calle Segovia, near to Almudena Cathedral, there is the Segovia viaduct. It has been recently renovated and it is interesting for night photography. In this picture I used a tripod to get a long exposure. I did not use any filter. A little further down there is a traffic light, and I waited for it to open for the maximum number of cars to pass. There are also many buses that can help the lines of light take up more space in the photograph. As a curious note, the Segovia viaduct, which was built in 1974, is sadly remembered in the city to be one of the most common places for suicide. In fact, this fact has been treated both in literature and cinema, like in The Passenger Lovers, film made by Almodóvar."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/22.0",
+        "shutterSpeed": "25.0 s",
+        "iso": 80
+      },
+      "detailImage": {
+        "locationId": "viaducto-segovia",
+        "usage": "detail",
+        "alt": {
+          "es": "Acueducto de Segovia",
+          "en": "Segovia Viaduct"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "trashumancia",
+      "name": {
+        "es": "Día de la Trashumancia",
+        "en": "Transhumance Day"
+      },
+      "neighbourhoodId": "centro",
+      "tagIds": [
+        "evento",
+        "callejera"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.416863,
+        "lng": -3.703876,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "trashumancia",
+        "usage": "thumb",
+        "alt": {
+          "es": "Día de la Trashumancia",
+          "en": "Transhumance day"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.416863,
+        "lng": -3.703876
+      },
+      "bestTime": {
+        "es": "Fiesta de la Trashumancia (octubre)",
+        "en": "Transhumance festival (October)"
+      },
+      "shotDescription": {
+        "es": "La trashumancia es un tipo de pastoreo que está en continuo movimiento migrando en función de la estación y de la productividad del terreno. En España ha tenido mucha importancia histórica, sobretodo por los grandes rebaños de ovejas. Esto llevó a que se crearan las cañadas reales, caminos dedicados al tráfico de ganado trashumante. Uno de estos caminos pasa por Madrid y es tradición que, un día al año, sea atravesado por el ganado trashumante, aunque hoy en día tenga una finalidad más festiva que práctica. Si coincide en las fechas, se pueden obtener fotografías interesantes del contraste que provoca ver ovejas transitar por las calles que, en el día a día, son frecuentadas por coches y motocicletas.",
+        "en": "Transhumance is a type of grazing that is in continuous movement, migrating according to the season and the productivity of the land. In Spain it has had a lot of historical importance, especially for the large flocks of sheep. This led to the creation of the Cañadas Reales, roads dedicated to the traffic of transhumant cattle. One of these roads passes through Madrid. Once a year, it is crossed by cattle, although today it has a more festive than practical purpose. If you are here on those dates, you can get interesting photographs of the contrast that causes seeing sheep move through the streets that are frequented by cars and motorcycles, on a daily basis."
+      },
+      "detailImage": {
+        "locationId": "trashumancia",
+        "usage": "detail",
+        "alt": {
+          "es": "Día de la Trashumancia",
+          "en": "Transhumance day"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "caixaforum",
+      "name": {
+        "es": "Caixaforum Madrid",
+        "en": "Caixaforum Madrid"
+      },
+      "neighbourhoodId": "retiro",
+      "tagIds": [
+        "arquitectura",
+        "museo"
+      ],
+      "access": "free",
+      "approximateArea": {
+        "lat": 40.41114,
+        "lng": -3.693568,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "caixaforum",
+        "usage": "thumb",
+        "alt": {
+          "es": "Escaleras del Caixaforum",
+          "en": "Caixaforum stairs"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.41114,
+        "lng": -3.693568
+      },
+      "shotDescription": {
+        "es": "El Caixaforum es un espacio cultural que merece la pena visitar si se tiene tiempo. Esta foto está tomada desde el último piso, en las escaleras. La fundación acoge normalmente exposiciones interesantes, podéis consultar la información sobre el calendario su https://obrasociallacaixa.org/es/cultura/caixaforum-madrid/que-hacemos",
+        "en": "Caixaforum is a cultural space that is worth visiting if you have time. This photo is taken from the top floor. The foundation usually hosts interesting exhibitions. You can check about current ones in https://obrasociallacaixa.org/es/cultura/caixaforum-madrid/que-hacemos"
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 50.0,
+        "aperture": "f/4.5",
+        "shutterSpeed": "1/60 s",
+        "iso": 800
+      },
+      "detailImage": {
+        "locationId": "caixaforum",
+        "usage": "detail",
+        "alt": {
+          "es": "Escaleras del Caixaforum",
+          "en": "Caixaforum stairs"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "vicente-calderon",
+      "name": {
+        "es": "Estadio Vicente Calderón",
+        "en": "Vicente Calderón Stadium"
+      },
+      "neighbourhoodId": "arganzuela",
+      "tagIds": [
+        "deportivo",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.416498,
+        "lng": -3.720579,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "vicente-calderon",
+        "usage": "thumb",
+        "alt": {
+          "es": "Estadio Vicente Calderón",
+          "en": "Vicente Calderón stadium"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.416498,
+        "lng": -3.720579
+      },
+      "shotDescription": {
+        "es": "Frente al parque conocido como Madrid Río, que se extiende en la ribera del río Manzanares, está el estadio Vicente Calderón, en el que jugaba el Atlético de Madrid. Es un estadio mítico para la ciudad y como puede verse en la foto, tiene sus paredes acristaladas, lo que puede resultar fotogénico.",
+        "en": "In front of the park known as Madrid Río, which stretches along the side of the Manzanares river, it is the Vicente Calderón stadium, where Atlético de Madrid football team played. It is a mythical stadium for the city and as you can see in the photo, it has its walls made of glass, which can be interesting for photograph."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/22.0",
+        "shutterSpeed": "1/4 s",
+        "iso": 31
+      },
+      "detailImage": {
+        "locationId": "vicente-calderon",
+        "usage": "detail",
+        "alt": {
+          "es": "Estadio Vicente Calderón",
+          "en": "Vicente Calderón stadium"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "rio-manzanares",
+      "name": {
+        "es": "Río Manzanares",
+        "en": "Manzanares river"
+      },
+      "neighbourhoodId": "arganzuela",
+      "tagIds": [
+        "parque",
+        "arquitectura"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.413966,
+        "lng": -3.722857,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "rio-manzanares",
+        "usage": "thumb",
+        "alt": {
+          "es": "Río Manzanares y catedral de la Almudena",
+          "en": "Manzanares river and Almudena cathedral"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.413966,
+        "lng": -3.722857
+      },
+      "shotDescription": {
+        "es": "Madrid Río es un parque que se extiende por la ribera del Manzanares a lo largo de prácticamente todo su paso por la ciudad. En uno de los extremos del parque, puede observarse la Catedral de la Almudena al fondo y el río, decorado con dos pequeños estanques a sus orillas.",
+        "en": "Madrid Rio is a park that stretches along the sides of the Manzanares along virtually all its way through the city. At one of its ends, you can see the Cathedral of Almudena in the background, and the river, decorated with two small ponds on its banks."
+      },
+      "capture": {
+        "camera": "Nikon D90",
+        "focalLengthMm": 35.0,
+        "aperture": "f/11.0",
+        "shutterSpeed": "1/80 s",
+        "iso": 200
+      },
+      "detailImage": {
+        "locationId": "rio-manzanares",
+        "usage": "detail",
+        "alt": {
+          "es": "Río Manzanares y catedral de la Almudena",
+          "en": "Manzanares river and Almudena cathedral"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "solsticio-invierno",
+      "name": {
+        "es": "Solsticio de Invierno en Madrid Río",
+        "en": "Winter Solstice at Madrid Río"
+      },
+      "neighbourhoodId": "arganzuela",
+      "tagIds": [
+        "evento",
+        "nocturna"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.418853,
+        "lng": -3.721967,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "solsticio-invierno",
+        "usage": "thumb",
+        "alt": {
+          "es": "Solsticio de Invierno",
+          "en": "Winter solstice"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.418853,
+        "lng": -3.721967
+      },
+      "bestTime": {
+        "es": "Solsticio de invierno (21 diciembre)",
+        "en": "Winter solstice (December 21)"
+      },
+      "shotDescription": {
+        "es": "Desde hace varios años, en el solsticio de invierno el ayuntamiento organiza un desfile de farolillos y globos iluminados en Madrid Río, frente a Palacio Real. Si coincide que estáis en Madrid por esas fechas puede ser un plan para la tarde. Eso sí, recomiendo ir con algo de tiempo (al menos 30 minutos) para coger sitio si queremos ver el desfile de cerca.",
+        "en": "For several years, at the winter solstice, the city has organized a parade of lanterns and illuminated balloons in Madrid Río, in front of the Royal Palace. If you are in Madrid at that time, it might be a plan for the afternoon. Of course, I recommend going a bit early (at least 30 minutes) to take a place if we want to see the parade close enough."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 70.0,
+        "aperture": "f/2.8",
+        "shutterSpeed": "1/40 s",
+        "iso": 1100
+      },
+      "detailImage": {
+        "locationId": "solsticio-invierno",
+        "usage": "detail",
+        "alt": {
+          "es": "Solsticio de Invierno",
+          "en": "Winter solstice"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "las-ventas",
+      "name": {
+        "es": "Plaza de Toros de Las Ventas",
+        "en": "Las Ventas Bullring"
+      },
+      "neighbourhoodId": "ventas",
+      "tagIds": [
+        "arquitectura",
+        "monumento"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.432332,
+        "lng": -3.663344,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "las-ventas",
+        "usage": "thumb",
+        "alt": {
+          "es": "Las Ventas",
+          "en": "Las Ventas"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.432332,
+        "lng": -3.663344
+      },
+      "shotDescription": {
+        "es": "La Plaza de Toros de Las Ventas es la mayor de españa, y tercera en cuanto a aforo en el mundo. Está en la calle Alcalá, en el barrio de la Guindalera y para ir hasta ella, el metro más cercano es Las Ventas (línea 2 y 5). Es una plaza de estilo neomudejar, fue diseñada por José Espelius y su construcción llevó de 1919 a 1931. Para hacer esta fotografía utilicé un trípode y un gran angular que me permitiera abarcar toda la plaza desde relativamente cerca.",
+        "en": "Las Ventas is the largest bullring in Spain, and the third in the world -in terms of capacity. It is on Alcalá street, in the neighborhood of La Guindalera. The nearest metro is Las Ventas -line 2 and 5. It is Neomudejar style. It was designed by José Espelius and its construction took from 1919 to 1931. To make this picture I used a tripod and a wide angle that would allow me to cover the whole bullring from a relatively close distance."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1.6 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "las-ventas",
+        "usage": "detail",
+        "alt": {
+          "es": "Las Ventas",
+          "en": "Las Ventas"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "capricho-templo-baco",
+      "name": {
+        "es": "Templete de Baco (Parque de El Capricho)",
+        "en": "Bacchus Temple (El Capricho Park)"
+      },
+      "neighbourhoodId": "barajas",
+      "tagIds": [
+        "parque",
+        "atardecer"
+      ],
+      "access": "free",
+      "approximateArea": {
+        "lat": 40.456318,
+        "lng": -3.597975,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "capricho-templo-baco",
+        "usage": "thumb",
+        "alt": {
+          "es": "Templo de Baco en El Capricho",
+          "en": "Bacchus temple in El Capricho"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.456318,
+        "lng": -3.597975
+      },
+      "bestTime": {
+        "es": "Atardecer (el parque cierra a las 18:00 en invierno)",
+        "en": "Sunset (the park closes at 18:00 in winter)"
+      },
+      "shotDescription": {
+        "es": "Esta fotografía es del Parque del Capricho. Es un parque situado en el barrio de la Alameda de Osuna, en Barajas. Fue ordenado construir por la duquesa de Osuna entre 1787 y 1839 y tiene 14 hectáreas. En concreto este templete tiene la peculiaridad de estar dedicado a Baco, dios griego del vino, siendo el único en Madrid de este estilo. La fotografía está tomada durante el atardecer con un gran angular, no tuve mucho tiempo para planearla ya que en invierno cierran el parque a las 18:00, así que hay que correr un poco si se quiere exprimir la hora dorada.",
+        "en": "This photograph is taken in Parque del Capricho. It is a park located in the neighborhood of Alameda de Osuna, in Barajas. It was ordered by the Duchess of Osuna. It was built between 1787 and 1839 and it has 14 hectares. This temple has the peculiarity of being dedicated to Bacchus, the Greek god of wine, being the only one in Madrid of this style. The photograph is taken during the sunset with a wide angle. I did not have much time to plan it since in winter they close the park at 18:00, so you have to run a bit if you want to squeeze the golden hour."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 15.0,
+        "aperture": "f/6.3",
+        "shutterSpeed": "1/2 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "capricho-templo-baco",
+        "usage": "detail",
+        "alt": {
+          "es": "Templo de Baco en El Capricho",
+          "en": "Bacchus temple in El Capricho"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "capricho-estanque",
+      "name": {
+        "es": "Estanque del Capricho",
+        "en": "El Capricho pond"
+      },
+      "neighbourhoodId": "barajas",
+      "tagIds": [
+        "parque",
+        "atardecer"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.456318,
+        "lng": -3.597975,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "capricho-estanque",
+        "usage": "thumb",
+        "alt": {
+          "es": "Estanque del Capricho",
+          "en": "El Capricho’s pond"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.456318,
+        "lng": -3.597975
+      },
+      "bestTime": {
+        "es": "Últimos momentos del día",
+        "en": "Last light of the day"
+      },
+      "shotDescription": {
+        "es": "Este pequeño estanque se encuentra en el Parque del Capricho. Es un parque poco conocido de Madrid, tal vez porque está algo apartado del centro de la ciudad, sin embargo es un sitio que merece la pena visitar si se tiene tiempo. Fue construido entre 1787 y 1839 y sus 14 hectáreas están plagadas de sorpresas. En cuanto a la fotografía, está tomada en los últimos momentos del día, antes de que anocheciera. Usé un trípode y un filtro ND de 10 pasos Haida combinado con uno NiSi degradado para quitarle algo de luz al cielo.",
+        "en": "This small lake is located in the Parque del Capricho. It is a little-known park in Madrid, perhaps because it is somewhat far away from the center of the city. However it is a place worth visiting if you have time. It was built between 1787 and 1839 and its 14 hectares are full of surprises. As for the photograph, it is taken in the last moments of the day, before nightfall. I used a tripod and a Haida 10-step ND filter combined with a NiSi gradient to remove some light from the sky."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 24.0,
+        "aperture": "f/4.0",
+        "shutterSpeed": "30.0 s",
+        "iso": 400
+      },
+      "detailImage": {
+        "locationId": "capricho-estanque",
+        "usage": "detail",
+        "alt": {
+          "es": "Estanque del Capricho",
+          "en": "El Capricho’s pond"
+        },
+        "aspectRatio": 1.3333
+      }
+    },
+    {
+      "id": "puente-perrault",
+      "name": {
+        "es": "Puente de Perrault",
+        "en": "Perrault Bridge"
+      },
+      "neighbourhoodId": "arganzuela",
+      "tagIds": [
+        "puente",
+        "parque"
+      ],
+      "access": "premium",
+      "approximateArea": {
+        "lat": 40.398627,
+        "lng": -3.710722,
+        "radiusMeters": 150
+      },
+      "thumbnail": {
+        "locationId": "puente-perrault",
+        "usage": "thumb",
+        "alt": {
+          "es": "Puente de Perrault",
+          "en": "Perrault bridge"
+        },
+        "aspectRatio": 1.3333
+      },
+      "coords": {
+        "lat": 40.398627,
+        "lng": -3.710722
+      },
+      "shotDescription": {
+        "es": "El puente que aparece en la foto es el puente monumental de Arganzuela, o puente de Perrault (en honor al arquitecto que lo diseñó, Dominique Perrault), se construyó entre 2010 y 2011, durante la creación del parque de Madrid Río. Esta foto está hecha desde un pequeño puente paralelo. Recomiendo a los fotógrafos que paseen por el Madrid Río, ya que es un sitio muy fotogénico con multitud de lugares que fotografiar.",
+        "en": "The bridge that appears in the photo is the monumental bridge of Arganzuela, or Perrault bridge -in honor of the architect who designed it, Dominique Perrault-. It was built between 2010 and 2011, during the creation of the Madrid Río park. This photo is made from a small parallel bridge. I recommend to the photographers to go to the Madrid Río, because it is a very photogenic place with plenty of places to photograph."
+      },
+      "capture": {
+        "camera": "Nikon D810",
+        "focalLengthMm": 30.0,
+        "aperture": "f/5.6",
+        "shutterSpeed": "1/2 s",
+        "iso": 100
+      },
+      "detailImage": {
+        "locationId": "puente-perrault",
+        "usage": "detail",
+        "alt": {
+          "es": "Puente de Perrault",
+          "en": "Perrault bridge"
+        },
+        "aspectRatio": 1.3333
       }
     }
   ],
-
   "tips": [
     {
       "id": "faro",
       "categoryId": "ver",
-      "title": { "es": "Sube al Faro de Moncloa al atardecer" },
-      "context": { "es": "8 € · 92 m de altura · vistas de 360º" },
+      "title": {
+        "es": "Sube al Faro de Moncloa al atardecer"
+      },
+      "context": {
+        "es": "8 € · 92 m de altura · vistas de 360º"
+      },
       "body": [
-        { "es": "Es el mirador más rápido de Madrid: ascensor directo hasta la cabina panorámica." },
-        { "es": "El cristal refleja: pega el parasol o la mano al cristal para evitar el reflejo en las fotos." }
+        {
+          "es": "Es el mirador más rápido de Madrid: ascensor directo hasta la cabina panorámica."
+        },
+        {
+          "es": "El cristal refleja: pega el parasol o la mano al cristal para evitar el reflejo en las fotos."
+        }
       ],
-      "relatedLocationIds": ["debod"]
+      "relatedLocationIds": [
+        "debod"
+      ]
     },
     {
       "id": "cebada",
       "categoryId": "comer",
-      "title": { "es": "Mercado de la Cebada, para comer barato y bien" },
-      "context": { "es": "Puestos desde 4 €" },
+      "title": {
+        "es": "Mercado de la Cebada, para comer barato y bien"
+      },
+      "context": {
+        "es": "Puestos desde 4 €"
+      },
       "body": [
-        { "es": "Un mercado de barrio de verdad, sin la aglomeración del Mercado de San Miguel." },
-        { "es": "Los puestos de tapas del piso de arriba abren hasta media tarde entre semana." }
+        {
+          "es": "Un mercado de barrio de verdad, sin la aglomeración del Mercado de San Miguel."
+        },
+        {
+          "es": "Los puestos de tapas del piso de arriba abren hasta media tarde entre semana."
+        }
       ],
-      "relatedLocationIds": ["mayor"]
+      "relatedLocationIds": [
+        "mayor"
+      ]
     },
     {
       "id": "donde-dormir",
       "categoryId": "dormir",
-      "title": { "es": "Dónde alojarse si vienes a hacer fotos" },
-      "context": { "es": "Centro o Chamberí, para no depender del coche" },
+      "title": {
+        "es": "Dónde alojarse si vienes a hacer fotos"
+      },
+      "context": {
+        "es": "Centro o Chamberí, para no depender del coche"
+      },
       "body": [
-        { "es": "Duerme en Centro o Chamberí: casi todas las localizaciones de esta guía quedan a menos de 30 minutos andando." },
-        { "es": "Evita alojarte cerca de la M-30 si no vas a moverte en coche: perderás tiempo en desplazamientos." }
+        {
+          "es": "Duerme en Centro o Chamberí: casi todas las localizaciones de esta guía quedan a menos de 30 minutos andando."
+        },
+        {
+          "es": "Evita alojarte cerca de la M-30 si no vas a moverte en coche: perderás tiempo en desplazamientos."
+        }
       ],
-      "relatedLocationIds": ["sol", "mayor"]
+      "relatedLocationIds": [
+        "sol",
+        "mayor"
+      ]
     },
     {
       "id": "abono-transporte",
       "categoryId": "transporte",
-      "title": { "es": "El abono turístico de transporte compensa" },
-      "context": { "es": "Desde 8,40 €/día · metro, bus y cercanías" },
+      "title": {
+        "es": "El abono turístico de transporte compensa"
+      },
+      "context": {
+        "es": "Desde 8,40 €/día · metro, bus y cercanías"
+      },
       "body": [
-        { "es": "Cubre metro, autobús y cercanías sin límite de viajes durante el número de días que elijas." },
-        { "es": "Se compra en cualquier estación de metro con tarjeta, sin necesidad de registrarse antes." }
+        {
+          "es": "Cubre metro, autobús y cercanías sin límite de viajes durante el número de días que elijas."
+        },
+        {
+          "es": "Se compra en cualquier estación de metro con tarjeta, sin necesidad de registrarse antes."
+        }
       ],
       "relatedLocationIds": []
     },
     {
       "id": "rastro",
       "categoryId": "ver",
-      "title": { "es": "El Rastro, solo los domingos por la mañana" },
-      "context": { "es": "Domingos, 9:00–15:00 · gratis" },
+      "title": {
+        "es": "El Rastro, solo los domingos por la mañana"
+      },
+      "context": {
+        "es": "Domingos, 9:00–15:00 · gratis"
+      },
       "body": [
-        { "es": "El mercadillo más grande de Madrid ocupa varias calles empinadas cerca de La Latina." },
-        { "es": "Vigila tus objetos de valor: es la zona con más carteristas de la ciudad los domingos." }
+        {
+          "es": "El mercadillo más grande de Madrid ocupa varias calles empinadas cerca de La Latina."
+        },
+        {
+          "es": "Vigila tus objetos de valor: es la zona con más carteristas de la ciudad los domingos."
+        }
       ],
-      "relatedLocationIds": ["mayor"]
+      "relatedLocationIds": [
+        "mayor"
+      ]
+    },
+    {
+      "id": "horarios-espana",
+      "categoryId": "practico",
+      "title": {
+        "es": "Horarios y costumbres",
+        "en": "Schedule and customs"
+      },
+      "body": [
+        {
+          "es": "Probablemente una de las principales diferencias entre España y el resto de países es el horario. En España las cosas se hacen tarde: Normalmente la gente entra a trabajar entre las 8:00 y las 10:00, la hora de la comida es a las 14:00 y la hora de la cena suele ser entre las 21:00 y las 22:00. Si bien es cierto que muchos de los restaurantes de los barrios más turísticos están preparados para atender en “horarios extranjeros”, hay que tenerlo en cuenta si se quiere comer en un sitio más tradicional. Además, como país dentro de la Unión Europea, España tiene el cambio de hora en verano, lo que hace que durante esta época anochezca cerca de las 22:00. Otra curiosidad importante a tener en cuenta durante el verano son las horas centrales del día. Debido al calor es normal encontrar muchos establecimientos cerrados hasta que caiga un poco el sol. En concreto normalmente de 13:00 a 17:00.",
+          "en": "Probably one of the main differences between Spain and the rest of countries is the schedule. In Spain things are done later. Normally people start working between 8:00 and 10:00, lunch time is at 2:00 pm and dinner time is usually between 9:00 p.m. 22:00. Although it is true that many of the restaurants in the most touristic areas are prepared to attend in \"foreign hours\", you’ll probably need to care about schedule when trying to eat in more local places. In addition, as a country within the European Union, Spain has the daylight saving time system in summer -this means that in summer clocks are advanced one hour. So, in those months, it will get dark around 21:00 to 22:00. Another important curiosity to keep in mind during the summer are the central hours of the day. Due to the heat it is normal to find many establishments closed until the sun falls a little. Normally they are close from 1:00 p.m. to 5:00 p.m during the summer."
+        }
+      ]
+    },
+    {
+      "id": "comidas-y-tapas",
+      "categoryId": "comer",
+      "title": {
+        "es": "Comidas y tapas",
+        "en": "Food and tapas"
+      },
+      "body": [
+        {
+          "es": "Si vais a comer a restaurantes tenéis que tener en cuenta que no se caracterizan por su rapidez. La cocina puede tardar un tiempo en preparar los platos y más si se está en hora punta. Además hay una gran diferencia frente a los países vecinos: En España el desayuno es ligero, la comida es abundante y la cena ligera de nuevo. En España, a la hora de la comida, es muy común el “menú del día”, una opción más económica (entre 8 y 15 euros) que suele constar de un primer plato, un segundo plato, postre, pan y una bebida (agua o vino, generalmente). Una opción para comer son las tapas, muy comunes en buena parte de España. Consiste en pedir una bebida, cerveza generalmente, que en muchos bares irá acompañada de un pequeño plato de comida.",
+          "en": "If you are going to eat at restaurants you have to keep in mind that they are not characterized by their speed. The kitchen can take a while to prepare the dishes and more if you are at rush hour. There is also a big difference compared to surrounding countries: In Spain breakfast is light, lunch is plentiful and dinner is light. In Spain, at lunch time, the \"daily menu\" is very popular and a cheaper option (between 8 and 15 euros). It usually consists of a first course, a second course, dessert, bread and a drink (water or wine, generally). An option to eat are the tapas, very common in most of Spain. It consists of ordering a drink, usually beer, which in many bars will be accompanied by a small plate of food."
+        }
+      ]
+    },
+    {
+      "id": "propinas",
+      "categoryId": "comer",
+      "title": {
+        "es": "Propinas",
+        "en": "Tipping"
+      },
+      "body": [
+        {
+          "es": "En España las propinas son algo menos frecuentes que en otros países, lo que no quita que no sigan siendo comunes. Sin embargo, por ejemplo, en los taxis no es necesario darlas, aunque nunca serán mal recibidas. En los restaurantes una buena propina suele rondar el euro, de hecho muchas veces una opción es dejar alrededor de un euro del dinero que nos hayan devuelto al pagar. También es común aumentar la propina en los bares si la tapa ha sido generosa.",
+          "en": "In Spain tips are less frequent than in other countries, which does not mean they are not common. However, for example, in taxis it is not necessary to give them, although they will be always appreciated. In restaurants a good tip usually goes around the euro. In fact many times an option is to leave around one euro of the money that we have returned when paying. It is also common to increase the tip in bars if the tapa has been generous."
+        }
+      ]
+    },
+    {
+      "id": "seguridad",
+      "categoryId": "practico",
+      "title": {
+        "es": "Seguridad",
+        "en": "Safety"
+      },
+      "body": [
+        {
+          "es": "En general España es un país muy seguro. Igual que sus grandes ciudades. Como siempre, es aconsejable tener algo de precaución y no ostentar demasiado, sobretodo en zonas especialmente llenas de gente, para evitar pequeños hurtos.",
+          "en": "In general, Spain is a very safe country including its big cities. As always, it is advisable to have some caution and not show too much, especially in areas especially full of people, to avoid petty theft."
+        },
+        {
+          "es": "Al igual que el resto de España, Madrid es una ciudad segura. Como en cualquier otra ciudad conviene ser algo precavido, no dejar cosas caras a la vista, no ser demasiado ostentoso o ser descuidado en las grandes aglomeraciones de gente. Sin embargo, salvo por pequeños hurtos no hay nada que temer especialmente.",
+          "en": "Like the rest of Spain Madrid is safe. Anyway, it is wise to be cautious, not to leave expensive things in sight, not to be too ostentatious or to be neglected in large crowds of people. However, except for petty thefts, there is nothing to be afraid of."
+        }
+      ]
+    },
+    {
+      "id": "informacion-practica",
+      "categoryId": "practico",
+      "title": {
+        "es": "Moneda, enchufes e IVA",
+        "en": "Currency, plugs and tax refund"
+      },
+      "body": [
+        {
+          "es": "En España se usa el euro, como en el resto de la Eurozona. El sistema eléctrico es de 220V y se usa el sistema europeo de enchufes, con 2 pines redondeados. Por último, en España se aplica un impuesto llamado el IVA que suele rondar el 21%, sin embargo en ciertas tiendas (reconocibles por el logo de “Tax Free”) os darán un ticket que, si lo guardáis, podréis usar en el aeropuerto para que es devuelvan el impuesto.",
+          "en": "In Spain the euro is used, as in the rest of the Eurozone. The electrical system is 220V and the European plug system is used, with 2 rounded pins. Finally, in Spain a tax called IVA is applied which is usually around 21%. However in certain stores (recognizable by the \"Tax Free\" logo) they will give you a ticket that, if you keep it, you can use at the airport to get the tax refunded."
+        }
+      ]
+    },
+    {
+      "id": "transporte-madrid",
+      "categoryId": "transporte",
+      "title": {
+        "es": "Cómo moverse por Madrid",
+        "en": "Getting around Madrid"
+      },
+      "body": [
+        {
+          "es": "Madrid tiene una muy buena red de metro. En general es una buena opción y relativamente económica. Se pueden comprar billetes individuales o de 10 en 10 (siendo estos segundos algo más económicos). Es importante recordar que el metro cierra en torno a la 01:30. https://www.metromadrid.es/es/ También hay una red bastante buena de autobuses, en los que vale el mismo billete del metro. Por último, en los últimos años han surgido otras alternativas de transporte, como el servicio de BiciMad https://www.bicimad.com/ (bicicletas) y ofertas de car sharing.",
+          "en": "Madrid has a very good metro network. In general it is a good option and relatively cheap. You can buy single tickets or ten in a row-this option is a bit less expensive. It is important to remember that the subway closes around 01:30. https://www.metromadrid.es/es/ There is also a fairly good network of buses, where you can use the same ticket than in metro. Finally, in the last few years other transport alternatives have emerged, such as the BiciMad bike rental service (https://www.bicimad.com/) and car sharing offers."
+        }
+      ]
+    },
+    {
+      "id": "alojamiento-madrid",
+      "categoryId": "dormir",
+      "title": {
+        "es": "Alojamiento",
+        "en": "Accommodation"
+      },
+      "body": [
+        {
+          "es": "Madrid es una ciudad muy turística, con lo que cuenta con una importante dotación hotelera. Como en la mayoría de ciudades europeas, los hoteles más céntricos suelen ser algo más caros. Sin embargo, también en el centro se pueden encontrar muchos hostales y albergues bastante económicos para los presupuestos algo más apretados. En cualquier caso la calidad de los hoteles suele estar por encima de la media europea.",
+          "en": "Madrid is a very tourist city, which has an important hotel supply. As in most European cities, the most central hotels tend to be somewhat more expensive. However, also in the center you can find many cheap hostels and hostels for slightly tighter budgets. In any case, the quality of the hotels is usually above the European average."
+        }
+      ]
+    },
+    {
+      "id": "eventos-anuales-madrid",
+      "categoryId": "cultura",
+      "title": {
+        "es": "Eventos anuales en Madrid",
+        "en": "Annual events in Madrid"
+      },
+      "body": [
+        {
+          "es": "Madrid es una ciudad con bastantes eventos, en general para todos los gustos. Los eventos anuales más importantes son:",
+          "en": "Madrid is a city with many events, in general for all tastes. The most important annual events are:"
+        },
+        {
+          "es": "Semana Santa: Durante la semana santa, por las calles de Madrid hay numerosas procesiones. Con sus trompetas y tambores crean un ambiente sobrecogedor hasta para los no creyentes. Además durante estas fechas también hay conciertos en las iglesias y basílicas y comida especial de Semana Santa, como un postre típico llamado Torrija que está compuesto de pan bañado en leche y canela. Los días exactos en los que cae esta festividad varían con los años, sin embargo suelen ser a primeros de abril.",
+          "en": "Easter: During Easter, there are numerous processions through the streets of Madrid. With its trumpets and drums they create an overwhelming atmosphere even for non-believers. Also during these dates there are also concerts in the churches and basilicas and special Easter food, like a typical dessert called Torrija which is made of bread dipped in milk and cinnamon. This holiday normally is scheduled at the beginning of April."
+        },
+        {
+          "es": "San Isidro: Se celebra entre el 11 y el 15 de mayo y es la fiesta del patrón de la ciudad. Un antiguo santo al que se atribuyen alrededor de cien milagros. La fiesta se celebra en la Pradera de San Isidro y Las Vistillas, a donde acuden los madrileños vestidos con los trajes típicos (chulapos y chulapas) a comer y beber sobre el césped.",
+          "en": "San Isidro: It is celebrated between the 11th and the 15th of May and it is the saint of the city. San Isidro is an ancient saint about one hundred miracles are attributed to. The party is celebrated in the Pradera de San Isidro and Las Vistillas, where locals go dressed in typical costumes (chulapos and chulapas) to eat and drink on the lawn."
+        },
+        {
+          "es": "Día del Orgullo Gay: Es una de las fiestas más importantes de la ciudad y que más turismo acarrean. Durante varias noches, normalmente la última semana del mes de junio el barrio gay de la ciudad (Chueca) celebra las fiestas del orgullo. Suele haber un gran desfile que atrae a miles de personas y luego por la noche fiestas en Chueca y los alrededores, con conciertos en Plaza de España y Callao entre otros lugares.",
+          "en": "Gay Pride: It is one of the most important and touristic festivals of the city. For several nights the gay district of the city (Chueca) celebrates the gay pride. It normally takes place during the last week of June. There is usually a large parade that attracts thousands of people and then night parties in the streets of Chueca and the surrounding area, with concerts in Plaza de España and Callao among other places."
+        },
+        {
+          "es": "Fiestas de La Paloma y Lavapiés: En Agosto se celebran una serie de fiestas en varios barrios. Primero las de San Cayetano, en la zona del Rastro - Embajadores, que van del 2 al 8 de agosto. Seguidas de las de San Lorenzo, En Lavapies y del 9 al 11 de agosto. Para terminar, las más importantes: La Paloma, que van del 12 al 15 de agosto y se celebran en Las Vistillas y sus alrededores. Durante todas estas fiestas los bares ponen terrazas en la calle y venden comida y bebida durante buena parte de la noche. Además suele haber conciertos con artistas bastante conocidos. Más información: https://www.esmadrid.com/en/events-calendar?utm_referrer=https%3A%2F%2Fwww.google .es%2F",
+          "en": "August celebrations (La Paloma & Lavapiés): In August there are a series of parties in various neighborhoods. First, those of San Cayetano in the area of Rastro - Embajadores, which go from August 2 to 8. They are followed by those of San Lorenzo in Lavapies and from 9 to 11 August. To finish, the most important one, La Paloma, which goes from August 12 to 15 and it is celebrated in Las Vistillas and its surroundings. During all these parties the bars put terraces on the street and sell food and drink for a good part of the night. Also there are usually concerts with famous artists."
+        }
+      ]
     }
   ]
 }
