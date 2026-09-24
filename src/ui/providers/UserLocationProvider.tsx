@@ -24,6 +24,12 @@ type UserLocationContextValue = {
   now: number;
   /** Ejecuta `onGranted` si ya hay ubicación; si no, la pide o explica por qué no (R-G2). */
   ensureLocation: (origin: PermissionOrigin, onGranted?: () => void) => void;
+  /**
+   * Lanza el diálogo del sistema directamente, sin el panel de explicación de
+   * `ensureLocation`: solo lo usa el paso de la presentación, que ya es en sí
+   * mismo la explicación y siempre avanza al terminar (contracts/screens.md).
+   */
+  requestPermission: (origin: PermissionOrigin) => Promise<LocationSnapshot['permission']>;
   openSettings: () => void;
   /** Estado del panel de ubicación, consumido por `LocationSheet` (US2). */
   sheetRequest: LocationSheetRequest | null;
@@ -127,6 +133,7 @@ export function UserLocationProvider({
       snapshot,
       now,
       ensureLocation,
+      requestPermission: (origin) => tracker.request(origin),
       openSettings: () => void openSettings(),
       sheetRequest,
     }),
