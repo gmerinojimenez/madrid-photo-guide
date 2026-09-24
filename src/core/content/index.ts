@@ -22,6 +22,7 @@ export {
   viewLocation,
   isFullLocation,
   neighbourhoodDescriptionOf,
+  visibleDistance,
   type Entitlement,
   type LocationPreview,
 } from './access.ts';
