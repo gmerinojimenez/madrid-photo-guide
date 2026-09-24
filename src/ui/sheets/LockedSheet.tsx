@@ -4,7 +4,7 @@ import type { LocationPreview } from '../../core/content/access.ts';
 import { localize } from '../../core/content/localize.ts';
 import type { Neighbourhood, Tag } from '../../core/content/schema.ts';
 import { Icon } from '../components/Icon.tsx';
-import { ImagePlaceholder } from '../components/ImagePlaceholder.tsx';
+import { LocationImage } from '../components/LocationImage.tsx';
 import { colors, radius, spacing } from '../theme/tokens.ts';
 import { SheetHost } from './SheetHost.tsx';
 
@@ -40,7 +40,7 @@ export function LockedSheet({ visible, preview, neighbourhood, tags, onUnlock, o
     >
       {preview ? (
         <View style={styles.content}>
-          <ImagePlaceholder style={styles.image} />
+          <LocationImage imageRef={preview.thumbnail} style={styles.image} />
           <Text style={styles.name}>{localize(preview.name, 'es')}</Text>
           {neighbourhood ? (
             <Text style={styles.neighbourhood}>{localize(neighbourhood.name, 'es')}</Text>
