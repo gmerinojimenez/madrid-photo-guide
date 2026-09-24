@@ -6,8 +6,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { isFullLocation, localize, viewLocation } from '../../src/core/content/index.ts';
 import { formatCoordinates } from '../../src/core/navigation/links.ts';
 import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
-import { ImagePlaceholder } from '../../src/ui/components/ImagePlaceholder.tsx';
 import { Icon } from '../../src/ui/components/Icon.tsx';
+import { LocationImage } from '../../src/ui/components/LocationImage.tsx';
 import { NavSheet } from '../../src/ui/sheets/NavSheet.tsx';
 import {
   useCatalog,
@@ -114,7 +114,7 @@ export default function LocationDetailScreen() {
         </Pressable>
       </View>
 
-      <ImagePlaceholder style={styles.image} />
+      <LocationImage imageRef={full.detailImage} style={styles.image} />
 
       <Text style={styles.name}>{localize(full.name, 'es')}</Text>
       {neighbourhood ? (

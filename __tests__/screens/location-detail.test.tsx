@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { Image } from 'react-native';
 import { skipOnboarding } from './support.ts';
 
 /**
@@ -19,6 +20,21 @@ describe('Ficha de localización', () => {
     expect(screen.getByText(/tranquilo y muy andable/)).toBeTruthy(); // descripción del barrio
     expect(screen.getByText('Sony A7 IV')).toBeTruthy();
     expect(screen.getByText('40.424000, -3.717660')).toBeTruthy();
+  });
+
+  it('la cabecera muestra la fotografía real (detail.jpg), no el bloque de color (FR-001)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    fireEvent.press(await screen.findByLabelText('Templo de Debod'));
+    await screen.findByText('Templo de Debod');
+
+    const images = screen.UNSAFE_getAllByType(Image);
+    const header = images.find((image) =>
+      String((image.props.source as { testUri?: string } | undefined)?.testUri ?? '').includes(
+        'debod/detail',
+      ),
+    );
+    expect(header).toBeTruthy();
   });
 
   it('muestra "Distancia no disponible" en lugar de una distancia (D-012)', async () => {

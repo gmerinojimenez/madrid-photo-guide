@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen, testRouter } from 'expo-router/testing-library';
+import { Image } from 'react-native';
 
 import { skipOnboarding } from './support.ts';
 
@@ -17,6 +18,20 @@ describe('Detalle de consejo', () => {
     expect(screen.getByText(/mirador más rápido de Madrid/)).toBeTruthy();
     expect(screen.getByText(/El cristal refleja/)).toBeTruthy();
     expect(screen.getByLabelText('Templo de Debod')).toBeTruthy();
+  });
+
+  it('la tarjeta de una localización relacionada muestra su miniatura real (FR-002)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/tip/faro' });
+    await screen.findByLabelText('Templo de Debod');
+
+    const images = screen.UNSAFE_getAllByType(Image);
+    const thumb = images.find((image) =>
+      String((image.props.source as { testUri?: string } | undefined)?.testUri ?? '').includes(
+        'debod/thumb',
+      ),
+    );
+    expect(thumb).toBeTruthy();
   });
 
   it('un identificador de consejo inexistente muestra contenido no disponible', async () => {

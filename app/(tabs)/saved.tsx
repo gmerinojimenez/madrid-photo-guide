@@ -84,6 +84,7 @@ export default function SavedScreen() {
         <ListCard
           title={localize(item.name, 'es')}
           onPress={() => router.push(`/location/${item.id}`)}
+          image={item.thumbnail}
         />
       )}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
