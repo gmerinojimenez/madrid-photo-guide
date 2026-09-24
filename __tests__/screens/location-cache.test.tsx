@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from '@jest/globals';
 import { act, fireEvent, renderRouter, screen } from 'expo-router/testing-library';
 import { skipOnboarding } from './support.ts';
 
-const TEMPLO_DE_DEBOD = { lat: 40.424, lng: -3.71766 };
+const TEMPLO_DE_DEBOD = { lat: 40.424069, lng: -3.717613 };
 
 function locationDouble() {
   return require('expo-location') as {

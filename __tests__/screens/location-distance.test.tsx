@@ -3,7 +3,7 @@ import { act, fireEvent, renderRouter, screen } from 'expo-router/testing-librar
 import { skipOnboarding } from './support.ts';
 
 // Coordenadas exactas del Templo de Debod en el catálogo (ver location-detail.test.tsx).
-const TEMPLO_DE_DEBOD = { lat: 40.424, lng: -3.71766 };
+const TEMPLO_DE_DEBOD = { lat: 40.424069, lng: -3.717613 };
 
 function locationDouble() {
   return require('expo-location') as {

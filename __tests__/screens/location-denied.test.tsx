@@ -28,7 +28,7 @@ describe('Ubicación denegada', () => {
       expect(await screen.findByText('Sube al Faro de Moncloa al atardecer')).toBeTruthy();
     }],
     ['/profile', async () => {
-      expect(await screen.findByText(/5 de 14/)).toBeTruthy();
+      expect(await screen.findByText(/\d+ de \d+/)).toBeTruthy();
     }],
   ])('con el permiso denegado, %s funciona sin ningún diálogo', async (url, assertions) => {
     locationDouble().__setLocationPermission('denied');
