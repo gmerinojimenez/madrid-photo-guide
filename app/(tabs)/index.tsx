@@ -180,6 +180,11 @@ export default function MapScreen() {
       : null;
   const lockedView = lockedLocation ? viewLocation(lockedLocation, { owned: false }) : null;
   const lockedPreview = lockedView && !isFullLocation(lockedView) ? lockedView : null;
+  // US4 §1: redondeada por el módulo de acceso; el panel nunca ve los metros
+  // exactos ni las coordenadas de una localización bloqueada (FR-020).
+  const lockedDistance = lockedLocation
+    ? visibleDistance(lockedLocation, entitlement, snapshot, now)
+    : ({ kind: 'unavailable', reason: 'no-permission' } as const);
 
   function handleMarkerPress(id: string) {
     const location = catalog.locations.find((candidate) => candidate.id === id);
@@ -290,6 +295,7 @@ export default function MapScreen() {
       <LockedSheet
         visible={sheet.kind === 'locked'}
         preview={lockedPreview}
+        distance={lockedDistance}
         neighbourhood={
           lockedLocation
             ? catalog.neighbourhoods.find((n) => n.id === lockedLocation.neighbourhoodId)

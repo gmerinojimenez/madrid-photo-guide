@@ -191,15 +191,15 @@ necesita.
 
 ### Tests for User Story 4 (escribir primero; deben fallar)
 
-- [ ] T058 [P] [US4] Test de aceptación en `__tests__/screens/location-locked.test.tsx`: sin la compra, con permiso y posición, el panel de contenido bloqueado muestra la distancia redondeada ("< 1 km" o "~2,5 km") (US4 §1); desplazar la posición 100 m sin cruzar un escalón no cambia el texto; tras comprar, la ficha de esa misma localización muestra la distancia exacta (US4 §4)
-- [ ] T059 [P] [US4] Test de aceptación en `__tests__/screens/location-locked-radius.test.tsx`: sin la compra, una localización de pago participa en "< 3 km" según su distancia redondeada, no la exacta (US4 §2, FR-021), usando una posición elegida para que la exacta y la redondeada queden a lados distintos del límite
-- [ ] T060 [P] [US4] Ampliar `__tests__/screens/premium-leakage.test.tsx`: con permiso y posición, sin la compra, ningún texto renderizado en mapa, panel bloqueado ni panel de filtros contiene la distancia exacta en metros ni con una decimal distinta de ,0 o ,5 para una localización de pago (US4 §3, SC-005)
+- [X] T058 [P] [US4] Test de aceptación en `__tests__/screens/location-locked.test.tsx`: sin la compra, con permiso y posición, el panel de contenido bloqueado muestra la distancia redondeada ("< 1 km" o "~2,5 km") (US4 §1); desplazar la posición 100 m sin cruzar un escalón no cambia el texto; tras comprar, la ficha de esa misma localización muestra la distancia exacta (US4 §4)
+- [X] T059 [P] [US4] Test de aceptación en `__tests__/screens/location-locked-radius.test.tsx`: sin la compra, una localización de pago participa en "< 3 km" según su distancia redondeada, no la exacta (US4 §2, FR-021), usando una posición elegida para que la exacta y la redondeada queden a lados distintos del límite
+- [X] T060 [P] [US4] Ampliar `__tests__/screens/premium-leakage.test.tsx`: con permiso y posición, sin la compra, ningún texto renderizado en mapa, panel bloqueado ni panel de filtros contiene la distancia exacta en metros ni con una decimal distinta de ,0 o ,5 para una localización de pago (US4 §3, SC-005)
 
 ### Implementation for User Story 4
 
-- [ ] T061 [US4] En `src/ui/sheets/LockedSheet.tsx`, sustituir la fila fija "Distancia no disponible" por `formatVisibleDistance` de la distancia `rounded` que le pase la pantalla (nueva prop `distance: VisibleDistance`), sin hacerla tocable (contracts/screens.md, panel bloqueado)
-- [ ] T062 [US4] En `app/(tabs)/index.tsx`, calcular `visibleDistance` para la localización del panel bloqueado a partir de la `Location` del catálogo y pasarla a `LockedSheet`; la pantalla nunca lee los metros de una distancia `rounded` (el tipo no los tiene)
-- [ ] T063 [US4] Ejecutar T058–T060 y la suite completa y dejarlas en verde
+- [X] T061 [US4] En `src/ui/sheets/LockedSheet.tsx`, sustituir la fila fija "Distancia no disponible" por `formatVisibleDistance` de la distancia `rounded` que le pase la pantalla (nueva prop `distance: VisibleDistance`), sin hacerla tocable (contracts/screens.md, panel bloqueado)
+- [X] T062 [US4] En `app/(tabs)/index.tsx`, calcular `visibleDistance` para la localización del panel bloqueado a partir de la `Location` del catálogo y pasarla a `LockedSheet`; la pantalla nunca lee los metros de una distancia `rounded` (el tipo no los tiene)
+- [X] T063 [US4] Ejecutar T058–T060 y la suite completa y dejarlas en verde
 
 **Checkpoint**: la regla de acceso de la distancia está cubierta de punta a punta.
 
