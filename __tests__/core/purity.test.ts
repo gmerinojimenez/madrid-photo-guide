@@ -62,4 +62,28 @@ describe('pureza de capas', () => {
     });
     expect(offenders).toEqual([]);
   });
+
+  it('expo-location solo se importa desde src/platform/location/expo-device-location.ts (feature 004)', () => {
+    const allowedFile = join(REPO_ROOT, 'src/platform/location/expo-device-location.ts');
+    const offenders: string[] = [];
+    for (const root of ['app', 'src']) {
+      walk(join(REPO_ROOT, root), (file) => {
+        if (file === allowedFile) return;
+        const content = readFileSync(file, 'utf-8');
+        if (/from ['"]expo-location['"]/.test(content)) offenders.push(file);
+      });
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it('ninguna pantalla ni componente de src/ui/ calcula distancias por su cuenta (R-G1, feature 004)', () => {
+    const offenders: string[] = [];
+    for (const root of ['app', 'src/ui']) {
+      walk(join(REPO_ROOT, root), (file) => {
+        const content = readFileSync(file, 'utf-8');
+        if (/\bdistanceMeters\b/.test(content)) offenders.push(file);
+      });
+    }
+    expect(offenders).toEqual([]);
+  });
 });

@@ -228,12 +228,12 @@ necesita.
 
 **Purpose**: comprobaciones transversales, documentación y validación en las dos plataformas.
 
-- [ ] T067 [P] Ampliar `__tests__/core/purity.test.ts` para comprobar además que `expo-location` solo se importa desde `src/platform/location/expo-device-location.ts`, y que ningún fichero de `app/` ni `src/ui/` importa `distanceMeters` (R-G1, FR-022)
-- [ ] T068 [P] Añadir en `__tests__/screens/location-analytics.test.tsx` una comprobación de privacidad: tras pedir el permiso desde los tres orígenes y emitir posiciones, cada evento registrado solo tiene las claves `name`, `state` y `origin`, y ninguno contiene coordenadas ni distancias (FR-027, FR-028, SC-006)
-- [ ] T069 [P] Revisar que todo elemento pulsable nuevo de `app/` y `src/ui/` expone el nombre accesible de contracts/screens.md y que `LocationSheet` anuncia su apertura a lectores de pantalla
-- [ ] T070 [P] Actualizar `README.md`: nueva dependencia `expo-location`, necesidad de regenerar la development build (`npx expo prebuild --clean`) y cómo simular la posición en simulador y emulador (quickstart.md)
-- [ ] T071 Ejecutar `npm run verify` completo y dejar las cuatro puertas en verde
-- [ ] T072 Ejecutar `npx expo prebuild --clean` y comprobar en `ios/` y `android/` generados lo que exige quickstart.md: solo `NSLocationWhenInUseUsageDescription` en `Info.plist`, sin claves "Always" ni `location` en `UIBackgroundModes`; solo `ACCESS_COARSE_LOCATION` y `ACCESS_FINE_LOCATION` en el manifiesto, sin `ACCESS_BACKGROUND_LOCATION` ni `FOREGROUND_SERVICE_LOCATION` (FR-001). No versionar esos directorios
+- [X] T067 [P] Ampliar `__tests__/core/purity.test.ts` para comprobar además que `expo-location` solo se importa desde `src/platform/location/expo-device-location.ts`, y que ningún fichero de `app/` ni `src/ui/` importa `distanceMeters` (R-G1, FR-022)
+- [X] T068 [P] Añadir en `__tests__/screens/location-analytics.test.tsx` una comprobación de privacidad: tras pedir el permiso desde los tres orígenes y emitir posiciones, cada evento registrado solo tiene las claves `name`, `state` y `origin`, y ninguno contiene coordenadas ni distancias (FR-027, FR-028, SC-006)
+- [X] T069 [P] Revisar que todo elemento pulsable nuevo de `app/` y `src/ui/` expone el nombre accesible de contracts/screens.md y que `LocationSheet` anuncia su apertura a lectores de pantalla
+- [X] T070 [P] Actualizar `README.md`: nueva dependencia `expo-location`, necesidad de regenerar la development build (`npx expo prebuild --clean`) y cómo simular la posición en simulador y emulador (quickstart.md)
+- [X] T071 Ejecutar `npm run verify` completo y dejar las cuatro puertas en verde
+- [X] T072 Ejecutar `npx expo prebuild --clean` y comprobar en `ios/` y `android/` generados lo que exige quickstart.md: solo `NSLocationWhenInUseUsageDescription` en `Info.plist`, sin claves "Always" ni `location` en `UIBackgroundModes`; solo `ACCESS_COARSE_LOCATION` y `ACCESS_FINE_LOCATION` en el manifiesto, sin `ACCESS_BACKGROUND_LOCATION` ni `FOREGROUND_SERVICE_LOCATION` (FR-001). No versionar esos directorios
 - [ ] T073 Recorrer la validación manual de [quickstart.md](./quickstart.md) en Android **y** en iOS, comprobando la paridad del principio V (SC-009)
 
 ---
