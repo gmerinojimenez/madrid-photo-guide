@@ -69,13 +69,13 @@ describe('Guardados', () => {
     // Cuatro Torres, no tocada por los tests previos de este fichero, para no
     // depender de si ya estaba guardada por otro `it()` (el almacén falso de
     // `expo-sqlite` persiste entre tests del mismo fichero, D-013 punto 3).
-    fireEvent.press(await screen.findByLabelText('Cuatro Torres'));
+    fireEvent.press(await screen.findByLabelText('Cuatro Torres Business Area'));
     fireEvent.press(await screen.findByLabelText('Guardar'));
     await screen.findByLabelText('Guardado');
     fireEvent.press(screen.getByLabelText('Volver'));
 
     fireEvent.press(await screen.findByLabelText('Guardados, tab, 3 of 4'));
-    await screen.findByLabelText('Cuatro Torres');
+    await screen.findByLabelText('Cuatro Torres Business Area');
 
     const images = screen.UNSAFE_getAllByType(Image);
     const thumb = images.find((image) =>
