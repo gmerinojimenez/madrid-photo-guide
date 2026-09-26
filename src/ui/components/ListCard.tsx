@@ -16,10 +16,38 @@ type Props = {
   trailing?: ReactNode;
   /** Miniatura real a mostrar; si se omite, se mantiene el bloque de color. */
   image?: ImageRef;
+  /**
+   * Si se pasa, la miniatura gana su propio `Pressable` anidado que abre la
+   * foto a pantalla completa (005-uncropped-photo-display, FR-001), sin
+   * afectar al `onPress` de la fila (que sigue navegando a la localización).
+   * Solo debe pasarse cuando el contenido ya es accesible (contracts/
+   * photo-viewer-route.md): nunca para una vista previa bloqueada.
+   */
+  onImagePress?: () => void;
 };
 
 /** Tarjeta de lista compartida por mapa, guardados y consejos relacionados. */
-export function ListCard({ title, subtitle, onPress, accessibilityLabel, trailing, image }: Props) {
+export function ListCard({
+  title,
+  subtitle,
+  onPress,
+  accessibilityLabel,
+  trailing,
+  image,
+  onImagePress,
+}: Props) {
+  // 005-uncropped-photo-display FR-006: la caja se mantiene fija (56×56), pero
+  // ya no recorta la foto — `resizeMode="contain"` (LocationImage) deja hueco
+  // en los lados que no llenen la proporción, y ese hueco se rellena con un
+  // fondo neutro en vez de quedar vacío.
+  const thumb = image ? (
+    <View style={styles.thumbFrame}>
+      <LocationImage imageRef={image} style={styles.thumbFill} />
+    </View>
+  ) : (
+    <ImagePlaceholder style={styles.thumb} />
+  );
+
   return (
     <Pressable
       onPress={onPress}
@@ -27,10 +55,16 @@ export function ListCard({ title, subtitle, onPress, accessibilityLabel, trailin
       accessibilityLabel={accessibilityLabel ?? title}
       style={styles.card}
     >
-      {image ? (
-        <LocationImage imageRef={image} style={styles.thumb} />
+      {onImagePress ? (
+        <Pressable
+          onPress={onImagePress}
+          accessibilityRole="button"
+          accessibilityLabel={`Ver foto completa de ${title}`}
+        >
+          {thumb}
+        </Pressable>
       ) : (
-        <ImagePlaceholder style={styles.thumb} />
+        thumb
       )}
       <View style={styles.body}>
         <Text style={styles.title} numberOfLines={1}>
@@ -60,6 +94,17 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: radius.sm,
+  },
+  thumbFrame: {
+    width: 56,
+    height: 56,
+    borderRadius: radius.sm,
+    overflow: 'hidden',
+    backgroundColor: colors.section,
+  },
+  thumbFill: {
+    width: '100%',
+    height: '100%',
   },
   body: {
     flex: 1,

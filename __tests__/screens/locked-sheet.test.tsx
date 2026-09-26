@@ -36,6 +36,31 @@ describe('Panel de contenido bloqueado', () => {
     expect(thumb).toBeTruthy();
   });
 
+  it('la miniatura de vista previa usa resizeMode="contain", sin recortar (005-uncropped-photo-display FR-006)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    fireEvent.press(await screen.findByLabelText('Cerro del Tío Pío'));
+    await screen.findByText('Vallecas');
+
+    const images = screen.UNSAFE_getAllByType(Image);
+    const thumb = images.find((image) =>
+      String((image.props.source as { testUri?: string } | undefined)?.testUri ?? '').includes(
+        'tiopio/thumb',
+      ),
+    )!;
+    expect(thumb.props.resizeMode).toBe('contain');
+  });
+
+  it('la miniatura de vista previa no es tocable: no abre ningún visor (FR-009)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    fireEvent.press(await screen.findByLabelText('Cerro del Tío Pío'));
+    await screen.findByText('Vallecas');
+
+    expect(screen.queryByLabelText('Ver foto completa')).toBeNull();
+    expect(screen.queryByLabelText(/Ver foto completa de/)).toBeNull();
+  });
+
   it('"Seguir en modo prueba" cierra el panel sin cambiar nada', async () => {
     await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });

@@ -21,5 +21,5 @@ export function LocationImage({ imageRef, resolver = imageRegistry, style }: Pro
   if (source === null) {
     return <ImagePlaceholder style={style} />;
   }
-  return <Image source={source} style={style} />;
+  return <Image source={source} style={style} resizeMode="contain" />;
 }

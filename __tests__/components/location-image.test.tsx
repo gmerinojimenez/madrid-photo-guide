@@ -26,6 +26,15 @@ describe('LocationImage', () => {
     expect(UNSAFE_queryAllByType(Image)).toHaveLength(1);
   });
 
+  it('la foto se pinta con resizeMode="contain", nunca recortada (005-uncropped-photo-display FR-004)', () => {
+    const source: ImageSource = { uri: 'bundled://debod-thumb' };
+    const resolver: ImageResolver = { resolve: () => source };
+
+    const { UNSAFE_getByType } = render(<LocationImage imageRef={REF} resolver={resolver} />);
+
+    expect(UNSAFE_getByType(Image).props.resizeMode).toBe('contain');
+  });
+
   it('con un resolver que no encuentra la imagen (null), recae en ImagePlaceholder sin lanzar', () => {
     const resolver: ImageResolver = { resolve: () => null };
 

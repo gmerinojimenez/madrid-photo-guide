@@ -99,6 +99,7 @@ function RootNavigator() {
       <Stack.Screen name="location/[id]" />
       <Stack.Screen name="tip/[id]" />
       <Stack.Screen name="paywall" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="photo-viewer" options={{ presentation: 'transparentModal' }} />
       <Stack.Screen name="onboarding" />
     </Stack>
   );

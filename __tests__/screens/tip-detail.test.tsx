@@ -69,6 +69,32 @@ describe('Detalle de consejo', () => {
     expect(await screen.findByText('La toma')).toBeTruthy();
   });
 
+  it('tocar la miniatura de una localización relacionada desbloqueada abre el visor a pantalla completa (005-uncropped-photo-display FR-001)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/tip/donde-dormir' });
+    await screen.findByLabelText('Plaza Mayor');
+
+    fireEvent.press(screen.getByLabelText('Ver foto completa de Plaza Mayor'));
+
+    const images = await screen
+      .findByLabelText('Cerrar')
+      .then(() => screen.UNSAFE_getAllByType(Image));
+    const fullscreen = images.find((image) =>
+      String((image.props.source as { testUri?: string } | undefined)?.testUri ?? '').includes(
+        'mayor/thumb',
+      ),
+    );
+    expect(fullscreen).toBeTruthy();
+  });
+
+  it('la miniatura de una localización relacionada bloqueada no abre ningún visor (FR-009)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/tip/donde-dormir' });
+    await screen.findByLabelText('Puerta del Sol');
+
+    expect(screen.queryByLabelText('Ver foto completa de Puerta del Sol')).toBeNull();
+  });
+
   it('volver atrás desde la ficha abierta aquí devuelve al consejo, no al mapa', async () => {
     await skipOnboarding();
     renderRouter('app', { initialUrl: `/tip/${tip.id}` });

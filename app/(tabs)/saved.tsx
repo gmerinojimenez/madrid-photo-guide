@@ -85,6 +85,7 @@ export default function SavedScreen() {
           title={localize(item.name, 'es')}
           onPress={() => router.push(`/location/${item.id}`)}
           image={item.thumbnail}
+          onImagePress={() => router.push(`/photo-viewer?locationId=${item.id}&usage=thumb`)}
         />
       )}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
