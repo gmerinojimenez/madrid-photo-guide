@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import type { ImageRef } from '../../core/content/schema.ts';
 import { colors, radius, spacing } from '../theme/tokens.ts';
 import { ImagePlaceholder } from './ImagePlaceholder.tsx';
+import { LocationImage } from './LocationImage.tsx';
 
 type Props = {
   title: string;
@@ -12,10 +14,12 @@ type Props = {
   accessibilityLabel?: string;
   /** Contenido a la derecha del texto (candado, distancia…). */
   trailing?: ReactNode;
+  /** Miniatura real a mostrar; si se omite, se mantiene el bloque de color. */
+  image?: ImageRef;
 };
 
 /** Tarjeta de lista compartida por mapa, guardados y consejos relacionados. */
-export function ListCard({ title, subtitle, onPress, accessibilityLabel, trailing }: Props) {
+export function ListCard({ title, subtitle, onPress, accessibilityLabel, trailing, image }: Props) {
   return (
     <Pressable
       onPress={onPress}
@@ -23,7 +27,11 @@ export function ListCard({ title, subtitle, onPress, accessibilityLabel, trailin
       accessibilityLabel={accessibilityLabel ?? title}
       style={styles.card}
     >
-      <ImagePlaceholder style={styles.thumb} />
+      {image ? (
+        <LocationImage imageRef={image} style={styles.thumb} />
+      ) : (
+        <ImagePlaceholder style={styles.thumb} />
+      )}
       <View style={styles.body}>
         <Text style={styles.title} numberOfLines={1}>
           {title}

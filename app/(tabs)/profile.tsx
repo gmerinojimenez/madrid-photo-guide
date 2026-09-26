@@ -5,20 +5,39 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { catalogCounts } from '../../src/core/content/counts.ts';
 import type { RestoreOutcome } from '../../src/core/entitlement/store-gateway.ts';
+import { permissionAction } from '../../src/core/location/permission.ts';
+import type { PermissionState } from '../../src/core/location/ports.ts';
 import { Icon } from '../../src/ui/components/Icon.tsx';
-import { useCatalog, useEntitlement, useRestore } from '../../src/ui/providers/index.ts';
+import {
+  useCatalog,
+  useEntitlement,
+  useRestore,
+  useUserLocation,
+} from '../../src/ui/providers/index.ts';
 import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
 
+// data-model.md §1: `denied` y `blocked` comparten etiqueta ("Denegada"), y
+// solo cambia la acción que dispara la fila.
+const PERMISSION_LABEL: Record<PermissionState, string> = {
+  undetermined: 'Sin pedir',
+  granted: 'Concedida',
+  approximate: 'Aproximada',
+  denied: 'Denegada',
+  blocked: 'Denegada',
+};
+
 /**
- * Sección Perfil (US7, US2, contracts/screens.md §4). La línea de plan es
- * dinámica; "Restaurar compra" es un control pulsable (D-011) con sus tres
- * desenlaces; "Descarga sin conexión" sigue siendo informativa (FR-034): no
- * es un control roto, es el alcance de esta entrega.
+ * Sección Perfil (US7, US2, contracts/screens.md §4; feature 004, US5). La
+ * línea de plan es dinámica; "Restaurar compra" es un control pulsable
+ * (D-011) con sus tres desenlaces; "Descarga sin conexión" sigue siendo
+ * informativa (FR-034): no es un control roto, es el alcance de esta
+ * entrega. La fila "Ubicación" sí es accionable, según contracts/screens.md.
  */
 export default function ProfileScreen() {
   const catalog = useCatalog();
   const entitlement = useEntitlement();
   const restore = useRestore();
+  const { snapshot, requestPermission, openSettings } = useUserLocation();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const counts = catalogCounts(catalog);
@@ -42,6 +61,14 @@ export default function ProfileScreen() {
         return;
       case 'unavailable':
         setMessage('No se pudo contactar con la tienda. El acceso vigente no cambia.');
+    }
+  }
+
+  function handleLocationPress() {
+    if (permissionAction(snapshot.permission) === 'request') {
+      requestPermission('profile');
+    } else {
+      openSettings();
     }
   }
 
@@ -70,6 +97,16 @@ export default function ProfileScreen() {
       </View>
 
       <View style={styles.rows}>
+        <Pressable
+          onPress={handleLocationPress}
+          accessibilityRole="button"
+          accessibilityLabel="Ubicación"
+          style={styles.row}
+        >
+          <Icon name="compass" color={colors.textMuted} size={20} />
+          <Text style={styles.rowLabel}>Ubicación</Text>
+          <Text style={styles.rowValue}>{PERMISSION_LABEL[snapshot.permission]}</Text>
+        </Pressable>
         <View style={styles.row}>
           <Icon name="downloadSimple" color={colors.textMuted} size={20} />
           <Text style={styles.rowLabel}>Descarga sin conexión</Text>
@@ -145,6 +182,10 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 14,
     flex: 1,
+  },
+  rowValue: {
+    color: colors.textMuted,
+    fontSize: 13,
   },
   rowSpinner: {
     marginLeft: spacing[2],

@@ -9,6 +9,8 @@ import { Linking } from 'react-native';
 export interface SystemLinks {
   openUrl(url: string): Promise<void>;
   copyToClipboard(text: string): Promise<void>;
+  /** Abre la pantalla de la app en los Ajustes del sistema (feature 004, research.md D-010). */
+  openSettings(): Promise<void>;
 }
 
 export const systemLinks: SystemLinks = {
@@ -17,5 +19,8 @@ export const systemLinks: SystemLinks = {
   },
   async copyToClipboard(text: string) {
     await Clipboard.setStringAsync(text);
+  },
+  async openSettings() {
+    await Linking.openSettings();
   },
 };

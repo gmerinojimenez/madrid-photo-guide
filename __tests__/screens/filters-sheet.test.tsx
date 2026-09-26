@@ -30,10 +30,17 @@ describe('Panel de filtros', () => {
     expect(screen.getByLabelText('Templo de Debod')).toBeTruthy();
   });
 
-  it('la distancia se muestra visible pero inactiva y marcada como no disponible', async () => {
+  // FR-017 sustituye a propósito, en la feature 004, la fila fija de esta
+  // spec 003 ("Distancia no disponible") por los chips de radio reales: sin
+  // permiso siguen tocables, para pedirlo (US3 §5, __tests__/screens/location-radius.test.tsx).
+  it('sin permiso de ubicación, el radio de distancia se muestra con "Todo Madrid" marcado', async () => {
     await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
     fireEvent.press(await screen.findByLabelText('Filtros'));
-    expect(await screen.findByText('Distancia no disponible')).toBeTruthy();
+
+    const allChip = await screen.findByLabelText('Todo Madrid');
+    expect(allChip.props.accessibilityState.selected).toBe(true);
+    expect(screen.getByLabelText('< 1 km')).toBeTruthy();
+    expect(screen.getByLabelText('< 3 km')).toBeTruthy();
   });
 });

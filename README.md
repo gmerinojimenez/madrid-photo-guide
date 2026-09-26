@@ -7,6 +7,10 @@ La app navegable completa: mapa real, ficha de localización, consejos, guardado
 presentación inicial y el flujo modo prueba → contenido bloqueado → paywall → comprado (ver
 [specs/003-app-navigation-flows](specs/003-app-navigation-flows/)).
 
+La geolocalización es real: permiso en primer plano, distancia en la ficha, punto de
+posición y filtro por radio en el mapa, y distancia redondeada para el contenido bloqueado
+(ver [specs/004-user-geolocation](specs/004-user-geolocation/)).
+
 El contenido de la guía —localizaciones fotográficas, barrios, etiquetas y consejos— vive en
 `src/content/catalog.json` y se carga y valida con el núcleo de `src/core/content/` (ver
 [specs/002-content-data-schema](specs/002-content-data-schema/)).
@@ -66,6 +70,23 @@ Los pasos de consola, la lista de comprobación de manifiesto (D-002) y la valid
 las tiendas reales están en
 [specs/004-revenuecat-payments/quickstart.md](specs/004-revenuecat-payments/quickstart.md#4-configuración-de-consolas-una-vez).
 
+## Ubicación
+
+El permiso de ubicación (`expo-location`, solo en primer plano) es configuración nativa: un
+cambio en `app.json` desde la última vez que compilaste exige regenerar la development build
+(`npx expo prebuild --clean && npm run android` / `npm run ios`), igual que con el mapa.
+
+Para probar la geolocalización sin moverte, simula la posición desde el propio
+simulador/emulador:
+
+- **iOS (simulador)**: menú *Features → Location → Custom Location…*
+- **Android (emulador)**: *Extended controls (⋯) → Location*
+
+Un punto de referencia útil es la Puerta del Sol (40.416775, -3.703790); un punto a más de
+50 km de ahí (p. ej. Toledo, 39.862832, -4.027323) sirve para probar el aviso de "lejos de
+Madrid". El recorrido de validación manual completo está en
+[specs/004-user-geolocation/quickstart.md](specs/004-user-geolocation/quickstart.md).
+
 ## Comandos
 
 ```bash
@@ -90,9 +111,11 @@ npm run ios         # compila e instala en un simulador/dispositivo iOS (requier
 - `app.json` — configuración de Expo (nombre, slug, `com.gmj.madridphotoguide`, tema oscuro,
   clave de Google Maps para Android)
 - `src/core/` — dominio en TypeScript puro, sin React ni nativo (verificado por ESLint):
-  contenido del catálogo, titularidad, enlaces de navegación y puertos de almacenamiento
+  contenido del catálogo, titularidad, ubicación (`src/core/location/`: permiso, distancia,
+  filtro por radio), analítica (`src/core/analytics/`, catálogo tipado de eventos), enlaces
+  de navegación y puertos de almacenamiento
 - `src/platform/` — adaptadores nativos tras los puertos del núcleo: SQLite, imágenes,
-  `Linking` y `expo-clipboard`
+  `Linking`, `expo-clipboard` y `expo-location`
 - `src/ui/` — componentes React compartidos por las rutas: tema, proveedores, el único
   componente de mapa (`src/ui/map/LocationMap.tsx`), los paneles superpuestos y componentes
   compartidos

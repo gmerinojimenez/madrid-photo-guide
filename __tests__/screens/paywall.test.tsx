@@ -1,6 +1,9 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
 import { skipOnboarding } from './support.ts';
+import rawCatalog from '../../src/content/catalog.json';
+import { loadCatalog } from '../../src/core/content/catalog.ts';
+import { localize } from '../../src/core/content/localize.ts';
 
 function fakePurchases() {
   return require('react-native-purchases') as { __forceOffline: () => void };
@@ -11,18 +14,25 @@ function fakePurchases() {
  * contracts/screens.md §6: precio real de la tienda, aviso de plataforma
  * antes del botón, y degradación sin precio.
  */
+const loaded = loadCatalog(rawCatalog);
+if (loaded.status !== 'ok') throw new Error('catálogo inválido en el fixture de test');
+const catalog = loaded.catalog;
+const premiumLocation = catalog.locations.find((l) => l.access === 'premium');
+if (!premiumLocation)
+  throw new Error('el catálogo necesita al menos una localización premium para este test');
+
 describe('Paywall', () => {
   it('muestra el precio de la tienda y el total real de localizaciones', async () => {
     await skipOnboarding();
     renderRouter('app', { initialUrl: '/paywall' });
     expect(await screen.findByText('9,99 €')).toBeTruthy();
-    expect(screen.getByText(/14/)).toBeTruthy();
+    expect(screen.getByText(new RegExp(String(catalog.locations.length)))).toBeTruthy();
   });
 
   it('cerrar sin comprar vuelve al mapa sin conceder la titularidad', async () => {
     await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });
-    fireEvent.press(await screen.findByLabelText('Cerro del Tío Pío'));
+    fireEvent.press(await screen.findByLabelText(localize(premiumLocation.name, 'es')));
     fireEvent.press(await screen.findByText('Desbloquear'));
 
     expect(await screen.findByText('9,99 €')).toBeTruthy();
@@ -30,8 +40,8 @@ describe('Paywall', () => {
 
     expect(await screen.findByLabelText('Buscar localizaciones')).toBeTruthy();
     // Sin titularidad: tocar la misma localización vuelve a abrir el panel bloqueado.
-    fireEvent.press(screen.getByLabelText('Cerro del Tío Pío'));
-    expect(await screen.findByText('Vallecas')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText(localize(premiumLocation.name, 'es')));
+    expect(await screen.findByText('Coordenadas exactas')).toBeTruthy();
   });
 
   it('el aviso de alcance por plataforma aparece antes del botón de compra (FR-009, D-012)', async () => {

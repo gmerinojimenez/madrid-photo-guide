@@ -84,6 +84,7 @@ export default function TipDetailScreen() {
                 key={location.id}
                 title={localize(location.name, 'es')}
                 onPress={() => handleRelatedPress(location.id)}
+                image={location.thumbnail}
               />
             ))}
           </View>

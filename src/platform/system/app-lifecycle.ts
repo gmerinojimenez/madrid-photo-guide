@@ -8,7 +8,10 @@ export function appStateLifecycle(): AppLifecycle {
     onForeground(listener: () => void): () => void {
       let previousState = AppState.currentState;
       const subscription = AppState.addEventListener('change', (nextState) => {
-        if (previousState.match(/inactive|background/) && nextState === 'active') {
+        if (
+          (previousState === 'inactive' || previousState === 'background') &&
+          nextState === 'active'
+        ) {
           listener();
         }
         previousState = nextState;

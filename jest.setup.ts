@@ -7,6 +7,10 @@
  * de `expo-maps` renderiza cada marcador como un elemento pulsable con su nombre
  * accesible, y el de `expo-sqlite` es un motor mínimo en memoria que entiende
  * exactamente las sentencias que emiten los adaptadores de esta feature.
+ *
+ * `expo-location`, `Linking.openSettings` y `AppState` (T003, T004, feature
+ * 004) siguen el mismo criterio: un doble controlable desde los tests, no una
+ * simulación fiel del SDK.
  */
 import { beforeEach, jest } from '@jest/globals';
 
@@ -17,21 +21,32 @@ jest.mock('expo-maps', () => {
   const React = require('react');
   const { View, Pressable, Text } = require('react-native');
 
-  function FakeMapView({
-    markers,
-    annotations,
-    onMarkerClick,
-    onAnnotationClick,
-    testID,
-    lockedIds,
-  }: any) {
+  // Última llamada a `setCameraPosition` de la instancia de mapa activa
+  // (T051, feature 004, US3): expuesta como `__lastSetCameraPosition()` para
+  // que los tests comprueben que "centrar en mí" mueve la cámara.
+  let lastSetCameraPosition: unknown = null;
+
+  const FakeMapView = React.forwardRef(function FakeMapView(
+    { markers, annotations, onMarkerClick, onAnnotationClick, testID, lockedIds, properties }: any,
+    ref: any,
+  ) {
     const items: any[] = markers ?? annotations ?? [];
     const handler = onMarkerClick ?? onAnnotationClick;
     const locked: Set<string> = new Set(lockedIds ?? []);
+
+    React.useImperativeHandle(ref, () => ({
+      setCameraPosition: (config: unknown) => {
+        lastSetCameraPosition = config;
+      },
+    }));
+
     return React.createElement(
       View,
       { testID: testID ?? 'location-map' },
-      items.map((marker: any) =>
+      properties?.isMyLocationEnabled
+        ? React.createElement(View, { testID: 'user-location-dot' })
+        : null,
+      ...items.map((marker: any) =>
         React.createElement(
           Pressable,
           {
@@ -49,11 +64,15 @@ jest.mock('expo-maps', () => {
         ),
       ),
     );
-  }
+  });
 
   return {
     GoogleMaps: { View: FakeMapView },
     AppleMaps: { View: FakeMapView },
+    __lastSetCameraPosition: () => lastSetCameraPosition,
+    __resetMapDouble: () => {
+      lastSetCameraPosition = null;
+    },
     requestPermissionsAsync: jest.fn(async () => ({ granted: false, status: 'undetermined' })),
     getPermissionsAsync: jest.fn(async () => ({ granted: false, status: 'undetermined' })),
     useLocationPermissions: jest.fn(() => [
@@ -62,6 +81,11 @@ jest.mock('expo-maps', () => {
       jest.fn(),
     ]),
   };
+});
+
+beforeEach(() => {
+  const maps = require('expo-maps') as { __resetMapDouble: () => void };
+  maps.__resetMapDouble();
 });
 
 // ---------------------------------------------------------------------------
@@ -299,12 +323,18 @@ jest.mock('expo-sqlite', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Linking.openURL (React Native core, no Expo)
+// Linking.openURL / openSettings (React Native core, no Expo)
 // ---------------------------------------------------------------------------
-import { Linking } from 'react-native';
+import { AppState, Linking } from 'react-native';
 
 beforeEach(() => {
-  jest.spyOn(Linking, 'openURL').mockResolvedValue(true as never);
+  // `jest.spyOn` sobre una propiedad ya espiada devuelve el mismo espía sin
+  // vaciar su historial de llamadas (no hay `clearMocks` en la configuración
+  // de Jest de este proyecto): sin `mockClear()`, un test que comprueba
+  // `toHaveBeenCalledTimes` vería también las llamadas de tests anteriores
+  // del mismo fichero.
+  jest.spyOn(Linking, 'openURL').mockResolvedValue(true as never).mockClear();
+  jest.spyOn(Linking, 'openSettings').mockResolvedValue(undefined as never).mockClear();
 });
 
 // ---------------------------------------------------------------------------
@@ -483,7 +513,180 @@ jest.mock('react-native-purchases', () => {
   };
 });
 
+// ---------------------------------------------------------------------------
+// expo-location (T003, feature 004)
+//
+// Estado controlable desde los tests con `__setLocationPermission`,
+// `__answerNextRequestWith`, `__emitPosition` y `__setServicesEnabled`
+// (research.md D-013). El adaptador de `src/platform/location/` traduce estas
+// respuestas — con la misma forma que las reales de `expo-location`— al
+// `RawPermission` del núcleo.
+// ---------------------------------------------------------------------------
+type MockPermissionState = 'undetermined' | 'granted' | 'approximate' | 'denied' | 'blocked';
+
+// Declarado fuera del factory de `jest.mock`: Babel comprueba que el factory
+// no referencie variables externas, y una declaración `type` local dentro de
+// él dispara esa comprobación igual que una variable (aunque se borre al
+// compilar). Un tipo de ámbito de módulo, en cambio, se borra antes de esa
+// comprobación, igual que ya ocurre con `MockPermissionState` arriba.
+type MockRawResponse = {
+  status: 'undetermined' | 'granted' | 'denied';
+  granted: boolean;
+  canAskAgain: boolean;
+  ios: { scope: 'none' | 'whenInUse'; accuracy: 'full' | 'reduced' };
+  android: { accuracy: 'none' | 'fine' | 'coarse' };
+};
+
+// Mismo motivo: un tipo de función inline con un parámetro nombrado dentro de
+// un genérico (`Set<(reading: unknown) => void>`) hace que Babel confunda el
+// nombre del parámetro con una variable externa. Como alias de módulo, no.
+type MockReadingListener = (reading: unknown) => void;
+
+jest.mock('expo-location', () => {
+  function responseFor(state: MockPermissionState): MockRawResponse {
+    switch (state) {
+      case 'undetermined':
+        return {
+          status: 'undetermined',
+          granted: false,
+          canAskAgain: true,
+          ios: { scope: 'none', accuracy: 'full' },
+          android: { accuracy: 'none' },
+        };
+      case 'granted':
+        return {
+          status: 'granted',
+          granted: true,
+          canAskAgain: true,
+          ios: { scope: 'whenInUse', accuracy: 'full' },
+          android: { accuracy: 'fine' },
+        };
+      case 'approximate':
+        return {
+          status: 'granted',
+          granted: true,
+          canAskAgain: true,
+          ios: { scope: 'whenInUse', accuracy: 'reduced' },
+          android: { accuracy: 'coarse' },
+        };
+      case 'denied':
+        return {
+          status: 'denied',
+          granted: false,
+          canAskAgain: true,
+          ios: { scope: 'none', accuracy: 'full' },
+          android: { accuracy: 'none' },
+        };
+      case 'blocked':
+        return {
+          status: 'denied',
+          granted: false,
+          canAskAgain: false,
+          ios: { scope: 'none', accuracy: 'full' },
+          android: { accuracy: 'none' },
+        };
+      default:
+        throw new Error(`expo-location (doble): estado desconocido "${state}"`);
+    }
+  }
+
+  let current: MockRawResponse = responseFor('undetermined');
+  let nextAnswer: MockRawResponse | null = null;
+  let servicesEnabled = true;
+  const watchers = new Set<MockReadingListener>();
+
+  const getForegroundPermissionsAsync = jest.fn(async () => current);
+  // Sin diálogo real: si hay una respuesta preparada con
+  // `__answerNextRequestWith`, la aplica (simula que la persona ha
+  // respondido); si no, devuelve el estado vigente sin cambiarlo (simula que
+  // el sistema no vuelve a preguntar, p. ej. en `blocked`).
+  const requestForegroundPermissionsAsync = jest.fn(async () => {
+    if (nextAnswer) {
+      current = nextAnswer;
+      nextAnswer = null;
+    }
+    return current;
+  });
+  const hasServicesEnabledAsync = jest.fn(async () => servicesEnabled);
+  const watchPositionAsync = jest.fn(async (_options: unknown, callback: MockReadingListener) => {
+    watchers.add(callback);
+    return { remove: () => watchers.delete(callback) };
+  });
+
+  return {
+    __esModule: true,
+    Accuracy: { Lowest: 1, Low: 2, Balanced: 3, High: 4, Highest: 5, BestForNavigation: 6 },
+    getForegroundPermissionsAsync,
+    requestForegroundPermissionsAsync,
+    hasServicesEnabledAsync,
+    watchPositionAsync,
+    /** Cambia el permiso "desde Ajustes": no simula una petición ni un diálogo. */
+    __setLocationPermission: (state: MockPermissionState) => {
+      current = responseFor(state);
+    },
+    /** Prepara la respuesta que dará la próxima `requestForegroundPermissionsAsync()`. */
+    __answerNextRequestWith: (state: MockPermissionState) => {
+      nextAnswer = responseFor(state);
+    },
+    __setServicesEnabled: (enabled: boolean) => {
+      servicesEnabled = enabled;
+    },
+    /** Entrega una lectura a todos los `watchPositionAsync` activos. */
+    __emitPosition: (coords: { lat: number; lng: number }) => {
+      const reading = {
+        coords: { latitude: coords.lat, longitude: coords.lng },
+        timestamp: Date.now(),
+      };
+      watchers.forEach((callback) => callback(reading));
+    },
+    __activeWatcherCount: () => watchers.size,
+    __resetLocation: () => {
+      current = responseFor('undetermined');
+      nextAnswer = null;
+      servicesEnabled = true;
+      watchers.clear();
+      getForegroundPermissionsAsync.mockClear();
+      requestForegroundPermissionsAsync.mockClear();
+      hasServicesEnabledAsync.mockClear();
+      watchPositionAsync.mockClear();
+    },
+  };
+});
+
 beforeEach(() => {
   const purchases = require('react-native-purchases') as { __reset: () => void };
   purchases.__reset();
+  const location = require('expo-location') as { __resetLocation: () => void };
+  location.__resetLocation();
 });
+
+// ---------------------------------------------------------------------------
+// AppState (T004, feature 004)
+//
+// El preset de Jest de React Native ya deja `AppState.addEventListener` como
+// un `jest.fn()` que no invoca a nadie. Aquí se sustituye por una
+// implementación que sí recuerda a los oyentes, para poder simular el paso a
+// segundo plano y la vuelta con `__setAppState`.
+// ---------------------------------------------------------------------------
+const appStateListeners = new Set<(state: string) => void>();
+
+beforeEach(() => {
+  appStateListeners.clear();
+  jest.spyOn(AppState, 'addEventListener').mockImplementation(((
+    type: string,
+    handler: (state: string) => void,
+  ) => {
+    if (type === 'change') appStateListeners.add(handler);
+    return { remove: () => appStateListeners.delete(handler) };
+  }) as typeof AppState.addEventListener);
+});
+
+/**
+ * Simula un cambio de estado de la app ('active' | 'background' | 'inactive').
+ * `jest.setup.ts` no es un módulo que los tests puedan importar (es
+ * `setupFilesAfterEnv`), así que se cuelga de `globalThis`, con su propio tipo
+ * declarado en `__tests__/screens/support.ts`, que es quien lo reexporta.
+ */
+(globalThis as { __setAppState?: (state: string) => void }).__setAppState = (state: string) => {
+  appStateListeners.forEach((handler) => handler(state));
+};

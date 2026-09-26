@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
+import { Image } from 'react-native';
 
 import { skipOnboarding } from './support.ts';
 
@@ -57,5 +58,31 @@ describe('Guardados', () => {
     fireEvent.press(await screen.findByLabelText('Guardados, tab, 3 of 4'));
     const cards = await screen.findAllByLabelText(/Templo de Debod|Puerta del Sol/);
     expect(cards.map((c) => c.props.accessibilityLabel)).toEqual(['Puerta del Sol', 'Templo de Debod']);
+  });
+
+  it('la tarjeta de una localización guardada muestra su miniatura real (FR-002)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    await screen.findByLabelText('Buscar localizaciones');
+    await ensureOwned();
+
+    // Cuatro Torres, no tocada por los tests previos de este fichero, para no
+    // depender de si ya estaba guardada por otro `it()` (el almacén falso de
+    // `expo-sqlite` persiste entre tests del mismo fichero, D-013 punto 3).
+    fireEvent.press(await screen.findByLabelText('Cuatro Torres Business Area'));
+    fireEvent.press(await screen.findByLabelText('Guardar'));
+    await screen.findByLabelText('Guardado');
+    fireEvent.press(screen.getByLabelText('Volver'));
+
+    fireEvent.press(await screen.findByLabelText('Guardados, tab, 3 of 4'));
+    await screen.findByLabelText('Cuatro Torres Business Area');
+
+    const images = screen.UNSAFE_getAllByType(Image);
+    const thumb = images.find((image) =>
+      String((image.props.source as { testUri?: string } | undefined)?.testUri ?? '').includes(
+        'torres/thumb',
+      ),
+    );
+    expect(thumb).toBeTruthy();
   });
 });

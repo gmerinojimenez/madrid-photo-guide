@@ -57,6 +57,6 @@ describe('Degradación de la titularidad', () => {
     fakePurchases().__pushRevocation();
 
     // La barra de modo prueba reaparece: el reembolso revocó el acceso.
-    expect(await screen.findByText(/de 14 localizaciones/)).toBeTruthy();
+    expect(await screen.findByText(/\d+ de \d+ localizaciones/)).toBeTruthy();
   });
 });

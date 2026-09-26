@@ -8,8 +8,12 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { preferencesEntitlementCache } from '../src/core/entitlement/cache.ts';
 import { StoreBackedEntitlementSource } from '../src/core/entitlement/store-backed.ts';
+import { LocationTracker } from '../src/core/location/tracker.ts';
+import { createExpoDeviceLocation } from '../src/platform/location/expo-device-location.ts';
 import { readRevenueCatConfig, createRevenueCatGateway } from '../src/platform/purchases/index.ts';
+import { consoleAnalytics } from '../src/platform/system/console-analytics.ts';
 import { appStateLifecycle } from '../src/platform/system/app-lifecycle.ts';
+import { systemLinks } from '../src/platform/system/external.ts';
 import { migrate } from '../src/platform/storage/schema.ts';
 import { consoleLogger } from '../src/platform/system/console-logger.ts';
 import { colors } from '../src/ui/theme/tokens.ts';
@@ -17,6 +21,7 @@ import {
   CatalogProvider,
   EntitlementProvider,
   StoresProvider,
+  UserLocationProvider,
   usePreferencesStore,
 } from '../src/ui/providers/index.ts';
 
@@ -26,10 +31,18 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 const revenueCatGateway = createRevenueCatGateway(readRevenueCatConfig());
 const lifecycle = appStateLifecycle();
 
+// Fuera del componente para que la regla de pureza de render no vea la
+// llamada a `Date.now()` como parte del cuerpo de `useMemo` de abajo: el
+// propio `LocationTracker` es quien la invoca, nunca el render.
+function now(): number {
+  return Date.now();
+}
+
 /**
  * Stack raíz: `SafeAreaProvider` → `SQLiteProvider` → catálogo → almacenes →
- * titularidad respaldada por la tienda → `Stack` (contracts/routes.md), con
- * la redirección condicional a onboarding de la regla R-1.
+ * titularidad respaldada por la tienda → ubicación → `Stack`
+ * (contracts/routes.md), con la redirección condicional a onboarding de la
+ * regla R-1.
  */
 export default function RootLayout() {
   return (
@@ -44,7 +57,9 @@ export default function RootLayout() {
         <CatalogProvider>
           <StoresProvider>
             <AppEntitlementProvider>
-              <RootNavigator />
+              <RootUserLocationProvider>
+                <RootNavigator />
+              </RootUserLocationProvider>
             </AppEntitlementProvider>
           </StoresProvider>
         </CatalogProvider>
@@ -99,6 +114,31 @@ function AppEntitlementProvider({ children }: { children: ReactNode }) {
     >
       {children}
     </EntitlementProvider>
+  );
+}
+
+/**
+ * Construye el único `LocationTracker` del proceso (research.md D-003) con el
+ * `PreferencesStore` real, ya disponible dentro de `StoresProvider`, y lo
+ * publica con `UserLocationProvider`.
+ */
+function RootUserLocationProvider({ children }: { children: ReactNode }) {
+  const preferences = usePreferencesStore();
+  const tracker = useMemo(
+    () =>
+      new LocationTracker({
+        device: createExpoDeviceLocation(),
+        preferences,
+        analytics: consoleAnalytics,
+        now,
+      }),
+    [preferences],
+  );
+
+  return (
+    <UserLocationProvider tracker={tracker} openSettings={systemLinks.openSettings}>
+      {children}
+    </UserLocationProvider>
   );
 }
 

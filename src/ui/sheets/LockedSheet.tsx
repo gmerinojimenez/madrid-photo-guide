@@ -2,9 +2,11 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { LocationPreview } from '../../core/content/access.ts';
 import { localize } from '../../core/content/localize.ts';
+import { formatVisibleDistance } from '../../core/location/format.ts';
+import type { VisibleDistance } from '../../core/location/ports.ts';
 import type { Neighbourhood, Tag } from '../../core/content/schema.ts';
 import { Icon } from '../components/Icon.tsx';
-import { ImagePlaceholder } from '../components/ImagePlaceholder.tsx';
+import { LocationImage } from '../components/LocationImage.tsx';
 import { colors, radius, spacing } from '../theme/tokens.ts';
 import { SheetHost } from './SheetHost.tsx';
 
@@ -13,6 +15,8 @@ type Props = {
   preview: LocationPreview | null;
   neighbourhood: Neighbourhood | undefined;
   tags: Tag[];
+  /** Feature 004, US4 §1: redondeada por el módulo de acceso, nunca la exacta. */
+  distance: VisibleDistance;
   onUnlock: () => void;
   onDismiss: () => void;
 };
@@ -29,7 +33,16 @@ const LOCKED_ROWS: { icon: Parameters<typeof Icon>[0]['name']; label: string }[]
  * que no hay nada que filtrar por accidente. Las filas de candado nombran lo
  * que falta, nunca sus valores.
  */
-export function LockedSheet({ visible, preview, neighbourhood, tags, onUnlock, onDismiss }: Props) {
+export function LockedSheet({
+  visible,
+  preview,
+  neighbourhood,
+  tags,
+  distance,
+  onUnlock,
+  onDismiss,
+}: Props) {
+  const formattedDistance = formatVisibleDistance(distance);
   return (
     <SheetHost
       visible={visible}
@@ -40,7 +53,7 @@ export function LockedSheet({ visible, preview, neighbourhood, tags, onUnlock, o
     >
       {preview ? (
         <View style={styles.content}>
-          <ImagePlaceholder style={styles.image} />
+          <LocationImage imageRef={preview.thumbnail} style={styles.image} />
           <Text style={styles.name}>{localize(preview.name, 'es')}</Text>
           {neighbourhood ? (
             <Text style={styles.neighbourhood}>{localize(neighbourhood.name, 'es')}</Text>
@@ -57,7 +70,7 @@ export function LockedSheet({ visible, preview, neighbourhood, tags, onUnlock, o
           <View style={styles.row}>
             <Icon name="crosshair" color={colors.textMuted} size={18} />
             <Text style={styles.rowLabel}>Distancia</Text>
-            <Text style={styles.rowValue}>Distancia no disponible</Text>
+            <Text style={styles.rowValue}>{formattedDistance.value}</Text>
           </View>
 
           <View style={styles.lockedRows}>
