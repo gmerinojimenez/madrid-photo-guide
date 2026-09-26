@@ -14,6 +14,17 @@ export async function skipOnboarding(): Promise<void> {
 }
 
 /**
+ * Simula un cambio de estado de la app (feature 004). Reexporta el ayudante
+ * que `jest.setup.ts` cuelga de `globalThis`, porque un fichero de setup de
+ * Jest no es importable directamente desde un test.
+ */
+export function setAppState(state: 'active' | 'background' | 'inactive'): void {
+  const helper = (globalThis as { __setAppState?: (state: string) => void }).__setAppState;
+  if (!helper) throw new Error('setAppState(): jest.setup.ts no ha registrado __setAppState');
+  helper(state);
+}
+
+/**
  * Ids de localización de los marcadores actualmente renderizados, ordenados.
  * Se leen del `testID` (`marker-<id>-open|locked`) en lugar de contar a ojo,
  * para poder comparar contra `queryLocations` sin depender del tamaño o del

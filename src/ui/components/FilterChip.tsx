@@ -8,17 +8,26 @@ type Props = {
   onPress: () => void;
   /** Nombre accesible alternativo; por defecto, el propio `label`. */
   accessibilityLabel?: string;
+  /** Feature 004: un chip inactivo sigue siendo tocable (p. ej. para pedir el permiso), solo se atenúa. */
+  disabled?: boolean;
 };
 
 /** Chip de filtro (tipo de foto, categoría de consejo, "Todo"…), FR-016. */
-export function FilterChip({ label, selected, onPress, accessibilityLabel }: Props) {
+export function FilterChip({
+  label,
+  selected,
+  onPress,
+  accessibilityLabel,
+  disabled = false,
+}: Props) {
   return (
     <Pressable
       onPress={onPress}
+      disabled={disabled}
       accessibilityRole="button"
-      accessibilityState={{ selected }}
+      accessibilityState={{ selected, disabled }}
       accessibilityLabel={accessibilityLabel ?? label}
-      style={[styles.chip, selected && styles.chipSelected]}
+      style={[styles.chip, selected && styles.chipSelected, disabled && styles.chipDisabled]}
     >
       <Text style={[styles.label, selected && styles.labelSelected]}>{label}</Text>
     </Pressable>
@@ -36,6 +45,9 @@ const styles = StyleSheet.create({
   chipSelected: {
     borderColor: colors.accent,
     backgroundColor: colors.accent900,
+  },
+  chipDisabled: {
+    opacity: 0.5,
   },
   label: {
     color: colors.text,
