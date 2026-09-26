@@ -3,7 +3,13 @@ import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { isFullLocation, localize, viewLocation } from '../../src/core/content/index.ts';
+import {
+  isFullLocation,
+  localize,
+  viewLocation,
+  visibleDistance,
+} from '../../src/core/content/index.ts';
+import { formatVisibleDistance } from '../../src/core/location/index.ts';
 import { formatCoordinates } from '../../src/core/navigation/links.ts';
 import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
 import { Icon } from '../../src/ui/components/Icon.tsx';
@@ -13,6 +19,7 @@ import {
   useCatalog,
   useEntitlement,
   useSavedLocationsStore,
+  useUserLocation,
 } from '../../src/ui/providers/index.ts';
 import { colors, radius, spacing } from '../../src/ui/theme/tokens.ts';
 
@@ -28,6 +35,7 @@ export default function LocationDetailScreen() {
   const catalog = useCatalog();
   const entitlement = useEntitlement();
   const savedLocations = useSavedLocationsStore();
+  const { snapshot, now, ensureLocation } = useUserLocation();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
@@ -70,6 +78,11 @@ export default function LocationDetailScreen() {
   const tags = full.tagIds
     .map((tagId) => catalog.tags.find((tag) => tag.id === tagId))
     .filter((tag): tag is NonNullable<typeof tag> => Boolean(tag));
+
+  // FR-011, FR-012, FR-014, US1 §3-§6: la distancia real sustituye a "no
+  // disponible"; sin permiso, la fila es tocable (contracts/screens.md).
+  const distance = visibleDistance(full, entitlement, snapshot, now);
+  const formattedDistance = formatVisibleDistance(distance);
 
   async function handleToggleSave() {
     // FR-027: la comprobación de titularidad ocurre ANTES de escribir.
@@ -133,7 +146,14 @@ export default function LocationDetailScreen() {
         <Row icon="clock" label="Mejor momento" value={localize(full.bestTime, 'es')} />
       ) : null}
 
-      <Row icon="crosshair" label="Distancia" value="Distancia no disponible" />
+      <Row
+        icon="crosshair"
+        label="Distancia"
+        value={formattedDistance.value}
+        detail={formattedDistance.detail}
+        onPress={distance.kind === 'unavailable' ? () => ensureLocation('contextual') : undefined}
+        actionLabel="Activar ubicación"
+      />
 
       <Row icon="mapPin" label="Coordenadas" value={formatCoordinates(full.coords)} />
 
@@ -184,18 +204,44 @@ function Row({
   icon,
   label,
   value,
+  detail,
+  onPress,
+  actionLabel,
 }: {
   icon: Parameters<typeof Icon>[0]['name'];
   label: string;
   value: string;
+  /** Texto secundario (feature 004): marca de "aproximada"/"antigua", o el motivo si no está disponible. */
+  detail?: string | null;
+  /** Si se pasa, la fila entera se vuelve tocable (feature 004, US1 §6). */
+  onPress?: () => void;
+  actionLabel?: string;
 }) {
-  return (
-    <View style={styles.row}>
+  const content = (
+    <>
       <Icon name={icon} color={colors.textMuted} size={18} />
       <Text style={styles.rowLabel}>{label}</Text>
-      <Text style={styles.rowValue}>{value}</Text>
-    </View>
+      <View style={styles.rowValueColumn}>
+        <Text style={styles.rowValue}>{value}</Text>
+        {detail ? <Text style={styles.rowDetail}>{detail}</Text> : null}
+      </View>
+    </>
   );
+
+  if (onPress) {
+    return (
+      <Pressable
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={actionLabel ? `${value} · ${actionLabel}` : value}
+        style={styles.row}
+      >
+        {content}
+      </Pressable>
+    );
+  }
+
+  return <View style={styles.row}>{content}</View>;
 }
 
 const styles = StyleSheet.create({
@@ -271,9 +317,16 @@ const styles = StyleSheet.create({
     fontSize: 13,
     flex: 1,
   },
+  rowValueColumn: {
+    alignItems: 'flex-end',
+  },
   rowValue: {
     color: colors.text,
     fontSize: 13,
+  },
+  rowDetail: {
+    color: colors.textMuted,
+    fontSize: 11,
   },
   sectionTitle: {
     color: colors.text,

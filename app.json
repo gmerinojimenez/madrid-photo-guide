@@ -32,7 +32,18 @@
       "expo-sqlite",
       "expo-splash-screen",
       "expo-asset",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Madrid Photo Guide usa tu ubicación para decirte a qué distancia estás de cada localización y mostrarte en el mapa.",
+          "locationAlwaysAndWhenInUsePermission": false,
+          "locationAlwaysPermission": false,
+          "isIosBackgroundLocationEnabled": false,
+          "isAndroidBackgroundLocationEnabled": false,
+          "isAndroidForegroundServiceEnabled": false
+        }
+      ]
     ]
   }
 }

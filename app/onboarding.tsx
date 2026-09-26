@@ -6,20 +6,22 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { catalogCounts } from '../src/core/content/counts.ts';
 import { localize } from '../src/core/content/localize.ts';
 import { Icon } from '../src/ui/components/Icon.tsx';
-import { useCatalog, usePreferencesStore } from '../src/ui/providers/index.ts';
+import { useCatalog, usePreferencesStore, useUserLocation } from '../src/ui/providers/index.ts';
 import { colors, radius, spacing } from '../src/ui/theme/tokens.ts';
 
 const TOTAL_STEPS = 3;
 
 /**
- * Presentación inicial (US3, D-002): tres pasos en una sola ruta, con el paso
- * en estado local — no son destinos enlazables ni a los que volver con el
- * gesto de retroceso.
+ * Presentación inicial (US3, D-002; feature 004, US1 §1-§2): tres pasos en
+ * una sola ruta, con el paso en estado local — no son destinos enlazables ni
+ * a los que volver con el gesto de retroceso.
  */
 export default function OnboardingScreen() {
   const [step, setStep] = useState(0);
+  const [requestingLocation, setRequestingLocation] = useState(false);
   const catalog = useCatalog();
   const preferences = usePreferencesStore();
+  const { requestPermission } = useUserLocation();
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
@@ -35,6 +37,20 @@ export default function OnboardingScreen() {
   async function exitTo(path: '/' | '/paywall') {
     await preferences.set('onboarding.completed', '1');
     router.replace(path);
+  }
+
+  // FR-004: el diálogo se lanza una vez y, sea cual sea la respuesta, se
+  // avanza al paso siguiente. Bloqueado contra un doble toque mientras el
+  // diálogo está en curso.
+  async function activateLocation() {
+    if (requestingLocation) return;
+    setRequestingLocation(true);
+    try {
+      await requestPermission('onboarding');
+    } finally {
+      setRequestingLocation(false);
+      setStep(2);
+    }
   }
 
   return (
@@ -74,9 +90,10 @@ export default function OnboardingScreen() {
           title="Activar ubicación"
           body="Con tu ubicación te decimos qué tan lejos está cada localización. Puedes activarla más tarde: no es obligatorio ahora."
           primaryLabel="Activar ubicación"
-          onPrimary={() => setStep(2)}
+          onPrimary={activateLocation}
           secondaryLabel="Ahora no"
           onSecondary={() => setStep(2)}
+          disabled={requestingLocation}
         />
       ) : null}
 
@@ -103,6 +120,7 @@ function Step({
   onPrimary,
   secondaryLabel,
   onSecondary,
+  disabled = false,
 }: {
   icon: Parameters<typeof Icon>[0]['name'];
   title: string;
@@ -111,6 +129,7 @@ function Step({
   onPrimary: () => void;
   secondaryLabel: string;
   onSecondary: () => void;
+  disabled?: boolean;
 }) {
   return (
     <View style={styles.step}>
@@ -119,16 +138,20 @@ function Step({
       <Text style={styles.body}>{body}</Text>
       <Pressable
         onPress={onPrimary}
+        disabled={disabled}
         accessibilityRole="button"
         accessibilityLabel={primaryLabel}
+        accessibilityState={{ disabled }}
         style={styles.primaryButton}
       >
         <Text style={styles.primaryButtonLabel}>{primaryLabel}</Text>
       </Pressable>
       <Pressable
         onPress={onSecondary}
+        disabled={disabled}
         accessibilityRole="button"
         accessibilityLabel={secondaryLabel}
+        accessibilityState={{ disabled }}
         style={styles.secondaryButton}
       >
         <Text style={styles.secondaryButtonLabel}>{secondaryLabel}</Text>

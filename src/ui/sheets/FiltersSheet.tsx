@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { localize } from '../../core/content/localize.ts';
+import type { DistanceRadius, ExplorationAvailability } from '../../core/location/ports.ts';
 import type { Tag } from '../../core/content/schema.ts';
 import { Icon } from '../components/Icon.tsx';
 import { FilterChip } from '../components/FilterChip.tsx';
@@ -17,12 +18,32 @@ type Props = {
   onOnlySavedChange: (value: boolean) => void;
   onlySavedAvailable: boolean;
   resultCount: number;
+  /** Feature 004, FR-017: radio de distancia elegido y disponibilidad del filtro. */
+  radius: DistanceRadius;
+  onRadiusChange: (radius: DistanceRadius) => void;
+  availability: ExplorationAvailability;
+};
+
+const RADIUS_OPTIONS: { value: DistanceRadius; label: string }[] = [
+  { value: 'under-1km', label: '< 1 km' },
+  { value: 'under-3km', label: '< 3 km' },
+  { value: 'all', label: 'Todo Madrid' },
+];
+
+// Motivo mostrado cuando el permiso está concedido pero el filtro no está
+// disponible (contracts/screens.md, panel de filtros). Sin permiso no hace
+// falta motivo: los chips siguen tocables y son ellos mismos la invitación.
+const UNAVAILABLE_TEXT: Record<'services-off' | 'no-position' | 'far-from-madrid', string> = {
+  'services-off': 'Ubicación desactivada en el sistema',
+  'no-position': 'Buscando tu posición…',
+  'far-from-madrid': 'Estás lejos de Madrid',
 };
 
 /**
- * Panel de filtros del mapa (US5 §7, FR-018). Chips de tipo y "solo
- * guardados" operativos; la distancia se muestra visible pero inactiva y
- * marcada como no disponible (D-012).
+ * Panel de filtros del mapa (US5 §7, FR-018; feature 004, US3 §3-§6). Chips
+ * de tipo y "solo guardados" operativos; el radio de distancia ahora es real:
+ * tocable para pedir el permiso si falta, operativo si está disponible, e
+ * inactivo con su motivo si el permiso ya está concedido pero no basta.
  */
 export function FiltersSheet({
   visible,
@@ -34,7 +55,19 @@ export function FiltersSheet({
   onOnlySavedChange,
   onlySavedAvailable,
   resultCount,
+  radius: selectedRadius,
+  onRadiusChange,
+  availability,
 }: Props) {
+  // Sin permiso, los chips no se marcan inactivos: son ellos mismos el punto
+  // contextual que lo pide (US3 §5). Con permiso concedido pero sin
+  // disponibilidad, sí quedan inactivos con su motivo.
+  const chipsDisabled = availability.available === false && availability.reason !== 'no-permission';
+  const reasonText =
+    availability.available === false && availability.reason !== 'no-permission'
+      ? UNAVAILABLE_TEXT[availability.reason]
+      : null;
+  const highlightedRadius = availability.available ? selectedRadius : 'all';
   return (
     <SheetHost visible={visible} onClose={onClose} accessibilityLabel="Filtros">
       <View style={styles.content}>
@@ -63,11 +96,22 @@ export function FiltersSheet({
           />
         </View>
 
-        <View style={[styles.row, styles.disabledRow]} accessibilityState={{ disabled: true }}>
+        <View style={styles.distanceHeader}>
           <Icon name="compass" color={colors.textMuted} size={18} />
           <Text style={styles.rowLabel}>Distancia</Text>
-          <Text style={styles.rowValue}>Distancia no disponible</Text>
         </View>
+        <View style={styles.chipRow}>
+          {RADIUS_OPTIONS.map((option) => (
+            <FilterChip
+              key={option.value}
+              label={option.label}
+              selected={highlightedRadius === option.value}
+              disabled={chipsDisabled}
+              onPress={() => onRadiusChange(option.value)}
+            />
+          ))}
+        </View>
+        {reasonText ? <Text style={styles.rowValue}>{reasonText}</Text> : null}
 
         <Pressable
           onPress={onClose}
@@ -108,8 +152,10 @@ const styles = StyleSheet.create({
     gap: spacing[2],
     paddingVertical: spacing[2],
   },
-  disabledRow: {
-    opacity: 0.5,
+  distanceHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing[2],
   },
   rowLabel: {
     color: colors.text,
