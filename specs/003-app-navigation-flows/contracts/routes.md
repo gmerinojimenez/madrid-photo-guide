@@ -20,8 +20,13 @@ y a dónde vuelve cada una. Es el contrato que los tests de aceptación ejercita
 | `/location/[id]` | `app/location/[id].tsx` | Apilada sobre la sección activa | `id`: identificador de localización | FR-002 |
 | `/tip/[id]` | `app/tip/[id].tsx` | Apilada sobre la sección activa | `id`: identificador de consejo | FR-002 |
 | `/paywall` | `app/paywall.tsx` | **Modal**, cubre la pantalla | — | FR-003 |
+| `/photo-viewer` | `app/photo-viewer.tsx` | **Modal transparente**, cubre la pantalla, fondo negro | `locationId`, `usage` (`thumb`\|`detail`), `index?` | 005-uncropped-photo-display FR-001 |
 
 El grupo `(tabs)` no aparece en la ruta: la sección de mapa es `/`, no `/(tabs)/`.
+
+`/photo-viewer` no decide por sí sola si el contenido es accesible: solo navegan hasta ella los
+puntos de la UI que ya saben que muestran contenido desbloqueado (detalle en
+`specs/005-uncropped-photo-display/contracts/photo-viewer-route.md`).
 
 ### Parámetros desconocidos
 

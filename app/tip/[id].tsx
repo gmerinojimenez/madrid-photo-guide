@@ -79,14 +79,25 @@ export default function TipDetailScreen() {
         <>
           <Text style={styles.sectionTitle}>Localizaciones relacionadas</Text>
           <View style={styles.relatedList}>
-            {related.map((location) => (
-              <ListCard
-                key={location.id}
-                title={localize(location.name, 'es')}
-                onPress={() => handleRelatedPress(location.id)}
-                image={location.thumbnail}
-              />
-            ))}
+            {related.map((location) => {
+              // R-3 + 005-uncropped-photo-display FR-009: el atajo a pantalla
+              // completa solo se ofrece cuando esta misma decisión ya dio
+              // acceso a la localización; nunca para una vista previa bloqueada.
+              const unlocked = isFullLocation(viewLocation(location, entitlement));
+              return (
+                <ListCard
+                  key={location.id}
+                  title={localize(location.name, 'es')}
+                  onPress={() => handleRelatedPress(location.id)}
+                  image={location.thumbnail}
+                  onImagePress={
+                    unlocked
+                      ? () => router.push(`/photo-viewer?locationId=${location.id}&usage=thumb`)
+                      : undefined
+                  }
+                />
+              );
+            })}
           </View>
         </>
       ) : null}

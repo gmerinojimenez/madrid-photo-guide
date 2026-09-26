@@ -53,7 +53,9 @@ export function LockedSheet({
     >
       {preview ? (
         <View style={styles.content}>
-          <LocationImage imageRef={preview.thumbnail} style={styles.image} />
+          <View style={styles.imageFrame}>
+            <LocationImage imageRef={preview.thumbnail} style={styles.image} />
+          </View>
           <Text style={styles.name}>{localize(preview.name, 'es')}</Text>
           {neighbourhood ? (
             <Text style={styles.neighbourhood}>{localize(neighbourhood.name, 'es')}</Text>
@@ -108,9 +110,15 @@ const styles = StyleSheet.create({
   content: {
     gap: spacing[3],
   },
-  image: {
+  imageFrame: {
     height: 140,
     borderRadius: radius.md,
+    overflow: 'hidden',
+    backgroundColor: colors.section,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   name: {
     color: colors.text,

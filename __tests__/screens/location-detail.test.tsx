@@ -62,6 +62,45 @@ describe('Ficha de localización', () => {
     expect(header).toBeTruthy();
   });
 
+  it('la cabecera se dimensiona según la proporción real de la foto, sin recortarla (005-uncropped-photo-display FR-004)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    fireEvent.press(await screen.findByLabelText('Templo de Debod'));
+    await screen.findByText('Templo de Debod');
+
+    const debod = catalog.locations.find((l) => l.id === 'debod')!;
+    const images = screen.UNSAFE_getAllByType(Image);
+    const header = images.find((image) =>
+      String((image.props.source as { testUri?: string } | undefined)?.testUri ?? '').includes(
+        'debod/detail',
+      ),
+    )!;
+    const flatStyle = [header.props.style].flat().reduce((acc, s) => ({ ...acc, ...s }), {});
+    expect(flatStyle.width).toBeGreaterThan(0);
+    expect(flatStyle.height).toBeGreaterThan(0);
+    // Nada de altura fija (antes 200): el alto real depende de la proporción de la foto.
+    expect(flatStyle.width / flatStyle.height).toBeCloseTo(debod.detailImage.aspectRatio!, 2);
+  });
+
+  it('tocar la foto de cabecera abre el visor a pantalla completa (005-uncropped-photo-display FR-001)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    fireEvent.press(await screen.findByLabelText('Templo de Debod'));
+    await screen.findByText('Templo de Debod');
+
+    fireEvent.press(screen.getByLabelText('Ver foto completa'));
+
+    const images = await screen
+      .findByLabelText('Cerrar')
+      .then(() => screen.UNSAFE_getAllByType(Image));
+    const fullscreen = images.find((image) =>
+      String((image.props.source as { testUri?: string } | undefined)?.testUri ?? '').includes(
+        'debod/detail',
+      ),
+    );
+    expect(fullscreen).toBeTruthy();
+  });
+
   it('muestra "Distancia no disponible" en lugar de una distancia (D-012)', async () => {
     await skipOnboarding();
     renderRouter('app', { initialUrl: '/' });

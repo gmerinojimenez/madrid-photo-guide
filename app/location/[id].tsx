@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
@@ -12,8 +12,8 @@ import {
 import { formatVisibleDistance } from '../../src/core/location/index.ts';
 import { formatCoordinates } from '../../src/core/navigation/links.ts';
 import { EmptyState } from '../../src/ui/components/EmptyState.tsx';
+import { FittedPhoto } from '../../src/ui/components/FittedPhoto.tsx';
 import { Icon } from '../../src/ui/components/Icon.tsx';
-import { LocationImage } from '../../src/ui/components/LocationImage.tsx';
 import { NavSheet } from '../../src/ui/sheets/NavSheet.tsx';
 import {
   useCatalog,
@@ -38,6 +38,7 @@ export default function LocationDetailScreen() {
   const { snapshot, now, ensureLocation } = useUserLocation();
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { width: windowWidth } = useWindowDimensions();
   const [saved, setSaved] = useState(false);
   const [navVisible, setNavVisible] = useState(false);
 
@@ -127,7 +128,17 @@ export default function LocationDetailScreen() {
         </Pressable>
       </View>
 
-      <LocationImage imageRef={full.detailImage} style={styles.image} />
+      <Pressable
+        onPress={() => router.push(`/photo-viewer?locationId=${full.id}&usage=detail`)}
+        accessibilityRole="button"
+        accessibilityLabel="Ver foto completa"
+      >
+        <FittedPhoto
+          imageRef={full.detailImage}
+          maxWidth={windowWidth - spacing[4] * 2}
+          style={styles.image}
+        />
+      </Pressable>
 
       <Text style={styles.name}>{localize(full.name, 'es')}</Text>
       {neighbourhood ? (
@@ -280,7 +291,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   image: {
-    height: 200,
     borderRadius: radius.lg,
   },
   name: {

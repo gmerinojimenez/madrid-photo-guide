@@ -56,8 +56,40 @@ describe('Guardados', () => {
     fireEvent.press(screen.getByLabelText('Volver'));
 
     fireEvent.press(await screen.findByLabelText('Guardados, tab, 3 of 4'));
-    const cards = await screen.findAllByLabelText(/Templo de Debod|Puerta del Sol/);
-    expect(cards.map((c) => c.props.accessibilityLabel)).toEqual(['Puerta del Sol', 'Templo de Debod']);
+    const cards = await screen.findAllByLabelText(/^(Templo de Debod|Puerta del Sol)$/);
+    expect(cards.map((c) => c.props.accessibilityLabel)).toEqual([
+      'Puerta del Sol',
+      'Templo de Debod',
+    ]);
+  });
+
+  it('tocar la miniatura de una tarjeta guardada abre el visor a pantalla completa (005-uncropped-photo-display FR-001)', async () => {
+    await skipOnboarding();
+    renderRouter('app', { initialUrl: '/' });
+    await screen.findByLabelText('Buscar localizaciones');
+    await ensureOwned();
+
+    // Calle Alcalá, no tocada por los demás `it()` de este fichero, para no
+    // depender de si ya estaba guardada por otro test (D-013 punto 3).
+    fireEvent.press(await screen.findByLabelText('Calle Alcalá'));
+    fireEvent.press(await screen.findByLabelText('Guardar'));
+    await screen.findByLabelText('Guardado');
+    fireEvent.press(screen.getByLabelText('Volver'));
+
+    fireEvent.press(await screen.findByLabelText('Guardados, tab, 3 of 4'));
+    await screen.findByLabelText('Calle Alcalá');
+
+    fireEvent.press(screen.getByLabelText('Ver foto completa de Calle Alcalá'));
+
+    const images = await screen
+      .findByLabelText('Cerrar')
+      .then(() => screen.UNSAFE_getAllByType(Image));
+    const fullscreen = images.find((image) =>
+      String((image.props.source as { testUri?: string } | undefined)?.testUri ?? '').includes(
+        'calle-alcala/thumb',
+      ),
+    );
+    expect(fullscreen).toBeTruthy();
   });
 
   it('la tarjeta de una localización guardada muestra su miniatura real (FR-002)', async () => {
