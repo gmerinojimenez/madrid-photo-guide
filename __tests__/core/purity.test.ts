@@ -63,6 +63,19 @@ describe('pureza de capas', () => {
     expect(offenders).toEqual([]);
   });
 
+  it('nadie fuera de src/platform/purchases/ importa react-native-purchases (D-002/D-003)', () => {
+    const offenders: string[] = [];
+    const purchasesDir = join(REPO_ROOT, 'src', 'platform', 'purchases');
+    for (const dir of ['src', 'app']) {
+      walk(join(REPO_ROOT, dir), (file) => {
+        if (file.startsWith(purchasesDir)) return;
+        const content = readFileSync(file, 'utf-8');
+        if (/from ['"]react-native-purchases['"]/.test(content)) offenders.push(file);
+      });
+    }
+    expect(offenders).toEqual([]);
+  });
+
   it('expo-location solo se importa desde src/platform/location/expo-device-location.ts (feature 004)', () => {
     const allowedFile = join(REPO_ROOT, 'src/platform/location/expo-device-location.ts');
     const offenders: string[] = [];
